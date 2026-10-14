@@ -1,5 +1,13 @@
 # Tons of Skills
 
+<!-- intent-select-partner:start -->
+
+[![Intent Solutions: Claude Partner Network Select Services Partner](assets/brand/claude-select-partner.svg)](https://intentsolutions.io/)
+
+Intent Solutions is a Claude Partner Network Select Services Partner.
+
+<!-- intent-select-partner:end -->
+
 **A model-agnostic agent-skills platform.** The canonical layer is harness-free by construction; [Claude Code](https://code.claude.com/docs/en/) is currently the verified-native harness. Other harnesses remain engineering candidates until their native-path integration is verified; source research alone is never presented as public support.
 
 [![Release](https://img.shields.io/badge/release-v4.33.0-green)](https://github.com/jeremylongshore/tons-of-skills-marketplace/releases/latest)
@@ -69,9 +77,9 @@ Across **386 published packages** in the [claude-code-plugins](https://www.npmjs
 
 | Window        | All packages | Established (>30d) |
 | ------------- | -----------: | -----------------: |
-| Last 24 hours |          349 |                349 |
-| Last 7 days   |        2,745 |              2,745 |
-| Last 30 days  |       13,085 |             13,085 |
+| Last 24 hours |          943 |                943 |
+| Last 7 days   |        3,970 |              3,970 |
+| Last 30 days  |       15,212 |             15,212 |
 
 <sub>"Established" excludes packages first published within the last 30 days, so a bulk-publish event doesn't dominate the headline.</sub>
 
@@ -79,18 +87,18 @@ Across **386 published packages** in the [claude-code-plugins](https://www.npmjs
 
 | #   | Package                                                                                                                | Last 30d |
 | --- | ---------------------------------------------------------------------------------------------------------------------- | -------: |
-| 1   | [`@intentsolutionsio/openrouter-pack`](https://www.npmjs.com/package/@intentsolutionsio/openrouter-pack)               |      554 |
-| 2   | [`@intentsolutionsio/groq-pack`](https://www.npmjs.com/package/@intentsolutionsio/groq-pack)                           |      300 |
-| 3   | [`@intentsolutionsio/databricks-pack`](https://www.npmjs.com/package/@intentsolutionsio/databricks-pack)               |      278 |
-| 4   | [`@intentsolutionsio/shopify-pack`](https://www.npmjs.com/package/@intentsolutionsio/shopify-pack)                     |      262 |
-| 5   | [`@intentsolutionsio/supabase-pack`](https://www.npmjs.com/package/@intentsolutionsio/supabase-pack)                   |      228 |
-| 6   | [`@intentsolutionsio/neural-network-builder`](https://www.npmjs.com/package/@intentsolutionsio/neural-network-builder) |      208 |
-| 7   | [`@intentsolutionsio/klingai-pack`](https://www.npmjs.com/package/@intentsolutionsio/klingai-pack)                     |      178 |
-| 8   | [`@intentsolutionsio/clickhouse-pack`](https://www.npmjs.com/package/@intentsolutionsio/clickhouse-pack)               |      169 |
-| 9   | [`@intentsolutionsio/elevenlabs-pack`](https://www.npmjs.com/package/@intentsolutionsio/elevenlabs-pack)               |      167 |
-| 10  | [`@intentsolutionsio/intercom-pack`](https://www.npmjs.com/package/@intentsolutionsio/intercom-pack)                   |      165 |
+| 1   | [`@intentsolutionsio/claude-pack`](https://www.npmjs.com/package/@intentsolutionsio/claude-pack)                       |      541 |
+| 2   | [`@intentsolutionsio/openrouter-pack`](https://www.npmjs.com/package/@intentsolutionsio/openrouter-pack)               |      458 |
+| 3   | [`@intentsolutionsio/groq-pack`](https://www.npmjs.com/package/@intentsolutionsio/groq-pack)                           |      335 |
+| 4   | [`@intentsolutionsio/databricks-pack`](https://www.npmjs.com/package/@intentsolutionsio/databricks-pack)               |      329 |
+| 5   | [`@intentsolutionsio/shopify-pack`](https://www.npmjs.com/package/@intentsolutionsio/shopify-pack)                     |      276 |
+| 6   | [`@intentsolutionsio/neural-network-builder`](https://www.npmjs.com/package/@intentsolutionsio/neural-network-builder) |      249 |
+| 7   | [`@intentsolutionsio/supabase-pack`](https://www.npmjs.com/package/@intentsolutionsio/supabase-pack)                   |      245 |
+| 8   | [`@intentsolutionsio/anthropic-pack`](https://www.npmjs.com/package/@intentsolutionsio/anthropic-pack)                 |      227 |
+| 9   | [`@intentsolutionsio/clickhouse-pack`](https://www.npmjs.com/package/@intentsolutionsio/clickhouse-pack)               |      213 |
+| 10  | [`@intentsolutionsio/klingai-pack`](https://www.npmjs.com/package/@intentsolutionsio/klingai-pack)                     |      184 |
 
-<sub>Last refreshed 2026-10-04T02:02:23.166Z.</sub>
+<sub>Last refreshed 2026-10-10T01:36:11.465Z.</sub>
 
 <!-- NPM-STATS:END -->
 

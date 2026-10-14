@@ -1,5 +1,39 @@
 # Changelog
 
+## 2026-10-12
+
+- **fix(currency):** retain the Python validator's advisory registry comparisons
+  in the kernel-shadow JSON report and job summary. Report missing, invalid,
+  unavailable, matching, and mismatching evidence separately from skill-corpus
+  verdicts; preserve validator authority and the advisory workflow.
+  Refs bead `bd_000-projects-n2k2.1`.
+
+- **fix(evidence):** emit kernel-validated in-toto statement arrays and bind the
+  complete payload digest in signed bundle metadata. Preserve the payload in
+  assembled manifests, reject inconsistent metadata or predicate projections,
+  and test the same interoperability vector consumed by the dashboard.
+  Refs bead `bd_000-projects-hqkq`.
+
+## 2026-10-05
+
+- **docs(docs-governance):** remove Discord community links from first-party
+  surfaces. Owner decision: Intent Solutions does not run a Discord. The issue
+  chooser's "Discord Community" contact link is gone (GitHub Discussions is
+  already listed there), and the support and community sections of the
+  first-party packs and plugins (`plugins/packages/*`, `plugins/devops`,
+  `plugins/api-development`, `plugins/ai-agency`, five `plugins/crypto` READMEs,
+  `jeremy-firebase`, `jeremy-firestore`, `project-health-auditor`, the
+  `research-to-deploy` README), the `claude-plugin-validator` README, the release
+  checklist and `000-docs/008` and `018` now point to GitHub Discussions. Three
+  of the removed invites were dead or led to an unrelated server
+  (`discord.gg/claude-code-plugins`, `discord.com/invite/claude-code`,
+  `discord.gg/claudecode`); the rest pointed at Anthropic's server under a
+  community heading that read as ours. Third-party plugin docs (PortalJS,
+  Kobiton, Obsidian, OpenBB, Ollama and the SaaS packs) and skills about
+  Discord itself are unchanged. Docs only: no plugin version changes. Two
+  path-scoped `scripts/scan-allowlist.txt` waivers cover pre-existing API-client
+  examples in two of the edited files (`secret-exfil-cooccur`, unchanged lines).
+
 ## 2026-10-01
 
 ### Changed

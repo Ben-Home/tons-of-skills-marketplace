@@ -218,7 +218,7 @@ Beyond the 8 required fields, schema 3.5.0+ adds optional visibility-gating fiel
 
 ### PR pre-screen (advisory respond leg)
 
-`pr-prescreen.yml` (`pull_request_target`; kill switch `vars.ENABLE_PR_PRESCREEN`) grades changed plugins with the pinned validator and responds in two low-noise ways: a **`prescreen-grade` commit status** on every run (advisory forever — never a required context) and **one upserted marker comment** only on `CHANGES_REQUESTED`/`HARD_BLOCK` (silent on PASS; re-runs edit the same comment). Two hard-won invariants:
+`pr-prescreen.yml` (`pull_request`, two jobs `validate` → `respond`; kill switch `vars.ENABLE_PR_PRESCREEN`) grades changed plugins with the pinned validator and responds in two low-noise ways: a **`prescreen-grade` commit status** on every run (advisory forever — never a required context) and **one upserted marker comment** only on `CHANGES_REQUESTED`/`HARD_BLOCK` (silent on PASS; re-runs edit the same comment). **Known gap (tracked as the bead "Make the PR pre-screen actually run on fork pull requests"):** GitHub passes no repository variables or secrets to fork `pull_request` runs, so both jobs are skipped on fork PRs, and outside contributors get no prescreen at all. The fix is a separate `workflow_run` responder; until it lands, do not describe prescreen as covering fork PRs. Two hard-won invariants:
 
 - **The validator anchors its scan root to its own script location** (`Path(__file__).resolve().parents[1]`), not the cwd. Prescreen therefore copies the BASE-authored validator into the PR tree and runs the copy — invoking `../base/scripts/…` directly grades **main's** tree and false-PASSes every frontmatter change (the 2026-07 bug, fixed in #980). Do not "simplify" this back.
 - **Never checkout or execute PR-authored code in a `pull_request_target` workflow.** Applies equally to `plane-sync.yml` (which runs on `pull_request_target` so fork-PR close-outs get secrets — it reads event context only).
@@ -247,6 +247,13 @@ Both are `continue-on-error: true`, neither is in the required-status set, and n
 - **kernel-vendor-hash gate** — `.github/workflows/kernel-vendor-hash.yml` + `scripts/kernel-vendor-hash.mjs`. Enforces the version-coupling invariant **V ≤ C ≤ K** (vendored ≤ CCPI-declared ≤ kernel-latest) plus a ≤7-day staleness bound. Soak-aware: it reads the exact `0.10.0` pin, polices ordering/staleness only, and must never pressure a pin bump or change validator authority.
 
 The validator itself does a kernel-loaded **shadow read** of `ALWAYS_REQUIRED` (`load_kernel_required()` / `--kernel-shadow`) — it compares the kernel's effective required set against the hand-authored one and reports drift. The hand-authored `ALWAYS_REQUIRED` stays authoritative; the shadow read is observational only.
+
+The kernel-shadow report retains that Python `kernel_shadow` block as
+`registryShadow.raw`, with separate summary rows for required skill fields,
+`disallowed-tools`, and plugin-manifest field names. Missing, malformed, or unavailable
+evidence is explicit. These advisory comparisons concern the installed kernel;
+they do not establish upstream currency or full skill/agent registry coverage.
+Synthetic transport-test receipts are labeled separately in the CI artifact.
 
 ### Do-not-flip soak discipline (do not lose this)
 

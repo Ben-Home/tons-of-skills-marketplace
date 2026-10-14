@@ -10246,7 +10246,7 @@
       "name": "a2a-client",
       "source": "./plugins/mcp/a2a-client",
       "description": "Security-hardened MCP client for Agent2Agent card discovery, messaging, streaming, and confirmation-gated task control",
-      "version": "0.3.0",
+      "version": "0.5.0",
       "category": "mcp",
       "keywords": [
         "a2a",
@@ -11356,10 +11356,10 @@
         "total": 2
       },
       "verification": {
-        "score": 92,
+        "score": 93,
         "grade": "A",
         "badge": "gold",
-        "lastValidated": "2026-09-11T00:00:00.000Z"
+        "lastValidated": "2026-10-12T00:00:00.000Z"
       }
     },
     {
