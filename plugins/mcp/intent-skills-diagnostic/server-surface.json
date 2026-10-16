@@ -1,7 +1,7 @@
 {
   "server": "https://intent-skills-diagnostic.max-sheahan.workers.dev/mcp",
   "captured_utc": "2026-10-16",
-  "version": "e5a9bae7-22a9-43e4-8bf6-25a5eead9e9a",
+  "version": "1f652887-934f-4d1d-9a95-a20b53fd55c1",
   "source": "blueandyellow44/intent-youtube mcp-app-series/intent-skills-diagnostic/src/server.ts",
   "tools": [
     {
