@@ -1845,7 +1845,7 @@ jobs:
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           SYNC_PR_NUMBER: ${{ github.event.pull_request.number }}
           SYNC_EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
-          SYNC_TRUSTED_BASE: ${{ github.event.pull_request.base.sha }}
+          SYNC_BASE_COMMIT_SHA: ${{ github.event.pull_request.base.sha }}
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail

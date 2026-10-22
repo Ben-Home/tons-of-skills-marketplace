@@ -294,7 +294,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.BOT_PR_TOKEN || secrets.GITHUB_TOKEN }}
           SYNC_PR_NUMBER: ${{ steps.create_pr.outputs.number }}
-          SYNC_TRUSTED_BASE: ${{ github.sha }}
+          SYNC_BASE_COMMIT_SHA: ${{ github.sha }}
           SYNC_RECEIPT_PATH: ${{ runner.temp }}/sync-pr-provenance/sync-pr-provenance.json
         run: |
           set -euo pipefail

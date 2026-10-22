@@ -260,7 +260,7 @@ def current_pr(api, number):
     return pr
 
 
-def run_binding(api, pr, trusted_base):
+def run_binding(api, pr, base_commit_sha):
     match = BRANCH.fullmatch(pr["head"]["ref"])
     require(match is not None, "not-sync-branch")
     run_id = int(match[1])
@@ -277,8 +277,8 @@ def run_binding(api, pr, trusted_base):
         and SHA.fullmatch(run["head_sha"]),
         "untrusted-run",
     )
-    require(SHA.fullmatch(trusted_base), "invalid-input")
-    comparison = api.api(f"compare/{run['head_sha']}...{trusted_base}")
+    require(SHA.fullmatch(base_commit_sha), "invalid-input")
+    comparison = api.api(f"compare/{run['head_sha']}...{base_commit_sha}")
     require(
         comparison["status"] in ("ahead", "identical") and comparison["merge_base_commit"]["sha"] == run["head_sha"],
         "untrusted-source",
@@ -286,7 +286,7 @@ def run_binding(api, pr, trusted_base):
     return run
 
 
-def producer(api, number, trusted_base, event, run_id, attempt, local_head, local_ref, event_name):
+def producer(api, number, base_commit_sha, event, run_id, attempt, local_head, local_ref, event_name):
     # The PAT deliberately needs only contents/PR permissions. Immutable runner
     # context supplies run identity; the consumer independently authenticates it
     # through Actions metadata and the server-associated artifact.
@@ -306,7 +306,7 @@ def producer(api, number, trusted_base, event, run_id, attempt, local_head, loca
             "repository_id": REPOSITORY_ID,
             "workflow_id": WORKFLOW_ID,
             "workflow_path": WORKFLOW_PATH,
-            "workflow_head_sha": trusted_base,
+            "workflow_head_sha": base_commit_sha,
             "run_id": run_id,
             "run_attempt": attempt,
             "event_name": event_name,
@@ -321,11 +321,11 @@ def producer(api, number, trusted_base, event, run_id, attempt, local_head, loca
     )
 
 
-def consumer(api, number, trusted_base, expected_head):
+def consumer(api, number, base_commit_sha, expected_head):
     require(type(expected_head) is str and SHA.fullmatch(expected_head), "invalid-input")
     pr = current_pr(api, number)
     require(pr["head"]["sha"] == expected_head, "proof-mismatch")
-    run = run_binding(api, pr, trusted_base)
+    run = run_binding(api, pr, base_commit_sha)
     rid, attempt = run["id"], run["run_attempt"]
     jobs = api.api(f"actions/runs/{rid}/attempts/{attempt}/jobs?per_page=100")
     require(jobs["total_count"] <= 100, "producer-incomplete")
@@ -372,7 +372,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=("consume", "produce"))
     args = parser.parse_args()
-    reason = "internal-error"
     try:
         # Linux Actions runner: bounds the entire proof, including slow byte trickles.
         def timeout_handler(signum, frame):
@@ -382,7 +381,7 @@ def main():
         signal.setitimer(signal.ITIMER_REAL, 30)
         api = GitHub(os.environ.get("GH_TOKEN", ""))
         number = int(os.environ.get("SYNC_PR_NUMBER", "0"))
-        base = os.environ.get("SYNC_TRUSTED_BASE", "")
+        base = os.environ.get("SYNC_BASE_COMMIT_SHA", "")
         if args.mode == "consume":
             print(consumer(api, number, base, os.environ.get("SYNC_EXPECTED_HEAD", "")))
         else:
