@@ -6,9 +6,9 @@
   },
   "stats": {
     "totalPlugins": 435,
-    "totalSkills": 2903,
+    "totalSkills": 2902,
     "totalCommands": 82,
-    "pluginsWithSkills": 402,
+    "pluginsWithSkills": 401,
     "byCategory": {
       "productivity": 28,
       "security": 28,
@@ -6067,8 +6067,8 @@
         "productivity",
         "mcp"
       ],
-      "hasSkills": true,
-      "skillCount": 1,
+      "hasSkills": false,
+      "skillCount": 0,
       "commandCount": 0,
       "installCommand": "/plugin install sugar",
       "sourcePath": "./plugins/devops/sugar",

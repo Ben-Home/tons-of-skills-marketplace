@@ -22,13 +22,13 @@
       "error_files": 278,
       "error_total": 2798,
       "grade_distribution": {
-        "A": 2882,
+        "A": 2881,
         "B": 322,
         "C": 132,
         "D": 154,
         "F": 4
       },
-      "rows": 3494
+      "rows": 3493
     }
   },
   "rows": {
@@ -42,7 +42,7 @@
       "unpersisted_values": ["tracked_files"],
       "values": {
         "plugin_agent_files": 352,
-        "raw_tracked_plugin_skill_files": 2994
+        "raw_tracked_plugin_skill_files": 2993
       }
     },
     "2": {
@@ -95,10 +95,10 @@
           "terminal_denominator": {
             "agents": 363,
             "commands": 370,
-            "files": 4816,
+            "files": 4815,
             "label": "skills_plus_commands_plus_agents_plus_plugin_manifests",
             "plugin_manifests": 589,
-            "skills": 3494
+            "skills": 3493
           },
           "validated_plugin_manifests": 596,
           "validator_reported_mixed_denominator_percent": 43.3
@@ -112,13 +112,13 @@
           "error_files": 278,
           "error_total": 2798,
           "grade_distribution": {
-            "A": 2882,
+            "A": 2881,
             "B": 322,
             "C": 132,
             "D": 154,
             "F": 4
           },
-          "rows": 3494
+          "rows": 3493
         }
       }
     },
@@ -131,7 +131,7 @@
       "values": {
         "average_score": 91.8,
         "grade_distribution": {
-          "A": 2882,
+          "A": 2881,
           "B": 322,
           "C": 132,
           "D": 154,
@@ -144,7 +144,7 @@
           "D": 4.4,
           "F": 0.1
         },
-        "rows": 3494
+        "rows": 3493
       }
     },
     "6": {
@@ -161,7 +161,7 @@
         "b_error_total": 147,
         "b_failing": 14,
         "certified_target": 0,
-        "skill_summary_rows": 3494
+        "skill_summary_rows": 3493
       }
     },
     "7": {
@@ -270,12 +270,12 @@
       ],
       "status": "partial",
       "values": {
-        "declared": 3483,
+        "declared": 3482,
         "folded_scalar": 5,
         "malformed_frontmatter": 0,
         "malformed_shape": 0,
         "missing": 11,
-        "rows": 3494,
+        "rows": 3493,
         "target_malformed": 0
       }
     },
@@ -286,7 +286,7 @@
       "source": ["scripts/validate-skills-schema.py"],
       "status": "measured",
       "values": {
-        "distinct_values": 449,
+        "distinct_values": 448,
         "invalid_or_empty": 0,
         "target_free_text_values": 0,
         "values": [
@@ -429,10 +429,6 @@
           {
             "count": 1,
             "value": "Designed for Claude Code, Codex, Cursor, and GitHub Copilot; works in any agent that can read project files and fetch a URL."
-          },
-          {
-            "count": 1,
-            "value": "Designed for Claude Code, also compatible with Codex and OpenClaw"
           },
           {
             "count": 1,
@@ -2434,11 +2430,11 @@
           },
           {
             "cohort": "graded",
-            "value": 3494
+            "value": 3493
           },
           {
             "cohort": "marketplace-visible",
-            "value": 2903
+            "value": 2902
           }
         ],
         "distinct_numeric_answers": 5,
@@ -3453,7 +3449,7 @@
       "values": {
         "adoption_percent": 1.07,
         "curated_copies": 32,
-        "plugin_skill_rows": 2994,
+        "plugin_skill_rows": 2993,
         "source_eval_specs": 32,
         "tracked_eval_specs": 64
       }

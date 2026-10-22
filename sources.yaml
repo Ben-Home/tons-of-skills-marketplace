@@ -74,6 +74,9 @@ sources:
       - '/mcp-server/**'
       - '/LICENSE'
     exclude:
+      # Retired repository-authored wrapper, never part of the locked source
+      # (claude-ss50.15). Keep the upstream command workflows and attribution.
+      - '/skills/managing-autonomous-development/**'
       - 'node_modules/**'
       - '.git/**'
       - '*.log'

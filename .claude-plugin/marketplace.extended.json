@@ -5656,13 +5656,7 @@
       },
       "featured": true,
       "mcpTools": 7,
-      "repository": "https://github.com/cdnsteve/sugar",
-      "verification": {
-        "score": 97,
-        "grade": "A",
-        "badge": "gold",
-        "lastValidated": "2026-09-11T00:00:00.000Z"
-      }
+      "repository": "https://github.com/cdnsteve/sugar"
     },
     {
       "name": "synthetic-monitoring-setup",

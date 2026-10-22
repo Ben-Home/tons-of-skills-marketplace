@@ -6,9 +6,9 @@
   },
   "stats": {
     "totalPlugins": 435,
-    "totalSkills": 2903,
+    "totalSkills": 2902,
     "totalDocs": 24,
-    "totalItems": 3362,
+    "totalItems": 3361,
     "categories": [
       "ai-agency",
       "ai-ml",
@@ -8657,10 +8657,7 @@
       "isFeatured": true,
       "isNew": false,
       "badges": [],
-      "skillCount": 1,
-      "verificationScore": 97,
-      "verificationGrade": "A",
-      "verificationBadge": "gold",
+      "skillCount": 0,
       "searchText": "sugar transform claude code into an autonomous ai development powerhouse with rich task context, specialized agents, and intelligent workflow automation devops autonomous development ai task-management automation agents enterprise workflow productivity mcp"
     },
     {
@@ -54758,29 +54755,6 @@
         "category": "api-development"
       },
       "searchText": "managing-api-cache implement intelligent api response caching with redis, memcached, and cdn integration. use when optimizing api performance with caching. trigger with phrases like \"add caching\", \"optimize api performance\", or \"implement cache layer\". api-development read write edit grep glob bash(api:cache-*) "
-    },
-    {
-      "type": "skill",
-      "id": "managing-autonomous-development",
-      "slug": "managing-autonomous-development",
-      "name": "managing-autonomous-development",
-      "description": "Execute enables AI assistant to manage sugar's autonomous development workflows. it allows AI assistant to create tasks, view the status of the system, review pending tasks, and start autonomous execution mode. use this skill when the user asks to create a new develo... Use when appropriate context detected. Trigger with relevant phrases based on skill purpose.",
-      "category": "devops",
-      "allowedTools": [
-        "Read",
-        "Write",
-        "Edit",
-        "Grep",
-        "Glob",
-        "Bash(cmd:*)"
-      ],
-      "compatibleWith": [],
-      "version": "1.0.0",
-      "parentPlugin": {
-        "name": "sugar",
-        "category": "devops"
-      },
-      "searchText": "managing-autonomous-development execute enables ai assistant to manage sugar's autonomous development workflows. it allows ai assistant to create tasks, view the status of the system, review pending tasks, and start autonomous execution mode. use this skill when the user asks to create a new develo... use when appropriate context detected. trigger with relevant phrases based on skill purpose. devops read write edit grep glob bash(cmd:*) "
     },
     {
       "type": "skill",
