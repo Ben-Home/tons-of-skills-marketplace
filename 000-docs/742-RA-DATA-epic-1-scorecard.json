@@ -22,13 +22,13 @@
       "error_files": 278,
       "error_total": 2798,
       "grade_distribution": {
-        "A": 2875,
-        "B": 326,
+        "A": 2881,
+        "B": 322,
         "C": 132,
         "D": 154,
         "F": 4
       },
-      "rows": 3491
+      "rows": 3493
     }
   },
   "rows": {
@@ -42,7 +42,7 @@
       "unpersisted_values": ["tracked_files"],
       "values": {
         "plugin_agent_files": 352,
-        "raw_tracked_plugin_skill_files": 2991
+        "raw_tracked_plugin_skill_files": 2993
       }
     },
     "2": {
@@ -53,9 +53,9 @@
       "status": "measured",
       "target_status": "pass",
       "values": {
-        "distinct_names": 437,
+        "distinct_names": 438,
         "duplicate_names": [],
-        "entries": 437
+        "entries": 438
       }
     },
     "3": {
@@ -79,29 +79,29 @@
       "target_status": "informational",
       "values": {
         "agent_lane": {
-          "error_total_all_validated_surfaces": 236,
-          "fully_compliant_surfaces": 769,
+          "error_total_all_validated_surfaces": 230,
+          "fully_compliant_surfaces": 776,
           "terminal_denominator": {
             "agents": 363,
-            "files": 951,
+            "files": 952,
             "label": "agents_plus_plugin_manifests",
-            "plugin_manifests": 588
+            "plugin_manifests": 589
           },
-          "validator_reported_mixed_denominator_percent": 80.9
+          "validator_reported_mixed_denominator_percent": 81.5
         },
         "marketplace_terminal": {
-          "error_total_all_validated_surfaces": 3035,
-          "fully_compliant_surfaces": 2074,
+          "error_total_all_validated_surfaces": 3029,
+          "fully_compliant_surfaces": 2088,
           "terminal_denominator": {
             "agents": 363,
             "commands": 370,
-            "files": 4812,
+            "files": 4815,
             "label": "skills_plus_commands_plus_agents_plus_plugin_manifests",
-            "plugin_manifests": 588,
-            "skills": 3491
+            "plugin_manifests": 589,
+            "skills": 3493
           },
-          "validated_plugin_manifests": 595,
-          "validator_reported_mixed_denominator_percent": 43.1
+          "validated_plugin_manifests": 596,
+          "validator_reported_mixed_denominator_percent": 43.4
         },
         "skill_rows": {
           "a_error_total": 23,
@@ -112,13 +112,13 @@
           "error_files": 278,
           "error_total": 2798,
           "grade_distribution": {
-            "A": 2875,
-            "B": 326,
+            "A": 2881,
+            "B": 322,
             "C": 132,
             "D": 154,
             "F": 4
           },
-          "rows": 3491
+          "rows": 3493
         }
       }
     },
@@ -131,20 +131,20 @@
       "values": {
         "average_score": 91.8,
         "grade_distribution": {
-          "A": 2875,
-          "B": 326,
+          "A": 2881,
+          "B": 322,
           "C": 132,
           "D": 154,
           "F": 4
         },
         "grade_percentages": {
-          "A": 82.4,
-          "B": 9.3,
+          "A": 82.5,
+          "B": 9.2,
           "C": 3.8,
           "D": 4.4,
           "F": 0.1
         },
-        "rows": 3491
+        "rows": 3493
       }
     },
     "6": {
@@ -161,20 +161,46 @@
         "b_error_total": 147,
         "b_failing": 14,
         "certified_target": 0,
-        "skill_summary_rows": 3491
+        "skill_summary_rows": 3493
       }
     },
     "7": {
-      "cohort": "canonical validator diagnostics",
+      "cohort": "raw missing-required-field and missing-required-section error occurrences across the complete canonical graded SKILL.md cohort",
       "dimension": "Structural error classes",
-      "reason_code": "MISSING_STABLE_DIAGNOSTIC_CLASS_IDS",
-      "reproduce": "pnpm run measure:e1 --row=7 --stdout",
-      "required_inputs": [
-        "validator JSON records with stable body-section and frontmatter diagnostic IDs"
+      "limitations": [
+        "Occurrence counts preserve diagnostic multiplicity; unique triples are a separate identity count, not structural mass.",
+        "The canonical classifier currently aliases section labels such as ## Overview and ## Examples to the field ## (claude-nfzl.24); this measurement preserves that behavior.",
+        "The percentage uses only SKILL.md error occurrences, unlike the historical 88.9% with its mixed terminal denominator.",
+        "Current counts do not establish historical remediation, ownership, substantive sections, behavioral quality, or Epic 8 completion."
       ],
-      "source": [],
-      "status": "not_reproducible",
-      "values": null
+      "reproduce": "pnpm run measure:e1 --row=7 --stdout",
+      "source": [
+        "scripts/corpus-resolver.mjs",
+        "scripts/measure-structural-errors.py",
+        "scripts/validate-skills-schema.py"
+      ],
+      "status": "measured",
+      "target_status": "fail",
+      "values": {
+        "affected_skills": 274,
+        "all_skill_error_occurrences": 2798,
+        "measurement_schema_version": 1,
+        "missing_required_field_occurrences": 580,
+        "missing_required_section_occurrences": 1641,
+        "other_skill_error_occurrences": 577,
+        "skill_rows": 3493,
+        "structural_occurrences": 2221,
+        "structural_share_of_skill_errors_pct": 79.3781,
+        "target": 0,
+        "target_met": false,
+        "unique_structural_triples": 847,
+        "unique_triples_by_rule": {
+          "E-MISSING-REQUIRED-FIELD": 580,
+          "E-MISSING-REQUIRED-SECTION": 267
+        },
+        "validator_schema_version": "4.1.0",
+        "validator_sha256": "2b0cb1d864108d593b6207c04fbc60ee856f8c54cb2e916542b5db837ab2e4d4"
+      }
     },
     "8": {
       "cohort": "canonical validator diagnostics",
@@ -210,9 +236,9 @@
       "source": ["scripts/validate-skills-schema.py"],
       "status": "partial",
       "values": {
-        "agent_errors": 236,
+        "agent_errors": 230,
         "agent_files": 363,
-        "reported_compliance_percent": 80.9,
+        "reported_compliance_percent": 81.5,
         "target_errors": 0,
         "target_percent_max": 100
       }
@@ -270,12 +296,12 @@
       ],
       "status": "partial",
       "values": {
-        "declared": 3480,
+        "declared": 3482,
         "folded_scalar": 5,
         "malformed_frontmatter": 0,
         "malformed_shape": 0,
         "missing": 11,
-        "rows": 3491,
+        "rows": 3493,
         "target_malformed": 0
       }
     },
@@ -286,7 +312,7 @@
       "source": ["scripts/validate-skills-schema.py"],
       "status": "measured",
       "values": {
-        "distinct_values": 441,
+        "distinct_values": 448,
         "invalid_or_empty": 0,
         "target_free_text_values": 0,
         "values": [
@@ -391,7 +417,7 @@
             "value": "Cross-platform — talks WebDriver HTTP directly via Node's built-in node:https; no platform-specific binary dependency. Requires Node.js >= 18, a persistent local filesystem (the observe-decide-act loop passes state through local turn files), and ~/.kobiton/.credentials written by /automate:setup — scripts/appium.js reads that file directly and never calls the MCP getCredential tool, so it is required, not a fallback. An authenticated Kobiton MCP connection is additionally useful for device selection."
           },
           {
-            "count": 2231,
+            "count": 2230,
             "value": "Designed for Claude Code"
           },
           {
@@ -404,15 +430,31 @@
           },
           {
             "count": 1,
+            "value": "Designed for Claude Code with Bun and a local x-bug-triage-plugin checkout; operates on supplied post data and a caller-selected SQLite database."
+          },
+          {
+            "count": 1,
+            "value": "Designed for Claude Code with Bun, the bundled triage MCP server, and X_BEARER_TOKEN for live X intake. GitHub scanning, owner lookup, filing, severity automation, Slack delivery, and unified orchestration are not live."
+          },
+          {
+            "count": 1,
+            "value": "Designed for Claude Code with the x-bug-triage-plugin MCP server; current lookup tools are offline contract stubs and do not query GitHub, on-call, or service catalogs."
+          },
+          {
+            "count": 1,
+            "value": "Designed for Claude Code with the x-bug-triage-plugin MCP server; current repo tools generate synthetic evidence objects and perform no GitHub or repository access."
+          },
+          {
+            "count": 1,
+            "value": "Designed for Claude Code with the x-bug-triage-plugin MCP server; formatting is model-authored and the only exposed display helper is a syntax parser."
+          },
+          {
+            "count": 1,
             "value": "Designed for Claude Code · Output works in any surface that loads CLAUDE.md"
           },
           {
             "count": 1,
             "value": "Designed for Claude Code, Codex, Cursor, and GitHub Copilot; works in any agent that can read project files and fetch a URL."
-          },
-          {
-            "count": 2,
-            "value": "Designed for Claude Code, also compatible with Codex and OpenClaw"
           },
           {
             "count": 1,
@@ -425,6 +467,10 @@
           {
             "count": 1,
             "value": "Designed for Claude Code. Requires bash 3.2+ (macOS default works). Reads local Claude Code data only (~/.claude/skills, ~/.claude/agents, session history)."
+          },
+          {
+            "count": 1,
+            "value": "Designed for Claude Code. Requires bash 3.2+ (macOS default works). Reads local skill files only; no network access."
           },
           {
             "count": 1,
@@ -737,10 +783,6 @@
           {
             "count": 1,
             "value": "Designed for Claude Code; implementation may require cloud, queue, secret-store, and Together AI access"
-          },
-          {
-            "count": 4,
-            "value": "Designed for Claude Code; internal agent-loaded skill (not user-invocable)"
           },
           {
             "count": 1,
@@ -1164,7 +1206,7 @@
           },
           {
             "count": 1,
-            "value": "Designed for Claude Code; ships with the governed-second-brain plugin. Single-user local — you own the brain. Requires qmd on PATH for the index refresh after govern."
+            "value": "Designed for Claude Code; ships with the governed-second-brain plugin. Local mode governs in-process and requires qmd 2.x on PATH for search refresh. Team mode proxies to an authenticated team brain when TEAMKB_API_URL, TEAMKB_API_TOKEN, and TEAMKB_TENANT_ID are configured."
           },
           {
             "count": 1,
@@ -1264,6 +1306,10 @@
           },
           {
             "count": 1,
+            "value": "Explicit operations require Node.js 18+, Box CLI 4.x, Box authentication, and network access. Claude Code workspace queue hooks additionally require Bash and jq. Other Agent Skills hosts can use explicit Box CLI mode."
+          },
+          {
+            "count": 1,
             "value": "JWT, referrer allowlists, domain masking, and advanced rate controls can be plan-specific"
           },
           {
@@ -1348,10 +1394,6 @@
           },
           {
             "count": 1,
-            "value": "Requires Claude Code >= v2.1.80 with a claude.ai login (Channels research preview rejects API-key-only auth), Bun >= 1.0 (Node.js fallback supported), and a Slack workspace where you can create apps. Doctor mode additionally shells out to curl and jq."
-          },
-          {
-            "count": 1,
             "value": "Requires Claude Code with the slack-channel plugin and a Slack app that already exists (tokens come from api.slack.com/apps); POSIX shell for chmod/mkdir."
           },
           {
@@ -1373,6 +1415,10 @@
           {
             "count": 18,
             "value": "Requires Node.js 20+, approved Anima API access, current Anima SDK documentation, and authorized Figma or website source access"
+          },
+          {
+            "count": 1,
+            "value": "Requires Node.js 20+, the pr-to-spec CLI on PATH, and a Git repository; remote pull-request analysis also requires GitHub read access."
           },
           {
             "count": 1,
@@ -1496,6 +1542,10 @@
           },
           {
             "count": 1,
+            "value": "Requires a current Claude Code build with Channels support and either claude.ai or Anthropic Console authentication, Bun >= 1.0 (Node.js fallback supported), and a Slack workspace where you can create apps. Doctor mode additionally uses curl and jq."
+          },
+          {
+            "count": 1,
             "value": "Requires a data owner, approved purpose, destination controls, and organization-specific legal/security policy."
           },
           {
@@ -1509,6 +1559,10 @@
           {
             "count": 1,
             "value": "Requires a legacy contract inventory, current Flexport account version context, and an authorized cutover owner."
+          },
+          {
+            "count": 1,
+            "value": "Requires a local Python CLI environment with pipx for optional installation; scans local agent skills, plugins, MCP servers, packages, and repositories without executing the target."
           },
           {
             "count": 1,
@@ -1972,10 +2026,6 @@
           },
           {
             "count": 1,
-            "value": "Requires the pr-to-spec CLI on PATH (Node.js 18+; ships with this plugin) and a git repository to analyze. Runs in Claude Code or any agent runtime with shell access."
-          },
-          {
-            "count": 1,
             "value": "Requires timing telemetry by stage, provider capacity evidence, representative workloads, and a rollbackable tuning boundary."
           },
           {
@@ -2028,6 +2078,10 @@
           },
           {
             "count": 1,
+            "value": "Supports local harness workflows including Claude Code, Codex, Copilot CLI, Cursor, Gemini CLI, Hermes, OpenClaw, OpenCode, and Antigravity; requires a local Python CLI environment with pipx for optional HOL Guard installation."
+          },
+          {
+            "count": 1,
             "value": "The live lane requires a protected environment and dedicated low-privilege test user; forked code must never receive secrets."
           },
           {
@@ -2040,7 +2094,7 @@
           },
           {
             "count": 1,
-            "value": "Verified against @aomi-labs/client v0.1.42 and the current aomi-widget/packages/client TypeScript CLI. Install globally via npm install -g @aomi-labs/client@latest, or run on demand via npx @aomi-labs/client@latest. The CLI defaults to https://api.aomi.dev; pass --backend-url https://api-staging.aomi.dev when explicitly targeting staging. viem and Solana signing dependencies are bundled by the package. Designed for claude-code; also works with Cursor, Codex CLI, Gemini, and any agent runtime that supports the Anthropic skill spec."
+            "value": "Verified against @aomi-labs/client v0.4.2. Install globally via npm install -g @aomi-labs/client@latest, or run on demand via npx @aomi-labs/client@latest. A pre-existing global aomi binary is NOT upgraded by installing this skill — check aomi --version and upgrade if it is below 0.4.2, since the account command group and local AA signing behavior changed in 0.4.x. The CLI defaults to https://chat.aomi.dev (api.aomi.dev is the legacy host). viem and Solana signing dependencies are bundled by the package. Designed for claude-code; also works with Cursor, Codex CLI, Gemini, and any agent runtime that supports the Anthropic skill spec."
           },
           {
             "count": 1,
@@ -2402,11 +2456,11 @@
           },
           {
             "cohort": "graded",
-            "value": 3491
+            "value": 3493
           },
           {
             "cohort": "marketplace-visible",
-            "value": 2900
+            "value": 2902
           }
         ],
         "distinct_numeric_answers": 5,
@@ -2514,22 +2568,23 @@
         "plugins/productivity/publishing-skills/.source.json",
         "plugins/productivity/schedule-after-usage-reset/.source.json",
         "plugins/productivity/skyvern/.source.json",
+        "plugins/security/hol-guard/.source.json",
         "plugins/testing/cli-ux-tester/.source.json",
         "plugins/testing/kobiton-automate/.source.json"
       ],
       "status": "measured",
       "values": {
-        "mirrors_shipping_license_text": 37,
+        "mirrors_shipping_license_text": 38,
         "missing_license_text": [],
-        "provenance_marked_mirrors": 37,
-        "target_shipping_license_text": 37
+        "provenance_marked_mirrors": 38,
+        "target_shipping_license_text": 38
       }
     },
     "29": {
       "cohort": "provenance-marked mirrors",
       "dimension": "Mirror SKILL.md contradicting upstream license",
       "measured_proxy": {
-        "local_source_records_with_parseable_json": 37
+        "local_source_records_with_parseable_json": 38
       },
       "reason_code": "MISSING_PINNED_UPSTREAM_LICENSE_EVIDENCE",
       "reproduce": "pnpm run measure:e1 --row=29 --stdout",
@@ -2573,6 +2628,7 @@
         "plugins/productivity/publishing-skills/.source.json",
         "plugins/productivity/schedule-after-usage-reset/.source.json",
         "plugins/productivity/skyvern/.source.json",
+        "plugins/security/hol-guard/.source.json",
         "plugins/testing/cli-ux-tester/.source.json",
         "plugins/testing/kobiton-automate/.source.json"
       ],
@@ -2657,6 +2713,8 @@
         "plugins/productivity/schedule-after-usage-reset/package.json",
         "plugins/productivity/skyvern/.source.json",
         "plugins/productivity/skyvern/package.json",
+        "plugins/security/hol-guard/.source.json",
+        "plugins/security/hol-guard/package.json",
         "plugins/testing/cli-ux-tester/.source.json",
         "plugins/testing/cli-ux-tester/package.json",
         "plugins/testing/kobiton-automate/.source.json",
@@ -2665,9 +2723,9 @@
       "status": "partial",
       "values": {
         "non_private": [],
-        "private_packages": 37,
-        "repository_package_mirrors": 37,
-        "scoped_packages": 32,
+        "private_packages": 38,
+        "repository_package_mirrors": 38,
+        "scoped_packages": 34,
         "target_publishable": 0
       }
     },
@@ -2749,6 +2807,8 @@
         "plugins/productivity/schedule-after-usage-reset/package.json",
         "plugins/productivity/skyvern/.source.json",
         "plugins/productivity/skyvern/package.json",
+        "plugins/security/hol-guard/.source.json",
+        "plugins/security/hol-guard/package.json",
         "plugins/testing/cli-ux-tester/.source.json",
         "plugins/testing/cli-ux-tester/package.json",
         "plugins/testing/kobiton-automate/.source.json",
@@ -2946,35 +3006,95 @@
       }
     },
     "40": {
-      "cohort": "tracked workflow command lines invoking the canonical validator with --marketplace",
+      "cohort": "static required-job wiring for full-corpus marketplace validation",
       "dimension": "Marketplace-tier validator runs that block a merge",
-      "limitations": ["static workflow analysis does not execute GitHub expression control flow"],
+      "limitations": [
+        "static wiring proof only; this measurement does not execute the gate or establish hosted red-run evidence",
+        "only explicit supported commands count; unknown shell or workflow control flow remains unproven"
+      ],
       "reproduce": "pnpm run measure:e1 --row=40 --stdout",
       "source": [
         ".github/workflows/minimax-review.yml",
         ".github/workflows/pr-prescreen.yml",
-        ".github/workflows/promote-curated.yml"
+        ".github/workflows/promote-curated.yml",
+        ".github/workflows/validate-plugins.yml",
+        "scripts/check-marketplace-compliance-baseline.py",
+        "scripts/ci/fastlane.py",
+        "scripts/validate-skills-schema.py"
       ],
-      "status": "partial",
+      "status": "target_met",
       "values": {
-        "blocking_candidates": 0,
+        "blocking_candidates": 1,
         "invocations": [
           {
             "blocking_candidate": false,
-            "line": 247,
-            "path": ".github/workflows/minimax-review.yml"
+            "job": "grade",
+            "kind": "unproven-reference",
+            "path": ".github/workflows/minimax-review.yml",
+            "reason_codes": [
+              "OUTSIDE_REQUIRED_WORKFLOW",
+              "UNPROVEN_UNFILTERED_PR_ADMISSION",
+              "NOT_REQUIRED_DEPENDENCY",
+              "UNPROVEN_CANONICAL_AGGREGATE",
+              "CONDITIONAL_OR_SUPPRESSED_JOB",
+              "UNPROVEN_ENFORCEMENT_CHECKOUT",
+              "UNPROVEN_FULL_CORPUS_COMMAND"
+            ],
+            "step": "Run the validator on changed skills",
+            "step_index": 2
           },
           {
             "blocking_candidate": false,
-            "line": 174,
-            "path": ".github/workflows/pr-prescreen.yml"
+            "job": "validate",
+            "kind": "unproven-reference",
+            "path": ".github/workflows/pr-prescreen.yml",
+            "reason_codes": [
+              "OUTSIDE_REQUIRED_WORKFLOW",
+              "UNPROVEN_UNFILTERED_PR_ADMISSION",
+              "UNPROVEN_CANONICAL_AGGREGATE",
+              "UNPROVEN_ENFORCEMENT_CHECKOUT",
+              "UNPROVEN_FULL_CORPUS_COMMAND"
+            ],
+            "step": "Run validator against PR tree (full --json sweep)",
+            "step_index": 7
           },
           {
             "blocking_candidate": false,
-            "line": 90,
-            "path": ".github/workflows/promote-curated.yml"
+            "job": "promote",
+            "kind": "unproven-reference",
+            "path": ".github/workflows/promote-curated.yml",
+            "reason_codes": [
+              "OUTSIDE_REQUIRED_WORKFLOW",
+              "UNPROVEN_UNFILTERED_PR_ADMISSION",
+              "NOT_REQUIRED_DEPENDENCY",
+              "UNPROVEN_CANONICAL_AGGREGATE",
+              "CONDITIONAL_OR_SUPPRESSED_STEP",
+              "UNPROVEN_FULL_CORPUS_COMMAND"
+            ],
+            "step": "Rebuild inventory + grades (optional)",
+            "step_index": 6
+          },
+          {
+            "blocking_candidate": false,
+            "job": "marketplace-compliance-ratchet",
+            "kind": "unproven-reference",
+            "path": ".github/workflows/validate-plugins.yml",
+            "reason_codes": ["CONDITIONAL_OR_SUPPRESSED_STEP", "UNPROVEN_FULL_CORPUS_COMMAND"],
+            "step": "Refuse unauthorized marketplace baseline policy-envelope changes",
+            "step_index": 4
+          },
+          {
+            "blocking_candidate": true,
+            "job": "marketplace-compliance-ratchet",
+            "kind": "full-ratchet-wrapper",
+            "path": ".github/workflows/validate-plugins.yml",
+            "reason_codes": [],
+            "step": "Enforce R1/R2/R3/R4 marketplace compliance ratchet",
+            "step_index": 5
           }
         ],
+        "parse_errors": [],
+        "proof_kind": "static_required_job_wiring",
         "target_blocking": 1
       }
     },
@@ -2988,6 +3108,7 @@
       "status": "partial",
       "values": {
         "actual_needs": [
+          "classify-changes",
           "validate",
           "marketplace-compliance-ratchet",
           "verify",
@@ -3012,7 +3133,7 @@
           "doc-governance",
           "secret-diff-scan"
         ],
-        "actual_needs_count": 23,
+        "actual_needs_count": 24,
         "documented_needs": null
       }
     },
@@ -3189,16 +3310,450 @@
       "values": null
     },
     "50": {
-      "cohort": null,
+      "cohort": "reviewed operation sites in three required-context producer workflows and the complete ci-required graph; partial repository coverage",
       "dimension": "Unbounded correctness swallows",
-      "reason_code": "MISSING_CORRECTNESS_CRITICAL_COMMAND_REGISTRY",
-      "reproduce": "pnpm run measure:e1 --row=50 --stdout",
-      "required_inputs": [
-        "registry distinguishing bounded cleanup from correctness-critical failure swallowing"
+      "limitations": [
+        "Partial static review only: no shell interpretation, execution, or runtime coverage proof.",
+        "Opaque actions, invoked-script internals, unsupported shell and broad conditions remain coverage gaps.",
+        "Historical issue references do not establish current owners; observed dates are not expiry adjudications.",
+        "Coverage gaps overlap and are not additive; primary and repository totals remain unknown."
       ],
-      "source": [],
-      "status": "not_reproducible",
-      "values": null
+      "reproduce": "pnpm run measure:e1 --row=50 --stdout",
+      "source": [
+        ".github/workflows/secret-scan.yml",
+        ".github/workflows/skill-conform.yml",
+        ".github/workflows/validate-plugins.yml",
+        "scripts/ci-correctness-swallows.json",
+        "scripts/ci/fastlane.py"
+      ],
+      "status": "partial",
+      "values": {
+        "coverage": {
+          "conditional_envelopes": 43,
+          "containers": 236,
+          "containers_with_sites": 17,
+          "counts_overlap": true,
+          "jobs": 28,
+          "opaque_actions": 73,
+          "run_containers": 163,
+          "unreviewed_run_containers": 146,
+          "workflows": 3
+        },
+        "repository_unbounded_total": null,
+        "reviewed_unbounded_correctness_lower_bound": 0,
+        "site_counts": {
+          "authorized_control_flow": 8,
+          "informational": 1,
+          "unbounded_correctness": 0,
+          "unresolved": 15
+        },
+        "sites": [
+          {
+            "authority": [
+              {
+                "line": 38,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "      - name: Classify changed paths with the trusted policy"
+              }
+            ],
+            "classification": "authorized_control_flow",
+            "id": "full-lane-fallback",
+            "job": "classify-changes",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Missing trusted base policy explicitly selects the full lane before returning success.",
+            "run_line": 15,
+            "step": 1,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [
+              {
+                "line": 177,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "      - name: Enforce the safety ratchet"
+              }
+            ],
+            "classification": "authorized_control_flow",
+            "id": "safety-dependency-fallback",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Failed import falls back to installation; installation failure is not suppressed.",
+            "run_line": 1,
+            "step": 13,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [
+              {
+                "line": 797,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "      - name: Enforce R1/R2/R3/R4 marketplace compliance ratchet"
+              }
+            ],
+            "classification": "authorized_control_flow",
+            "id": "ratchet-dependency-fallback",
+            "job": "marketplace-compliance-ratchet",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Failed import falls back to installation; installation failure is not suppressed.",
+            "run_line": 1,
+            "step": 5,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [
+              {
+                "line": 924,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "      - name: Run plugin tests (widened loop — every package.json with a test script)"
+              }
+            ],
+            "classification": "authorized_control_flow",
+            "id": "test-status-accumulator",
+            "job": "test",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Test failure is accumulated and propagated by the final fail check in this bound run body.",
+            "run_line": 58,
+            "step": 8,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [
+              {
+                "line": 306,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "      - name: Sync CLI marketplace catalog"
+              }
+            ],
+            "classification": "authorized_control_flow",
+            "id": "catalog-drift-status",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "The inverted diff status selects an explicit exit 1 on catalog drift.",
+            "run_line": 2,
+            "step": 32,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [
+              {
+                "line": 532,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "      - name: Security scan - Informational sweep (non-blocking)"
+              }
+            ],
+            "classification": "informational",
+            "id": "credential-informational-sweep",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "The workflow labels this sweep informational; the separate gitleaks context owns blocking secret scanning.",
+            "run_line": 20,
+            "step": 56,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [
+              {
+                "line": 570,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "          # grep status 1 means no matches; operational errors must still fail."
+              },
+              {
+                "line": 91,
+                "path": "tests/test_ci_scan_failures.py",
+                "text": "    def test_dangerous_scan_io_error_does_not_report_clean(self):"
+              }
+            ],
+            "classification": "authorized_control_flow",
+            "id": "dangerous-rm-scan",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Only grep's no-match status 1 is normalized; producer and exclusion-filter errors remain blocking under pipefail. Extracted-workflow tests cover matches, exclusions and real scan/filter errors.",
+            "run_line": 22,
+            "step": 57,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [
+              {
+                "line": 1116,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "          # Normalize only grep's no-match status, never a find traversal error."
+              },
+              {
+                "line": 129,
+                "path": "tests/test_ci_scan_failures.py",
+                "text": "    def test_discovery_find_error_with_partial_matches_fails_before_pytest(self):"
+              }
+            ],
+            "classification": "authorized_control_flow",
+            "id": "python-test-discovery",
+            "job": "test",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Only grep's no-match status 1 is normalized; find traversal and exclusion-filter failures remain blocking under pipefail, including partial discovery output. Extracted-workflow tests preserve pytest arguments and failures.",
+            "run_line": 20,
+            "step": 16,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [
+              {
+                "line": 281,
+                "path": ".github/workflows/validate-plugins.yml",
+                "text": "      - name: Validate agent frontmatter (report-only)"
+              },
+              {
+                "line": 68,
+                "path": "tests/test_ci_agent_bootstrap.py",
+                "text": "    def test_failed_install_stops_before_validator(self):"
+              }
+            ],
+            "classification": "authorized_control_flow",
+            "id": "agent-dependency-bootstrap",
+            "job": "validate",
+            "observed_deadline": {
+              "date": "2026-10-31",
+              "expiry_adjudicated": false,
+              "source_line": 280
+            },
+            "owner": null,
+            "promotion": null,
+            "rationale": "A failed dependency import falls back to installation; installation failure remains blocking before the advisory validator. Extracted-step tests cover import success, successful and failed installs, and unchanged advisory validator errors.",
+            "run_line": 1,
+            "step": 29,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "agent-advisory-validator",
+            "job": "validate",
+            "observed_deadline": {
+              "date": "2026-10-31",
+              "expiry_adjudicated": false,
+              "source_line": 280
+            },
+            "owner": null,
+            "promotion": null,
+            "rationale": "Advisory correctness validation has a date but lacks established current ownership and promotion authority.",
+            "run_line": 2,
+            "step": 29,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "mcp-advisory-validator",
+            "job": "validate",
+            "observed_deadline": {
+              "date": "2026-11-17",
+              "expiry_adjudicated": false,
+              "source_line": 293
+            },
+            "owner": null,
+            "promotion": null,
+            "rationale": "The following unambiguous gate enforces only a subset; current advisory ownership is unresolved.",
+            "run_line": 1,
+            "step": 30,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "eval-warning-scan",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Warning-only scan role and bound remain unresolved.",
+            "run_line": 30,
+            "step": 57,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "dependency-audit-advisory",
+            "job": "validate",
+            "observed_deadline": {
+              "date": "2026-10-31",
+              "expiry_adjudicated": false,
+              "source_line": 654
+            },
+            "owner": null,
+            "promotion": null,
+            "rationale": "Report-only audit has a date and historical issue reference, without an established current owner.",
+            "run_line": 30,
+            "step": 59,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "python-dependency-install",
+            "job": "test",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Full-lane optional runtime installation remains best-effort without case-specific failure authority; the three-file fixture dependency closure is installed strictly afterward in both lanes.",
+            "run_line": 14,
+            "step": 13,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "enterprise-validator-advisory",
+            "job": "test",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Report versus gate role and bounds are unresolved; the later CLI marker does not apply.",
+            "run_line": 11,
+            "step": 22,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "cli-strict-advisory",
+            "job": "test",
+            "observed_deadline": {
+              "date": "2026-10-31",
+              "expiry_adjudicated": false,
+              "source_line": 1214
+            },
+            "owner": null,
+            "promotion": null,
+            "rationale": "The CLI marker and historical issue reference do not establish a current owner.",
+            "run_line": 47,
+            "step": 22,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "missing-slack-webhook",
+            "job": "trufflehog",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Missing notification configuration returns success; notification ownership and bound are unresolved.",
+            "run_line": 3,
+            "step": 2,
+            "workflow": ".github/workflows/secret-scan.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "numeric-http-warning",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Conditional warning-only scan has unresolved correctness role and bound.",
+            "run_line": 37,
+            "step": 57,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "base64-warning",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Conditional warning-only scan has unresolved correctness role and bound.",
+            "run_line": 42,
+            "step": 57,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "insecure-url-warning",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Conditional warning-only scan has unresolved correctness role and bound.",
+            "run_line": 3,
+            "step": 58,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "short-url-warning",
+            "job": "validate",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Conditional warning-only scan has unresolved correctness role and bound.",
+            "run_line": 8,
+            "step": 58,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "package-test-script-discovery",
+            "job": "test",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "No-test-script skip and read-error behavior are not distinguished by this review.",
+            "run_line": 15,
+            "step": 8,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "push-parent-fallback",
+            "job": "scan-synced-content",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Unknown or zero push bases fall back only to a verified parent commit; unavailable parents fail before scanning. Broader Git diff error handling remains unresolved in claude-xicy.",
+            "run_line": 7,
+            "step": 4,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          },
+          {
+            "authority": [],
+            "classification": "unresolved",
+            "id": "sync-branch-warn-mode",
+            "job": "scan-synced-content",
+            "observed_deadline": null,
+            "owner": null,
+            "promotion": null,
+            "rationale": "Branch-name selected warn-only mode lacks established current ownership, bound and actor authorization.",
+            "run_line": 8,
+            "step": 3,
+            "workflow": ".github/workflows/validate-plugins.yml"
+          }
+        ],
+        "target": 0,
+        "target_met": false,
+        "unbounded_correctness_total": null
+      }
     },
     "51": {
       "cohort": null,
@@ -3215,17 +3770,17 @@
       "dimension": "Inventory header versus rows",
       "reproduce": "pnpm run measure:e1 --row=52 --stdout",
       "source": [
-        "freshie/reports/run-delta-134.json",
+        "freshie/reports/run-delta-138.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
       ],
       "status": "target_met",
       "values": {
-        "dolt_commit": "4t297tsals7ijsph4msv9h1ddfk0u41e",
-        "header_total_skills": 2914,
-        "run_id": 134,
+        "dolt_commit": "i2nfhlceo2a7affjh32dpt98urqk07f4",
+        "header_total_skills": 2916,
+        "run_id": 138,
         "skill_row_delta": 0,
-        "skill_rows": 2914,
+        "skill_rows": 2916,
         "target_skill_row_delta": 0
       }
     },
@@ -3236,32 +3791,32 @@
       "source": [
         "freshie/grade-histogram.json",
         "freshie/grades.csv",
-        "freshie/reports/run-delta-134.json"
+        "freshie/reports/run-delta-138.json"
       ],
       "status": "target_met",
       "values": {
-        "compliance_rows": 3491,
-        "export_dolt_commit": "4t297tsals7ijsph4msv9h1ddfk0u41e",
-        "export_run_id": 134,
-        "grades_csv_rows": 3491,
-        "grades_csv_sha256": "8885b69405419047c6902fee11c96745859aeb4b03c40e2c9cb6cd47260536d7",
+        "compliance_rows": 3493,
+        "export_dolt_commit": "i2nfhlceo2a7affjh32dpt98urqk07f4",
+        "export_run_id": 138,
+        "grades_csv_rows": 3493,
+        "grades_csv_sha256": "f92394a2dfdf1fc09337598a0e5c3563e2a9ad5288ce04e7e0b80e79401710cd",
         "histogram_grades": {
-          "A": 2875,
-          "B": 326,
+          "A": 2881,
+          "B": 322,
           "C": 132,
           "D": 154,
           "F": 4
         },
-        "histogram_total": 3491,
+        "histogram_total": 3493,
         "immutable_grade_counts": {
-          "A": 2875,
-          "B": 326,
+          "A": 2881,
+          "B": 322,
           "C": 132,
           "D": 154,
           "F": 4
         },
-        "inventory_dolt_commit": "4t297tsals7ijsph4msv9h1ddfk0u41e",
-        "inventory_run_id": 134,
+        "inventory_dolt_commit": "i2nfhlceo2a7affjh32dpt98urqk07f4",
+        "inventory_run_id": 138,
         "target_lag_runs": 0
       }
     },
@@ -3271,7 +3826,7 @@
       "reproduce": "pnpm run measure:e1 --row=54 --stdout",
       "source": [
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-134.json",
+        "freshie/reports/run-delta-138.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py",
@@ -3285,7 +3840,7 @@
           "E2": 0,
           "E3": 0
         },
-        "current_run_id": 134,
+        "current_run_id": 138,
         "invalid_identities": 0,
         "legacy_e0_records": 3,
         "retained_e2_e3": 0,
@@ -3309,7 +3864,7 @@
       "source": [
         "000-docs/807-DR-STND-evaluation-evidence.md",
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-134.json",
+        "freshie/reports/run-delta-138.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
@@ -3415,7 +3970,7 @@
       "values": {
         "adoption_percent": 1.07,
         "curated_copies": 32,
-        "plugin_skill_rows": 2991,
+        "plugin_skill_rows": 2993,
         "source_eval_specs": 32,
         "tracked_eval_specs": 64
       }

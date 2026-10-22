@@ -22,6 +22,58 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
+  classify-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      schema: ${{ steps.classify.outputs.schema }}
+      lane: ${{ steps.classify.outputs.lane }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # A PR cannot expand its own fast-lane allowlist: classification uses the
+      # exact target-base policy. Its first installation therefore runs full CI.
+      - name: Classify changed paths with the trusted policy
+        id: classify
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          classifier="scripts/ci/fastlane.py"
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            if ! [[ "$PR_BASE_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "::error::Invalid immutable PR base SHA"
+              exit 1
+            fi
+            git cat-file -e "$PR_BASE_SHA^{commit}"
+            if git cat-file -e "$PR_BASE_SHA:scripts/ci/fastlane.py" 2>/dev/null; then
+              classifier="$RUNNER_TEMP/trusted-fastlane.py"
+              git show "$PR_BASE_SHA:scripts/ci/fastlane.py" > "$classifier"
+            else
+              printf '%s\n' '{"schema":1,"lane":"full","reason":"trusted-base-policy-not-installed"}' > "$RUNNER_TEMP/ci-routing.json"
+              printf 'schema=1\nlane=full\n' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          python3 "$classifier" classify \
+            --event-file "$GITHUB_EVENT_PATH" \
+            --event-name "$GITHUB_EVENT_NAME" \
+            --checkout "$GITHUB_SHA" \
+            --receipt "$RUNNER_TEMP/ci-routing.json" \
+            --github-output "$GITHUB_OUTPUT"
+
+      - name: Upload CI routing receipt
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ci-routing
+          path: ${{ runner.temp }}/ci-routing.json
+          if-no-files-found: ignore
+          retention-days: 90
+
   validate:
     runs-on: ubuntu-latest
     steps:
@@ -127,6 +179,12 @@ jobs:
           python3 -c "import yaml" 2>/dev/null || python3 -m pip install --quiet pyyaml
           pnpm run validate:safety-ratchet
 
+      - name: Test CI routing policy
+        run: python3 -m unittest tests.ci.test_fastlane tests.ci.test_fastlane_workflow tests.ci.test_funding -v
+
+      - name: Validate funding metadata
+        run: python3 scripts/ci/validate_funding.py .github/FUNDING.yml
+
       # Blueprint 727 E8.8: missing-required-frontmatter remediation stops at
       # a .source.json boundary. The canonical validator reports editable
       # first-party and upstream mirror records separately; first-party debt is
@@ -206,10 +264,12 @@ jobs:
       - name: Verify audit-harness integrity
         run: pnpm exec audit-harness verify
 
-      # CI deadline enforcement — fails the build if any
-      # `# REPORT-ONLY-UNTIL: YYYY-MM-DD` marker in any workflow file is
-      # past its date. Forcing function: report-only gates can't rot
-      # silently into permanent test bypasses.
+      # CI deadline enforcement covers workflows, scripts, policy baselines,
+      # and dated scan-allowlist waivers. Expired deadlines fail the build;
+      # report-only gates cannot silently become permanent test bypasses.
+      - name: Test CI deadline policy
+        run: python3 -m unittest tests.test_ci_deadlines -v
+
       - name: Enforce CI deadlines (no report-only rot)
         run: python3 scripts/check-ci-deadlines.py
 
@@ -220,7 +280,7 @@ jobs:
       # REPORT-ONLY-UNTIL: 2026-10-31 (agent corpus unbaselined; flip to blocking once curated)
       - name: Validate agent frontmatter (report-only)
         run: |
-          python3 -c "import yaml" 2>/dev/null || python3 -m pip install --quiet pyyaml || true
+          python3 -c "import yaml" 2>/dev/null || python3 -m pip install --quiet pyyaml
           python3 scripts/validate-skills-schema.py --agents-only || true
 
       # .mcp.json validation, two lanes (E4.8, blueprint 727):
@@ -283,11 +343,8 @@ jobs:
       # ungated. safety-eval.yaml cites tests/test_sql_classifier.py as this gate.
       - name: Test in-repo Python suites (validators, exporters, skill scripts)
         run: |
-          python3 -m pip install --quiet -r freshie/requirements-doltlite.txt
-          python3 -c "import doltlite; assert doltlite.__version__ == '0.50.1'"
           python3 -m unittest tests.test_sql_classifier -v
           python3 -m unittest tests.test_dolt_sync -v
-          python3 -m unittest tests.test_doltlite_sync -v
           python3 -m unittest tests.test_promote_curated_workflow -v
           python3 -m unittest tests.test_run_delta -v
           python3 -m unittest tests.test_batch_remediate_compat -v
@@ -297,6 +354,7 @@ jobs:
           python3 -m unittest tests.test_marketplace_compliance_baseline -v
           python3 -m unittest tests.test_marketplace_compliance_ratchet -v
           python3 -m unittest tests.test_sync_marketplace_root_resolution -v
+          python3 -m unittest tests.test_researcher_refresh -v
 
       # Reject PRs that reformat .claude-plugin/marketplace.extended.json beyond
       # the line budget implied by added/modified entries. Prevents prettier or
@@ -428,6 +486,9 @@ jobs:
           node --test scripts/check-mirror-packages-private.test.mjs
           node scripts/check-mirror-packages-private.mjs
 
+      - name: Check external mirror file ownership
+        run: pnpm run validate:mirror-file-ownership
+
       # E7.2: package privacy is one boundary; publisher-level provenance
       # exclusion is the independent second boundary. This stays inside the
       # existing validate job so ci-required gains no fourth status context.
@@ -504,12 +565,28 @@ jobs:
 
       - name: Security scan - Dangerous patterns
         run: |
+          set -e -o pipefail
+
+          # grep status 1 means no matches; operational errors must still fail.
+          grep_allow_no_match() {
+            local grep_status
+            if grep "$@"; then
+              return 0
+            else
+              grep_status=$?
+            fi
+            if [ "$grep_status" -eq 1 ]; then
+              return 0
+            fi
+            return "$grep_status"
+          }
+
           echo "Scanning for dangerous command patterns..."
           FOUND_ISSUES=0
 
           # Check for destructive commands (only root deletion, not /var/... paths)
           # Match: rm -rf / or rm -rf /* but NOT rm -rf /var/... etc.
-          DANGEROUS_RM=$(grep -r -E "rm\s+-rf\s+/(\s|$|\*)" plugins/ 2>/dev/null | grep -v "/var/" | grep -v "/tmp/" | grep -v "/prometheus/" || true)
+          DANGEROUS_RM=$(grep_allow_no_match -r -E "rm\s+-rf\s+/(\s|$|\*)" plugins/ | grep_allow_no_match -v "/var/" | grep_allow_no_match -v "/tmp/" | grep_allow_no_match -v "/prometheus/")
           if [ -n "$DANGEROUS_RM" ]; then
             echo "❌ ERROR: Dangerous 'rm -rf /' pattern detected!"
             echo "$DANGEROUS_RM"
@@ -628,7 +705,7 @@ jobs:
             audit_base="$AUDIT_BEFORE"
             audit_diff_mode="two-dot"
           elif [ "$AUDIT_EVENT" = "workflow_dispatch" ]; then
-            git fetch --no-tags --unshallow origin "$AUDIT_DEFAULT_BRANCH"
+            git fetch --no-tags origin "$AUDIT_DEFAULT_BRANCH"
             audit_base="origin/$AUDIT_DEFAULT_BRANCH"
             audit_diff_mode="three-dot"
           else
@@ -663,6 +740,12 @@ jobs:
         uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Setup Node for the canonical corpus census
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - name: Exercise corpus withdrawal invariants
+        run: node --test scripts/check-corpus-shrink.test.mjs
       - name: Refuse unauthorized marketplace baseline policy-envelope changes
         if: github.event_name == 'pull_request'
         env:
@@ -711,10 +794,12 @@ jobs:
             )
           fi
           python3 scripts/check-marketplace-compliance-baseline.py "${args[@]}"
-      - name: Enforce R1/R2/R4 marketplace compliance ratchet
+      - name: Enforce R1/R2/R3/R4 marketplace compliance ratchet
+        env:
+          CHECKOUT_SHA: ${{ github.sha }}
         run: |
           python3 -c "import yaml" 2>/dev/null || python3 -m pip install --quiet pyyaml
-          python3 scripts/check-marketplace-compliance-baseline.py
+          python3 scripts/check-marketplace-compliance-baseline.py --checkout-sha "$CHECKOUT_SHA"
 
   # Verification Pipeline (scoring + badge generation)
   verify:
@@ -757,7 +842,9 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: validate
+    # The matrix consumes no validate outputs. Run alongside validation;
+    # ci-required still requires both jobs to succeed.
+    needs: classify-changes
     strategy:
       fail-fast: false
       matrix:
@@ -800,9 +887,18 @@ jobs:
 
       - name: Build MCP plugins
         if: matrix.test-type == 'mcp-plugins'
+        env:
+          CI_LANE: ${{ needs.classify-changes.outputs.lane }}
         run: |
+          set -euo pipefail
           echo "Building MCP plugins..."
-          pnpm build
+          if [ "${CI_LANE:-}" = lightweight ]; then
+            # Keep every MCP build and its workspace dependency closure. The
+            # independent marketplace job still builds and audits the site.
+            pnpm --filter './plugins/mcp/*...' build
+          else
+            pnpm build
+          fi
           echo "✅ Build complete"
 
       - name: Install evidence emitter dependencies
@@ -933,21 +1029,32 @@ jobs:
 
       - name: Install Python test dependencies
         if: matrix.test-type == 'python-tests'
+        env:
+          CI_LANE: ${{ needs.classify-changes.outputs.lane }}
         run: |
+          set -euo pipefail
           python -m pip install --upgrade pip
           pip install pytest pytest-cov pytest-asyncio
-          python -m pip install --require-hashes -r freshie/requirements-doltlite.txt
 
           # Install dependencies if requirements.txt exists
           if [ -f "requirements.txt" ]; then
             pip install -r requirements.txt
           fi
 
-          # Install dependencies from plugin requirements.txt files
-          find plugins/ -name "requirements.txt" | while read -r req; do
-            echo "Installing deps from $req"
-            pip install -r "$req" || true
-          done
+          if [ "${CI_LANE:-}" != lightweight ]; then
+            # Preserve full-lane provisioning of plugin runtime dependencies.
+            find plugins/ -name "requirements.txt" | while read -r req; do
+              echo "Installing deps from $req"
+              pip install -r "$req" || true
+            done
+          fi
+
+          # Install the fixture dependency closure strictly in both lanes after
+          # runtime provisioning, which can change the installed packages.
+          pip install \
+            -r plugins/mcp/lumera-agent-memory/requirements.txt \
+            -r plugins/security/penetration-tester/skills/performing-penetration-testing/scripts/requirements.txt \
+            -r plugins/crypto/trading-strategy-backtester/requirements.txt
 
           # Install additional testing tools
           pip install pyyaml jsonschema
@@ -1001,27 +1108,36 @@ jobs:
           raise SystemExit(0 if valid else 1)
           PY
 
-      # DoltLite replaces SQLite for its host process. Keep its native tests in
-      # a fresh interpreter so pytest-cov and unrelated sqlite3 users retain
-      # the stock SQLite library for the repository-wide suite.
-      - name: Run native DoltLite tests in an isolated process
-        if: matrix.test-type == 'python-tests'
-        run: python -W error -m unittest tests.test_doltlite_sync -v
-
       - name: Run Python tests
         if: matrix.test-type == 'python-tests'
         run: |
+          set -e -o pipefail
+
+          # Normalize only grep's no-match status, never a find traversal error.
+          grep_allow_no_match() {
+            local grep_status
+            if grep "$@"; then
+              return 0
+            else
+              grep_status=$?
+            fi
+            if [ "$grep_status" -eq 1 ]; then
+              return 0
+            fi
+            return "$grep_status"
+          }
+
           echo "Running Python tests..."
 
           # Find all Python test files
-          TEST_FILES=$(find . -name "test_*.py" -o -name "*_test.py" | grep -v "__pycache__" | grep -v "backups/" || true)
+          TEST_FILES=$(find . -name "test_*.py" -o -name "*_test.py" | grep_allow_no_match -v "__pycache__" | grep_allow_no_match -v "backups/")
 
           if [ -n "$TEST_FILES" ]; then
             echo "Found Python test files:"
             echo "$TEST_FILES"
 
             # Run pytest with coverage
-            pytest -v --ignore=tests/test_doltlite_sync.py --cov=. --cov-report=term-missing --cov-report=xml || exit 1
+            pytest -v --cov=. --cov-report=term-missing --cov-report=xml || exit 1
             echo "✅ Python tests passed"
           else
             echo "⚠️  No Python test files found"
@@ -1083,21 +1199,25 @@ jobs:
           # since GROWN to 317 — the campaign did NOT finish and this gate was
           # never flipped. Re-tracked under #927.
           #
-          # 2026-10-01 re-measure: 728 frontmatter items, 9 errors (down from 317).
-          # Every remaining error is in an external mirror, which is fixed
-          # upstream and never edited locally: brand-forge 4, x-bug-triage 4,
-          # hermes-tweet 2 (one file counted twice), hyperflow 1. Making this
-          # blocking now would fail every PR on mirror state no PR can change,
-          # so the date is extended. The 10 first-party errors were fixed in the
-          # same PR that set this date.
+          # Re-measured after the 2026-10-01 reviewed drift relock
+          # (`ccpi validate --strict`, which prints two summaries):
+          #   Frontmatter Summary: 5 errors (down from 317), split brand-forge 4
+          #     and hyperflow 1. x-bug-triage's 4 cleared with its relock.
+          #   Skills Summary: 6 errors, all "description exceeds 1024 chars" or
+          #     unknown tool names: hermes-tweet 2, publishing-skills 2, aomi 1.
+          # Every remaining error is in an external mirror (a .source.json
+          # plugin). Mirrors are fixed upstream and never edited locally, so
+          # making this blocking now would fail every PR on mirror state no PR
+          # can change, and the date is extended. The 10 first-party errors
+          # were fixed in #1594.
           #
-          # REPORT-ONLY-UNTIL: 2026-10-31 (frontmatter --strict; 9 mirror-only errors; #927)
+          # REPORT-ONLY-UNTIL: 2026-10-31 (frontmatter --strict; mirror-only errors remain; #927)
           # The check-ci-deadlines job (above) FAILS the build once this date
           # passes, so this mitigation cannot rot silently into a permanent
           # bypass. Before the date: clear the errors and flip `|| true` →
           # `|| exit 1` in one PR (the real fix), or extend the date with a
           # documented reason. Flipping now would red-wall every PR (317 errors).
-          echo "Running ccpi validate (reporting mode until frontmatter cleanup — see #927; 9 mirror-only errors as of 2026-10-01)..."
+          echo "Running ccpi validate (reporting mode until frontmatter cleanup — see #927; mirror-only errors as of 2026-10-01)..."
           node packages/cli/dist/index.js validate --strict || true
           echo "✅ ccpi validate complete (non-blocking; report-only until 2026-10-31 — see check-ci-deadlines)"
 
@@ -1287,7 +1407,8 @@ jobs:
   # CLI Smoke Tests (EPIC D - D3)
   cli-smoke-tests:
     runs-on: ubuntu-latest
-    needs: marketplace-validation
+    needs: [classify-changes, marketplace-validation]
+    if: needs.classify-changes.outputs.lane != 'lightweight'
     steps:
       - uses: actions/checkout@v7
 
@@ -1415,6 +1536,8 @@ jobs:
 
   shellcheck-skills:
     runs-on: ubuntu-latest
+    needs: classify-changes
+    if: needs.classify-changes.outputs.lane != 'lightweight'
     steps:
       - uses: actions/checkout@v7
 
@@ -1450,6 +1573,8 @@ jobs:
 
   skill-codeblock-syntax:
     runs-on: ubuntu-latest
+    needs: classify-changes
+    if: needs.classify-changes.outputs.lane != 'lightweight'
     steps:
       - uses: actions/checkout@v7
 
@@ -1482,6 +1607,8 @@ jobs:
 
   typescript-coverage-audit:
     runs-on: ubuntu-latest
+    needs: classify-changes
+    if: needs.classify-changes.outputs.lane != 'lightweight'
     steps:
       - uses: actions/checkout@v7
 
@@ -1501,6 +1628,8 @@ jobs:
 
   eslint-check:
     runs-on: ubuntu-latest
+    needs: classify-changes
+    if: needs.classify-changes.outputs.lane != 'lightweight'
     steps:
       - uses: actions/checkout@v7
 
@@ -1544,6 +1673,8 @@ jobs:
 
   ruff-check:
     runs-on: ubuntu-latest
+    needs: classify-changes
+    if: needs.classify-changes.outputs.lane != 'lightweight'
     steps:
       - uses: actions/checkout@v7
 
@@ -1562,10 +1693,12 @@ jobs:
       # ruff.toml at repo root governs rule selection.
       # No report-only crutch: external PRs that introduce ruff errors fail here.
       - name: Run ruff check
-        run: ruff check plugins/ scripts/ freshie/scripts/doltlite-sync.py tests/test_doltlite_sync.py
+        run: ruff check plugins/ scripts/
 
   ruff-format-check:
     runs-on: ubuntu-latest
+    needs: classify-changes
+    if: needs.classify-changes.outputs.lane != 'lightweight'
     steps:
       - uses: actions/checkout@v7
 
@@ -1581,7 +1714,7 @@ jobs:
       # BLOCKING — 374 files formatted at PR #765 baseline.
       # Run `ruff format plugins/ scripts/` locally to fix before pushing.
       - name: Check ruff formatting
-        run: ruff format --check plugins/ scripts/ freshie/scripts/doltlite-sync.py tests/test_doltlite_sync.py
+        run: ruff format --check plugins/ scripts/
 
   markdownlint:
     runs-on: ubuntu-latest
@@ -1693,7 +1826,7 @@ jobs:
           # `before`; fall back to the parent commit so the scan still judges
           # the newest change rather than silently passing.
           if [ "$BASE" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "$BASE^{commit}" 2>/dev/null; then
-            BASE="$(git rev-parse HEAD~1 2>/dev/null || git rev-parse HEAD)"
+            BASE="$(git rev-parse --verify 'HEAD~1^{commit}' 2>/dev/null)"
           fi
           node scripts/scan-synced-content.mjs --changed-only --base "$BASE"
 
@@ -1882,10 +2015,10 @@ jobs:
         shell: bash
         run: >-
           set -euo pipefail;
-          source_commit="$(node -e "const r=require('./marketplace/ops/readme-presentation-routes.json'); process.stdout.write(r.audit.source_commit)")";
-          readonly source_commit;
-          [[ "$source_commit" =~ ^[0-9a-f]{40}$ ]];
-          git fetch --no-tags --depth=1 origin "$source_commit"
+          mapfile -t source_commits < <(node -e "const r=require('./marketplace/ops/readme-presentation-routes.json'); process.stdout.write([...new Set([r.audit.source_commit, ...r.entries.map((e) => e.source_commit).filter(Boolean)])].join('\\n'))");
+          readonly source_commits;
+          for source_commit in "${source_commits[@]}"; do [[ "$source_commit" =~ ^[0-9a-f]{40}$ ]]; done;
+          git fetch --no-tags --depth=1 origin "${source_commits[@]}"
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
@@ -2130,23 +2263,23 @@ jobs:
           extra_args: --results=verified,unknown
 
   # ───────────────────────────────────────────────────────────────────────────
-  # Aggregate required gate. This is the SINGLE pull_request status context in
-  # branch protection (alongside `gitleaks`). Because this workflow runs on
+  # Aggregate required gate. Branch protection also requires the independent
+  # `gitleaks` and `skill-conform` contexts. Because this workflow runs on
   # EVERY pull_request (no path filter — see `on:` above), this job always
   # reports, which is what fixes the "N Expected forever" stuck-PR class where a
   # path-filtered required check never runs and the PR can never merge (#778).
   #
-  # It fails if ANY needed job ended in `failure` or `cancelled`. A `skipped`
-  # result counts as PASS — but that is ONLY legitimate for a job that skipped
-  # via a DESIGNED job-level `if:` (a conditional gate that correctly did not
-  # apply). Do not add a job to `needs:` that can skip for an undesigned reason,
-  # or a real gate could be silently bypassed by a green aggregate.
+  # Failures, cancellations, missing results and unexpected skips fail closed.
+  # Only the seven explicitly routed jobs may skip after successful trusted
+  # classification selected the lightweight lane. Security and governance
+  # jobs must succeed in both lanes.
   # ───────────────────────────────────────────────────────────────────────────
   ci-required:
     name: ci-required
     runs-on: ubuntu-latest
     if: always()
     needs:
+      - classify-changes
       - validate
       - marketplace-compliance-ratchet
       - verify
@@ -2171,16 +2304,9 @@ jobs:
       - doc-governance
       - secret-diff-scan
     steps:
-      - name: Assert every gated job passed (skipped == a designed conditional gate)
+      - uses: actions/checkout@v7
+
+      - name: Assert every gated job passed or was explicitly routed out
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
-        run: |
-          set -euo pipefail
-          printf '%s\n' "$NEEDS_JSON"
-          bad=$(printf '%s' "$NEEDS_JSON" \
-            | jq -r '[to_entries[] | select(.value.result == "failure" or .value.result == "cancelled") | .key] | join(", ")')
-          if [ -n "$bad" ]; then
-            echo "::error::ci-required: these gated jobs did not pass: $bad"
-            exit 1
-          fi
-          echo "✅ ci-required — every gated job passed (or was designed-skipped)."
+        run: python3 scripts/ci/fastlane.py gate
