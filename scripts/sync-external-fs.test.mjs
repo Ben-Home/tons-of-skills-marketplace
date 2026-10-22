@@ -20,6 +20,7 @@ import {
   mirrorFiles,
   enforceMirrorPackagePrivacy,
   mirrorTargetRel,
+  needsProvenanceRefresh,
   pruneOrphans,
   readUpstreamFiles,
   readUpstreamLicense,
@@ -404,6 +405,31 @@ test('an upstream file name that fails path rules is refused before any write', 
 });
 
 // ------------------------------------------------------------ orphan prune
+
+test('excluding an already absent file still refreshes provenance without payload writes', () => {
+  const s = sandbox();
+  try {
+    const targetRel = 'plugins/c/x';
+    put(s.repo, `${targetRel}/keep.md`, 'keep');
+    const prior = { license: 'MIT', files_synced: 2, files: ['gone.md', 'keep.md'] };
+    const ownedFiles = ['keep.md'];
+    const result = pruneOrphans({
+      root: s.repo,
+      targetRel,
+      priorFiles: prior.files,
+      ownedFiles,
+      report: quiet,
+    });
+    assert.deepEqual(result, { changes: [], refused: [] });
+    assert.equal(needsProvenanceRefresh(prior, { license: 'MIT' }, ownedFiles), true);
+    const updated = { license: 'MIT', files_synced: 1, files: ownedFiles };
+    assert.equal(needsProvenanceRefresh(updated, { license: 'MIT' }, ownedFiles), false);
+    assert.equal(needsProvenanceRefresh(updated, { license: 'Apache-2.0' }, ownedFiles), true);
+    assert.equal(needsProvenanceRefresh(updated, { license: 'MIT' }, ['replacement.md']), true);
+  } finally {
+    s.cleanup();
+  }
+});
 
 test('prune removes only owned regular files and refuses traversal and links', (t) => {
   const s = sandbox();

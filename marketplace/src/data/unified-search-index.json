@@ -14026,7 +14026,7 @@
       "slug": "aomi",
       "name": "aomi",
       "displayName": "aomi",
-      "description": "Aomi for AI agents: drive natural-language EVM transactions (chat, fork-simulate, sign) and scaffold new Aomi apps from API specs. Non-custodial, account-abstraction-first. 40+ protocol apps: Polymarket, 1inch, GMX, Hyperliquid, Aave, Uniswap. Bundle ships two skills: aomi-transact and aomi-build.",
+      "description": "Aomi for AI agents — drive the Aomi CLI from natural-language prompts to chat, simulate, and sign on-chain transactions with account-abstraction-first execution across DeFi, perps, CEX, and social apps on EVM mainnets and L2s.",
       "category": "crypto",
       "keywords": [
         "crypto",
@@ -14054,7 +14054,7 @@
       "verificationScore": 94,
       "verificationGrade": "A",
       "verificationBadge": "gold",
-      "searchText": "aomi aomi for ai agents: drive natural-language evm transactions (chat, fork-simulate, sign) and scaffold new aomi apps from api specs. non-custodial, account-abstraction-first. 40+ protocol apps: polymarket, 1inch, gmx, hyperliquid, aave, uniswap. bundle ships two skills: aomi-transact and aomi-build. crypto crypto defi web3 evm ethereum wallet account-abstraction trading agent mcp"
+      "searchText": "aomi aomi for ai agents — drive the aomi cli from natural-language prompts to chat, simulate, and sign on-chain transactions with account-abstraction-first execution across defi, perps, cex, and social apps on evm mainnets and l2s. crypto crypto defi web3 evm ethereum wallet account-abstraction trading agent mcp"
     },
     {
       "type": "plugin",

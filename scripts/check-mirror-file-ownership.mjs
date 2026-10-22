@@ -79,6 +79,16 @@ export function inspectMirrorOwnership({ entries, read, sources, baseline }) {
     if (owned.size !== (marker.files ?? []).length || owned.has('.source.json')) {
       throw new Error(`Duplicate or reserved source inventory path: ${markerPath}`);
     }
+    // A selected upstream file must actually ship. Git ignores and local
+    // untracked copies cannot satisfy the committed distribution contract.
+    // Frozen sources deliberately own their local inventory instead.
+    if (!frozen) {
+      for (const relative of owned) {
+        const file = `${root}/${relative}`;
+        if (!entries.has(file))
+          report.violations.push(`${file}: selected upstream file missing from Git index`);
+      }
+    }
     for (const [file, entry] of entries) {
       if (!file.startsWith(`${root}/`)) continue;
       const relative = file.slice(root.length + 1);

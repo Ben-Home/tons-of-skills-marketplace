@@ -4,19 +4,18 @@
     "path": ".",
     "branch": "main"
   },
-  "last_sync": "2026-10-22T06:31:50.356Z",
+  "last_sync": "2026-10-22T07:09:17.214Z",
   "author": {
     "name": "Jeremy Longshore",
     "github": "jeremylongshore",
     "email": "jeremy@intentsolutions.io"
   },
   "license": "MIT",
-  "files_synced": 65,
+  "files_synced": 64,
   "files": [
     ".audit-harness/LICENSE",
     ".audit-harness/README.md",
     ".audit-harness/configs/README.md",
-    ".beads/README.md",
     ".claude-plugin/plugin.json",
     ".mcp.json",
     ".npmrc",
