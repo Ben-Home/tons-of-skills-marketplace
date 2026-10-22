@@ -38,6 +38,7 @@ const SCRIPT_PATH = 'scripts/measure-epic-1.mjs';
 export const MEASUREMENT_INPUT_PATHS = [
   SCRIPT_PATH,
   'scripts/measure-epic-1-scorecard.mjs',
+  'scripts/ci-correctness-swallows.mjs',
   'scripts/measure-structural-errors.py',
   'scripts/dead-domain-policy.mjs',
   'scripts/generated-artifact-registry.mjs',
