@@ -241,7 +241,7 @@ const hasSkillCount = typeof skillCount === 'number' && skillCount > 0;
   }
 </style>
 
-<script is:inline>
+<script>
   (function() {
     var card = document.querySelector('.killer-card');
     if (!card) return;
@@ -253,9 +253,6 @@ const hasSkillCount = typeof skillCount === 'number' && skillCount > 0;
       var week = card.dataset.week;
       if (window.trackEvent) {
         window.trackEvent('killer_skill_click', { slug: slug, week: week });
-      }
-      if (window.logFirebaseEvent) {
-        window.logFirebaseEvent('killer_skill_click', { slug: slug, week: week });
       }
       var href = card.dataset.href;
       if (href) {

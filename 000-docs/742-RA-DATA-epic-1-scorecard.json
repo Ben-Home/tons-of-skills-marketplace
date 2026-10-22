@@ -1132,7 +1132,7 @@
           },
           {
             "count": 1,
-            "value": "Designed for Claude Code; requires Python 3, optionally JRig CLI for Tier 3"
+            "value": "Designed for Claude Code; requires Python 3, optionally the repository-pinned J-Rig CLI"
           },
           {
             "count": 24,
@@ -2988,7 +2988,7 @@
           },
           {
             "blocking_candidate": false,
-            "line": 172,
+            "line": 174,
             "path": ".github/workflows/pr-prescreen.yml"
           },
           {

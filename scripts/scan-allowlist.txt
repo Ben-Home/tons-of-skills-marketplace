@@ -961,3 +961,9 @@ plugins/mcp/project-health-auditor/dist/servers/code-metrics.js:secret-exfil-coo
 # pr-to-spec MCP bundle (upstream jeremylongshore/pr-to-prompt, locked; now committed so the server exists after install) — reviewed 2026-10-05.
 plugins/mcp/pr-to-spec/dist/mcp-bundle/index.js:dynamic-exec  AJV schema compiler (new Function over opts.code.process / self / scope) bundled from the MCP SDK, compiling its fixed schemas; same finding as the reviewed a2a-client bundle. Git runs only via execFileSync("git", argv) with no shell
 plugins/mcp/pr-to-spec/dist/mcp-bundle/index.js:secret-exfil-cooccur  the only credential read is process.env.GITHUB_TOKEN, passed to Octokit whose base URLs are api.github.com (and Octokit's default uploads.github.com); the tools call only read endpoints: pulls.get, listFiles, listReviews, listReviewComments
+
+# ── Discord community-link removal (2026-10-05). ──
+# Pre-existing documentation examples surfaced because the PR edited an unrelated
+# support line in each file. Neither flagged line changed in that PR.
+plugins/crypto/defi-yield-optimizer/README.md:secret-exfil-cooccur  README config sample: ALCHEMY_RPC is read as the user's own RPC endpoint value; the two URLs beside it (api.llama.fi, api.coingecko.com) are public keyless data APIs and receive no credential
+plugins/packages/ai-ml-engineering-pack/docs/TROUBLESHOOTING.md:secret-exfil-cooccur  documentation snippets pass each provider key (COHERE_API_KEY and the other provider keys in this guide) only to that provider's own API host or SDK client; no arbitrary network sink
