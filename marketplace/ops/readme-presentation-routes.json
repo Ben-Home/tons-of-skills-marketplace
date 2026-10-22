@@ -30,6 +30,15 @@
           ]
         },
         "note": "intentional_raw_html_tag_tokens (178) remains the 2026-09-02 figure for the original audit commit. Under a reproducible proxy (opening tags escaped by marketplace mdToHtml outside code) these three READMEs went 26 -> 24; none gained raw HTML."
+      },
+      {
+        "date": "2026-10-22",
+        "entries": [
+          "slack-channel"
+        ],
+        "source_commit": "b4782cbd69a4128a15f5aab824a56f9d3eef1616",
+        "reason": "Reviewed upstream SDK security update through 940e2fce also adds the official partner README block; mirrored bytes remain equal to sources.lock.json.",
+        "note": "The historical 178-tag audit and earlier re-audit stay unchanged. Raw HTML remains escaped by the existing renderer."
       }
     ]
   },
@@ -74,16 +83,16 @@
     {
       "plugin": "slack-channel",
       "readme": "plugins/mcp/slack-channel/README.md",
-      "source_sha256": "b5c775a121a037cfd3e1186ebc4d5fd4ceaf3c5e646b15aa56f70f90a3b32de6",
-      "current_sha256": "b5c775a121a037cfd3e1186ebc4d5fd4ceaf3c5e646b15aa56f70f90a3b32de6",
+      "source_sha256": "2a2b42dec69e5579e7e96bbf02c66f1dbc17784b2aac7a45f74bbae12e29575f",
+      "current_sha256": "2a2b42dec69e5579e7e96bbf02c66f1dbc17784b2aac7a45f74bbae12e29575f",
       "ownership": "upstream-mirror",
       "sources_lock_key": "slack-channel",
       "provenance": "plugins/mcp/slack-channel/.source.json",
       "upstream": "jeremylongshore/claude-code-slack-channel",
       "route": "https://github.com/jeremylongshore/claude-code-slack-channel/issues/new",
-      "limitation": "The safe marketplace renderer displays the three upstream named installation anchors as escaped text until their source uses heading-derived Markdown anchors.",
-      "source_commit": "55673cc969654a5f41b70c16d006717f17efcbde",
-      "reaudited_at": "2026-10-01"
+      "limitation": "The safe marketplace renderer displays the three upstream named installation anchors and the official partner badge HTML as escaped text. The adjacent partner description remains readable; raw HTML is not executed.",
+      "source_commit": "b4782cbd69a4128a15f5aab824a56f9d3eef1616",
+      "reaudited_at": "2026-10-22"
     },
     {
       "plugin": "servicegraph",
