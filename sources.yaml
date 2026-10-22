@@ -849,6 +849,9 @@ sources:
     license: MIT-0
     category: productivity
     verified: false
+    # PR #1510 (c2a3e1f8f) approved local Grade-A hardening and safety contracts.
+    # Preserve that reviewed projection until the changes are accepted upstream.
+    curated: true
     keywords:
       - ghost
       - blogging
