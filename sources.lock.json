@@ -899,12 +899,11 @@
     "slack-channel": {
       "repo": "jeremylongshore/claude-code-slack-channel",
       "resolved_ref": "940e2fce0041cff0ab86fafe92292aa1749b660b",
-      "locked_at": "2026-10-22T04:47:43.567Z",
+      "locked_at": "2026-10-22T06:31:50.400Z",
       "files": {
         ".audit-harness/LICENSE": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
         ".audit-harness/README.md": "sha256:8d373b106bfa58c0387abc89018a820f21a2b1c5db4752e552ddadd69f802e0b",
         ".audit-harness/configs/README.md": "sha256:d1840632e1378aeac26168d58428ebb31f90cacecc33f12cd2ca48d8ee24bf5d",
-        ".audit-harness/package.json": "sha256:d5e04e1f62c1a75edbb018d707a561568dabb34c2efbff5c9106da94039ee486",
         ".beads/README.md": "sha256:4f3ffddade7bfce0eb5227154a62e9a10074a91a0f9dcc2511922cbd437e1fe9",
         ".claude-plugin/plugin.json": "sha256:99662f7babfd4b9ceace67deb8fe23f3794a238e32d58d6c2cf182afe9c2ebb2",
         ".mcp.json": "sha256:6682a14fbbe8b792c085006034edb2e072d970da2d12d4e656b4f7302f2defeb",
