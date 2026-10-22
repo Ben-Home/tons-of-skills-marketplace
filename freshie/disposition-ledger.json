@@ -3,8 +3,8 @@
   "authority": "Blueprint 727 §8; Freshie graded export",
   "source": {
     "path": "freshie/grades.csv",
-    "sha256": "b0d99fcdd9cedb0112b2e8ea90d844b96f8a65d4102719af10f1c77dbcc7f0e8",
-    "artifact_count": 3494
+    "sha256": "f92394a2dfdf1fc09337598a0e5c3563e2a9ad5288ce04e7e0b80e79401710cd",
+    "artifact_count": 3493
   },
   "rule_order": [
     "G0",
@@ -24,7 +24,7 @@
     "CERTIFY-PENDING-EVIDENCE": 3144,
     "CERTIFY-UPSTREAM": 0,
     "DEEP-REMEDIATE": 1,
-    "QUARANTINE": 348
+    "QUARANTINE": 347
   },
   "artifacts": [
     {
@@ -7826,17 +7826,6 @@
       "gate": "G7",
       "reason_codes": [
         "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/devops/sugar/skills/managing-autonomous-development/SKILL.md",
-      "grade": "A",
-      "score": 97,
-      "diagnostics": [],
-      "disposition": "QUARANTINE",
-      "gate": "G1",
-      "reason_codes": [
-        "SOURCE_COMMIT_UNPINNED"
       ]
     },
     {

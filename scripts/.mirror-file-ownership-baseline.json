@@ -1,29 +1,4 @@
 {
   "schema_version": "mirror-file-ownership/v1",
-  "entries": [
-    {
-      "path": "plugins/devops/sugar/skills/managing-autonomous-development/SKILL.md",
-      "sha256": "1a27b06c94a9b9047c1eacc4c37d5c15e0abac362675d51092603dec34878aa6",
-      "bead": "claude-ss50.15",
-      "reason": "Pre-existing repository-era skill outside the recorded upstream include set; retained for explicit disposition, not adopted as synced content."
-    },
-    {
-      "path": "plugins/devops/sugar/skills/managing-autonomous-development/assets/README.md",
-      "sha256": "77bda5ee9732d53a51e956ef6a2188e5b6577be05c2e4d94ae797c28347d1efe",
-      "bead": "claude-ss50.15",
-      "reason": "Pre-existing repository-era skill outside the recorded upstream include set; retained for explicit disposition, not adopted as synced content."
-    },
-    {
-      "path": "plugins/devops/sugar/skills/managing-autonomous-development/references/README.md",
-      "sha256": "c382742f7922c3295842604901e18a3bd41ed29a0182a24753953a48f9a8e074",
-      "bead": "claude-ss50.15",
-      "reason": "Pre-existing repository-era skill outside the recorded upstream include set; retained for explicit disposition, not adopted as synced content."
-    },
-    {
-      "path": "plugins/devops/sugar/skills/managing-autonomous-development/scripts/README.md",
-      "sha256": "1ac6d03a15c4cb7743c13ef791fe1b03dd6ffa732fb72760626e7de5c3906503",
-      "bead": "claude-ss50.15",
-      "reason": "Pre-existing repository-era skill outside the recorded upstream include set; retained for explicit disposition, not adopted as synced content."
-    }
-  ]
+  "entries": []
 }

@@ -454,7 +454,6 @@ plugins/devops/monitoring-stack-deployer/skills/deploying-monitoring-stacks,A,97
 plugins/devops/network-policy-manager/skills/managing-network-policies,A,97
 plugins/devops/secrets-manager-integrator/skills/integrating-secrets-managers,A,98
 plugins/devops/service-mesh-configurator/skills/configuring-service-meshes,A,96
-plugins/devops/sugar/skills/managing-autonomous-development,A,97
 plugins/devops/terraform-module-builder/skills/building-terraform-modules,A,96
 plugins/devops/tweetclaw/skills/tweetclaw,A,90
 plugins/examples/formatter/skills/code-formatter,A,99

@@ -21435,18 +21435,6 @@
       "fallback_for_tools": []
     },
     {
-      "slug": "managing-autonomous-development",
-      "name": "managing-autonomous-development",
-      "description": "Execute enables AI assistant to manage sugar's autonomous development workflows. it allows AI assistant to create tasks, view the status of the system, review pending tasks, and start autonomous execution mode. use this skill when the user asks to create a new develo... Use when appropriate context detected. Trigger with relevant phrases based on skill purpose.",
-      "version": "1.0.0",
-      "category": "devops",
-      "parentPlugin": "sugar",
-      "requires_env": [],
-      "requires_tools": [],
-      "fallback_for_env": [],
-      "fallback_for_tools": []
-    },
-    {
       "slug": "managing-container-registries",
       "name": "managing-container-registries",
       "description": "Execute use when you need to work with containerization. This skill provides container management and orchestration with comprehensive guidance and automation. Trigger with phrases like \"containerize app\", \"manage containers\", or \"orchestrate deployment\".",
@@ -34839,7 +34827,7 @@
       "fallback_for_tools": []
     }
   ],
-  "count": 2903,
+  "count": 2902,
   "categories": [
     "ai-agency",
     "ai-ml",
