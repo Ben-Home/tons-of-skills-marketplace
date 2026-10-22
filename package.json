@@ -34,6 +34,7 @@
     "validate:stats-freshness": "node --test scripts/check-stats-freshness.test.mjs scripts/fetch-npm-stats.test.mjs && node scripts/check-stats-freshness.mjs --report",
     "validate:sources-lock-parity": "node --test scripts/check-sources-lock-parity.test.mjs && node scripts/check-sources-lock-parity.mjs",
     "validate:mirror-licenses": "node scripts/check-mirror-licenses.mjs",
+    "validate:mirror-file-ownership": "node --test scripts/check-mirror-file-ownership.test.mjs && node scripts/check-mirror-file-ownership.mjs",
     "validate:privileged-action-pins": "node --test scripts/check-privileged-action-pins.test.mjs && node scripts/check-privileged-action-pins.mjs",
     "validate:mcp-plaintext-creds": "node --test scripts/check-mcp-plaintext-creds.test.mjs && node scripts/check-mcp-plaintext-creds.mjs",
     "validate:gitleaks-config": "node --test scripts/check-gitleaks-config.test.mjs && node scripts/check-gitleaks-config.mjs",
