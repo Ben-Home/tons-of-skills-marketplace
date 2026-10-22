@@ -132,21 +132,24 @@ sources:
     category: code-quality
     verified: true
     include:
-      - '.claude-plugin/**'
-      - '.mcp.json'
-      - 'src/servers/**'
-      - '.claude/skills/**'
-      - 'dist/servers/**'
-      - 'dist/index.js'
-      - 'dist/index.d.ts'
-      - 'dist/core/**'
+      - '/.claude-plugin/**'
+      - '/.mcp.json'
+      - '/src/servers/**'
+      - '/.claude/skills/**'
+      - '/dist/servers/**'
+      - '/dist/index.js'
+      - '/dist/index.d.ts'
+      - '/dist/core/**'
       # Since 52c329d, upstream .mcp.json launches the ncc bundle
       # (${CLAUDE_PLUGIN_ROOT}/dist/mcp-bundle/index.js) instead of
       # dist/servers/. Without this glob, the mirror ships a server entry
       # point that does not exist.
-      - 'dist/mcp-bundle/**'
-      - 'README.md'
-      - 'LICENSE'
+      - '/dist/mcp-bundle/**'
+      - '/README.md'
+      # Retain this reviewed public upstream document explicitly; the former
+      # unanchored README pattern admitted it as an incidental nested match.
+      - '/.beads/README.md'
+      - '/LICENSE'
     exclude:
       - 'node_modules/**'
       - '.git/**'
