@@ -4,16 +4,15 @@
     "path": ".",
     "branch": "main"
   },
-  "last_sync": "2026-10-01T05:32:55.241Z",
+  "last_sync": "2026-10-22T07:11:09.180Z",
   "author": {
     "name": "Jeremy Longshore",
     "github": "jeremylongshore",
     "email": "jeremy@intentsolutions.io"
   },
   "license": "MIT",
-  "files_synced": 10,
+  "files_synced": 9,
   "files": [
-    ".beads/README.md",
     ".claude-plugin/plugin.json",
     ".claude/skills/pr-to-spec/SKILL.md",
     ".claude/skills/pr-to-spec/references/cli-contract.md",

@@ -432,6 +432,19 @@ export function mirrorFiles({
   return changes;
 }
 
+// Selection can change without any file writes: an excluded path may have
+// already been absent because Git ignored it. Persist the new inventory too.
+export function needsProvenanceRefresh(prior, source, ownedFiles) {
+  return Boolean(
+    prior &&
+    typeof prior === 'object' &&
+    !Array.isArray(prior) &&
+    (prior.license !== source.license ||
+      prior.files_synced !== ownedFiles.length ||
+      JSON.stringify(prior.files) !== JSON.stringify(ownedFiles)),
+  );
+}
+
 /**
  * Delete files a PRIOR sync owned that upstream has since removed. The prior
  * manifest is committed, hand-editable data: each entry is validated on its
@@ -1150,17 +1163,11 @@ async function syncSource(source, config, lock) {
     }
 
     // `.source.json` is the provenance authority for a mirrored artifact. A
-    // reviewed source-record correction (for example MIT → AGPL-3.0 after an
-    // upstream license check) must update it even when upstream file bytes are
-    // unchanged.
+    // reviewed license or selection correction must update it even when
+    // upstream file bytes are unchanged or excluded files were already absent.
     // A malformed prior manifest is left for the validators: the final write
     // below repairs it only when this sync already has changes.
-    if (
-      !options.dryRun &&
-      priorSource &&
-      typeof priorSource === 'object' &&
-      priorSource.license !== source.license
-    ) {
+    if (!options.dryRun && needsProvenanceRefresh(priorSource, source, ownedFiles)) {
       changes.push({ path: '.source.json', action: 'provenance' });
     }
 

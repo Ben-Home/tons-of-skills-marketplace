@@ -56,6 +56,19 @@ test('an unexpected script fails even inside an upstream-selected directory', ()
   assert.deepEqual(f.inspect().violations, [`${root}/scripts/extra.sh: unowned`]);
 });
 
+test('missing selected files fail, while explicit exclusion and curated ownership remain valid', () => {
+  const f = fixture();
+  f.entries.delete(`${root}/scripts/run.sh`);
+  assert.deepEqual(f.inspect().violations, [
+    `${root}/scripts/run.sh: selected upstream file missing from Git index`,
+  ]);
+  f.sources[0].curated = true;
+  assert.deepEqual(f.inspect().violations, []);
+  f.sources[0].curated = false;
+  f.add('.source.json', { files: ['SKILL.md'] });
+  assert.deepEqual(f.inspect().violations, []);
+});
+
 test('a root manifest is upstream-owned only when explicitly recorded', () => {
   const f = fixture();
   f.add('package.json', {
@@ -158,6 +171,12 @@ test('the real gate uses captured Git blobs and ignores untracked runtime files'
     put(`${root}/node_modules/runtime.js`, 'untracked runtime');
     put(`${root}/.source.json`, 'invalid unstaged provenance');
     assert.deepEqual(checkMirrorOwnership(directory).violations, []);
+    git('rm', '--cached', `${root}/scripts/run.sh`);
+    // The working copy remains, but it will not be distributed by Git.
+    assert.deepEqual(checkMirrorOwnership(directory).violations, [
+      `${root}/scripts/run.sh: selected upstream file missing from Git index`,
+    ]);
+    git('add', `${root}/scripts/run.sh`);
     put(`${root}/scripts/extra.sh`, 'new unowned script');
     git('add', `${root}/scripts/extra.sh`);
     assert.deepEqual(checkMirrorOwnership(directory).violations, [
