@@ -425,6 +425,9 @@ jobs:
           node --test scripts/check-mirror-packages-private.test.mjs
           node scripts/check-mirror-packages-private.mjs
 
+      - name: Check external mirror file ownership
+        run: pnpm run validate:mirror-file-ownership
+
       # E7.2: package privacy is one boundary; publisher-level provenance
       # exclusion is the independent second boundary. This stays inside the
       # existing validate job so ci-required gains no fourth status context.
