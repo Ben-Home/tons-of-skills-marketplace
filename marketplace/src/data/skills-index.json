@@ -31373,7 +31373,7 @@
     {
       "slug": "supabase-reliability-patterns",
       "name": "supabase-reliability-patterns",
-      "description": "Build resilient Supabase integrations: circuit breakers wrapping createClient calls, offline queue with IndexedDB, graceful degradation with cached fallbacks, health check endpoints, retry with exponential backoff and jitter, and dual-write patterns for critical data. Use when building fault-tolerant apps, handling Supabase outages gracefully, implementing offline-first patterns, or adding retry logic to SDK calls. Trigger with phrases like \"supabase circuit breaker\", \"supabase offline\", \"supabase retry\", \"supabase health check\", \"supabase fallback\", \"supabase resilience\", \"supabase dual write\", \"supabase outage\".",
+      "description": "Build resilient Supabase integrations: circuit breakers wrapping database calls, offline queue with IndexedDB, graceful degradation with cached fallbacks, health check endpoints, retry with exponential backoff and jitter, and dual-write patterns for critical data. Use when building fault-tolerant apps, handling Supabase outages gracefully, implementing offline-first patterns, or adding retry logic to SDK calls. Trigger with phrases like \"supabase circuit breaker\", \"supabase offline\", \"supabase retry\", \"supabase health check\", \"supabase fallback\", \"supabase resilience\", \"supabase dual write\", \"supabase outage\".",
       "version": "1.54.0",
       "category": "saas-packs",
       "parentPlugin": "supabase-pack",
@@ -31397,7 +31397,7 @@
     {
       "slug": "supabase-sdk-patterns",
       "name": "supabase-sdk-patterns",
-      "description": "Use when implementing Supabase queries, auth, realtime, storage, or RPC calls with @supabase/supabase-js or supabase-py and you need production-ready, type-safe patterns that always check the { data, error } contract. Trigger with phrases like \"supabase SDK patterns\", \"supabase query\", \"supabase typescript\", \"supabase python\", \"supabase client setup\", \"supabase realtime\", \"supabase auth\", \"supabase storage\".",
+      "description": "Use when implementing Supabase queries, auth, realtime, storage, or RPC calls with @supabase/supabase-js or supabase-py and you need production-ready, type-safe patterns that check each service's documented error contract. Trigger with phrases like \"supabase SDK patterns\", \"supabase query\", \"supabase typescript\", \"supabase python\", \"supabase client setup\", \"supabase realtime\", \"supabase auth\", \"supabase storage\".",
       "version": "1.54.0",
       "category": "saas-packs",
       "parentPlugin": "supabase-pack",
