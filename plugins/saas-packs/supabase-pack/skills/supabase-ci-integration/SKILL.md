@@ -41,7 +41,7 @@ The pull-request CI pipeline runs these stages, all detailed in [ci-workflows.md
 - GitHub repository with Actions enabled
 - Supabase project created at [supabase.com/dashboard](https://supabase.com/dashboard)
 - Supabase CLI initialized locally (`npx supabase init`)
-- Node.js 18+ in your project
+- Node.js 22+ for the current SDK application and CI examples
 - `@supabase/supabase-js` installed:
 
 ```bash

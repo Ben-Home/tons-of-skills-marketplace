@@ -34,7 +34,7 @@ Supabase migrations are timestamped SQL files managed by the CLI that track sche
 
 ## Prerequisites
 
-- Supabase CLI installed: `npm install -g supabase` or `npx supabase --version`
+- Supabase CLI installed: `npm install --save-dev supabase` or `npx supabase --version`
 - `@supabase/supabase-js` v2+ installed in your project
 - Local Supabase running: `npx supabase start`
 - Understanding of PostgreSQL DDL and transaction behavior
