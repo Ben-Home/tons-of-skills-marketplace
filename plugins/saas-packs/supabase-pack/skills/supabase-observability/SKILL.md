@@ -69,7 +69,6 @@ Forward logs to external aggregation with a log drain:
 
 Configure an approved destination under **Project Settings > Log Drains** in the Dashboard. Review exported data, retention, credentials, and destination region before enabling forwarding; confirm arrival using synthetic events.
 
-
 The complete slow-query / high-frequency / connection-monitoring SQL set and the Dashboard log-drain configuration and verification workflow are in [references/query-analytics-and-log-drains.md](references/query-analytics-and-log-drains.md).
 
 ### Step 3: Custom Metrics, Alerting, and Health Checks

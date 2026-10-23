@@ -57,6 +57,5 @@ select pg_stat_statements_reset();
 
 See the [current log-drain guide](https://supabase.com/docs/guides/observability/log-drains) for supported integrations and eligibility. No CLI log-drain subcommand is assumed.
 
-
 Log drain events include API requests, Auth events, Postgres logs, Storage
 operations, and Edge Function invocations.
