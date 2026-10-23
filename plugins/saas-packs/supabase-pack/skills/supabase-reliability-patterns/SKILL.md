@@ -20,7 +20,7 @@ description: 'Build resilient Supabase integrations: circuit breakers wrapping d
 
   '
 allowed-tools: Read, Write, Edit, Bash(supabase:*), Bash(curl:*), Grep
-version: 1.54.0
+version: 1.55.0
 license: MIT
 author: Jeremy Longshore <jeremy@intentsolutions.io>
 tags:
