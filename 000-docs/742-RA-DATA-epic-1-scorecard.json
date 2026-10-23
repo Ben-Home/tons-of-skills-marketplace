@@ -80,18 +80,18 @@
       "values": {
         "agent_lane": {
           "error_total_all_validated_surfaces": 230,
-          "fully_compliant_surfaces": 776,
+          "fully_compliant_surfaces": 777,
           "terminal_denominator": {
             "agents": 363,
             "files": 952,
             "label": "agents_plus_plugin_manifests",
             "plugin_manifests": 589
           },
-          "validator_reported_mixed_denominator_percent": 81.5
+          "validator_reported_mixed_denominator_percent": 81.6
         },
         "marketplace_terminal": {
           "error_total_all_validated_surfaces": 3029,
-          "fully_compliant_surfaces": 2088,
+          "fully_compliant_surfaces": 2089,
           "terminal_denominator": {
             "agents": 363,
             "commands": 370,
@@ -238,7 +238,7 @@
       "values": {
         "agent_errors": 230,
         "agent_files": 363,
-        "reported_compliance_percent": 81.5,
+        "reported_compliance_percent": 81.6,
         "target_errors": 0,
         "target_percent_max": 100
       }
@@ -1165,12 +1165,12 @@
             "value": "Designed for Claude Code; requires Python 3, optionally the repository-pinned J-Rig CLI"
           },
           {
-            "count": 24,
-            "value": "Designed for Claude Code; requires authorized OpenEvidence access and qualified clinical review for patient-care use"
+            "count": 1,
+            "value": "Designed for Claude Code; requires a separately configured Plane MCP server with permitted read tools and inspected schemas; no server version is installed or pinned by this plugin"
           },
           {
-            "count": 1,
-            "value": "Designed for Claude Code; requires mcp__plane MCP server configured (PLANE_API_KEY, PLANE_WORKSPACE_SLUG, PLANE_API_HOST_URL env vars)"
+            "count": 24,
+            "value": "Designed for Claude Code; requires authorized OpenEvidence access and qualified clinical review for patient-care use"
           },
           {
             "count": 1,
@@ -3222,10 +3222,10 @@
       ],
       "status": "measured",
       "values": {
-        "index_entries": 268,
+        "index_entries": 269,
         "missing_from_index": [],
         "target_equal": true,
-        "tracked_documents": 268,
+        "tracked_documents": 269,
         "untracked_index_entries": []
       }
     },
