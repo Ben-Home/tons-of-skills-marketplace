@@ -14,6 +14,24 @@ PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
 DEBUG="${FORMATTER_DEBUG:-false}"
 LOG_FILE="${PLUGIN_ROOT}/logs/validate.log"
 
+# This optional native hook is disabled by default. Claude tolerates but does
+# not enforce group-level enabled metadata, so skip before logs or npx calls.
+# Explicit filename / CLAUDE_FILE_PATH invocations remain manual checks.
+if [[ $# -eq 0 && -z "${CLAUDE_FILE_PATH:-}" ]]; then
+    if ! command -v jq >/dev/null 2>&1 || ! jq -e \
+        '[.hooks.PreToolUse[]? | select(.matcher == "Edit") | .enabled] | length > 0 and all(. == true)' \
+        "$PLUGIN_ROOT/hooks/hooks.json" >/dev/null 2>&1; then
+        exit 0
+    fi
+    if ! FILE_TO_VALIDATE=$(jq -er '
+        select(.hook_event_name == "PreToolUse" and .tool_name == "Edit") |
+        .tool_input.file_path | select(type == "string" and length > 0)
+    '); then
+        exit 0
+    fi
+    set -- "$FILE_TO_VALIDATE"
+fi
+
 # Color codes for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
