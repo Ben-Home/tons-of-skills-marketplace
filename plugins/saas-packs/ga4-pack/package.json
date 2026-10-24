@@ -7,7 +7,8 @@
   "files": [
     "README.md",
     ".claude-plugin/",
-    "skills/"
+    "skills/",
+    "000-docs/"
   ],
   "keywords": [
     "claude-code",
