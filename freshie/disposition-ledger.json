@@ -3,7 +3,7 @@
   "authority": "Blueprint 727 §8; Freshie graded export",
   "source": {
     "path": "freshie/grades.csv",
-    "sha256": "f08d0a9edd1e5806f66c138b3b10895123da49b67576746d98d7ad708e65090e",
+    "sha256": "07b1dd1fb33e60a51f0fd631e7b760dc6ca1c5720905fd94076e801fe993088a",
     "artifact_count": 3376
   },
   "rule_order": [
@@ -33887,7 +33887,7 @@
     {
       "path": "plugins/security/penetration-tester/skills/defining-pentest-scope/SKILL.md",
       "grade": "A",
-      "score": 93,
+      "score": 94,
       "diagnostics": [],
       "disposition": "CERTIFY-PENDING-EVIDENCE",
       "gate": "G7",
@@ -34051,8 +34051,8 @@
     },
     {
       "path": "plugins/security/penetration-tester/skills/recording-pentest-engagement/SKILL.md",
-      "grade": "B",
-      "score": 89,
+      "grade": "A",
+      "score": 91,
       "diagnostics": [],
       "disposition": "CERTIFY-PENDING-EVIDENCE",
       "gate": "G7",
