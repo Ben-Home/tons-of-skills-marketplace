@@ -3663,7 +3663,7 @@
     {
       "name": "research-to-deploy",
       "source": "./plugins/skill-enhancers/research-to-deploy",
-      "description": "Transforms research findings into deployed solutions automatically",
+      "description": "Research infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized.",
       "version": "0.14.0",
       "category": "skill-enhancers",
       "keywords": [

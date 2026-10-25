@@ -26369,7 +26369,7 @@
     {
       "slug": "research-to-deploy",
       "name": "research-to-deploy",
-      "description": "Researches infrastructure best practices and generates deployment-ready configurations, Terraform modules, Dockerfiles, and CI/CD pipelines. Use when the user needs to deploy services, set up infrastructure, or create cloud configurations based on current best practices. Trigger with phrases like \"research and deploy\", \"set up Cloud Run\", \"create Terraform for\", \"deploy this to AWS\", or \"generate infrastructure configs\".",
+      "description": "Research current infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized. Use when planning a cloud deployment or creating Terraform, container or Kubernetes configurations. Trigger with \"research and deploy\", \"create Terraform\" or \"generate infrastructure configs\".",
       "version": "0.14.0",
       "category": "skill-enhancers",
       "parentPlugin": "research-to-deploy",

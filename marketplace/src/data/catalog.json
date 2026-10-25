@@ -5246,7 +5246,7 @@
       "slug": "research-to-deploy",
       "name": "research-to-deploy",
       "displayName": "research to deploy",
-      "description": "Transforms research findings into deployed solutions automatically",
+      "description": "Research infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized.",
       "version": "0.14.0",
       "category": "skill-enhancers",
       "keywords": [

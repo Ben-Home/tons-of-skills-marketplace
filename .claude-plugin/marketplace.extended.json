@@ -4895,7 +4895,7 @@
     {
       "name": "research-to-deploy",
       "source": "./plugins/skill-enhancers/research-to-deploy",
-      "description": "Transforms research findings into deployed solutions automatically",
+      "description": "Research infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized.",
       "version": "0.14.0",
       "category": "skill-enhancers",
       "keywords": [
@@ -4907,10 +4907,10 @@
         "name": "Claude Code Plugins Team"
       },
       "verification": {
-        "score": 89,
-        "grade": "B",
-        "badge": "silver",
-        "lastValidated": "2026-09-11T00:00:00.000Z"
+        "score": 100,
+        "grade": "A",
+        "badge": "gold",
+        "lastValidated": "2026-10-25T00:00:00.000Z"
       }
     },
     {

@@ -7700,7 +7700,7 @@
       "slug": "research-to-deploy",
       "name": "research-to-deploy",
       "displayName": "research to deploy",
-      "description": "Transforms research findings into deployed solutions automatically",
+      "description": "Research infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized.",
       "category": "skill-enhancers",
       "keywords": [
         "research",
@@ -7716,10 +7716,10 @@
       "isNew": false,
       "badges": [],
       "skillCount": 1,
-      "verificationScore": 89,
-      "verificationGrade": "B",
-      "verificationBadge": "silver",
-      "searchText": "research to deploy transforms research findings into deployed solutions automatically skill-enhancers research automation deployment"
+      "verificationScore": 100,
+      "verificationGrade": "A",
+      "verificationBadge": "gold",
+      "searchText": "research to deploy research infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized. skill-enhancers research automation deployment"
     },
     {
       "type": "plugin",
@@ -63979,7 +63979,7 @@
       "id": "research-to-deploy",
       "slug": "research-to-deploy",
       "name": "research-to-deploy",
-      "description": "Researches infrastructure best practices and generates deployment-ready configurations, Terraform modules, Dockerfiles, and CI/CD pipelines. Use when the user needs to deploy services, set up infrastructure, or create cloud configurations based on current best practices. Trigger with phrases like \"research and deploy\", \"set up Cloud Run\", \"create Terraform for\", \"deploy this to AWS\", or \"generate infrastructure configs\".",
+      "description": "Research current infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized. Use when planning a cloud deployment or creating Terraform, container or Kubernetes configurations. Trigger with \"research and deploy\", \"create Terraform\" or \"generate infrastructure configs\".",
       "category": "skill-enhancers",
       "allowedTools": [
         "Read",
@@ -63988,8 +63988,6 @@
         "Bash(terraform:*)",
         "Bash(docker:*)",
         "Bash(kubectl:*)",
-        "Bash(git:*)",
-        "Bash(npm:*)",
         "Glob",
         "Grep",
         "WebSearch",
@@ -64001,7 +63999,7 @@
         "name": "research-to-deploy",
         "category": "skill-enhancers"
       },
-      "searchText": "research-to-deploy researches infrastructure best practices and generates deployment-ready configurations, terraform modules, dockerfiles, and ci/cd pipelines. use when the user needs to deploy services, set up infrastructure, or create cloud configurations based on current best practices. trigger with phrases like \"research and deploy\", \"set up cloud run\", \"create terraform for\", \"deploy this to aws\", or \"generate infrastructure configs\". skill-enhancers read write edit bash(terraform:*) bash(docker:*) bash(kubectl:*) bash(git:*) bash(npm:*) glob grep websearch webfetch "
+      "searchText": "research-to-deploy research current infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized. use when planning a cloud deployment or creating terraform, container or kubernetes configurations. trigger with \"research and deploy\", \"create terraform\" or \"generate infrastructure configs\". skill-enhancers read write edit bash(terraform:*) bash(docker:*) bash(kubectl:*) glob grep websearch webfetch "
     },
     {
       "type": "skill",
