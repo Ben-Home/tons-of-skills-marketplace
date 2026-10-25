@@ -33413,7 +33413,7 @@
     {
       "slug": "zero-tech-debt",
       "name": "zero-tech-debt",
-      "description": "Rebuild a feature as if the correct product architecture existed from day one — remove compatibility cruft, dead abstractions, and historical compromises instead of preserving them. Use when the operator says \"refactor properly,\" \"clean up,\" \"rewrite,\" \"modernize,\" \"remove legacy,\" \"simplify,\" \"rethink,\" \"pay down tech debt,\" or signals frustration with accumulated complexity. Do NOT use for hotfixes, bug repros, surgical patches, or security backports — blast-radius minimization wins there. Trigger with \"/zero-tech-debt\", \"do it right this time\", \"the way it should have been built\", \"refactor toward intent\".",
+      "description": "Refactor a feature toward its intended product architecture, removing obsolete flows and unnecessary abstractions while preserving required behavior and contracts. Use when a structural redesign or tech-debt cleanup is requested. Trigger with \"refactor properly\", \"remove legacy\" or \"zero-tech-debt\"; use a focused patch for hotfixes and security backports.",
       "version": "1.1.0",
       "category": "skill-enhancers",
       "parentPlugin": "zero-tech-debt",
