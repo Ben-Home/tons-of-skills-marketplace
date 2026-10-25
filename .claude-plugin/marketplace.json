@@ -1311,7 +1311,7 @@
       "name": "crypto-news-aggregator",
       "source": "./plugins/crypto/crypto-news-aggregator",
       "description": "Fetch crypto RSS headlines with coin/category filters and per-source health reporting",
-      "version": "1.26.0",
+      "version": "1.27.0",
       "category": "crypto",
       "keywords": [
         "news",

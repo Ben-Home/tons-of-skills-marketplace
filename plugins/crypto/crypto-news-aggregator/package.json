@@ -1,6 +1,6 @@
 {
   "name": "@intentsolutionsio/crypto-news-aggregator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Fetch crypto RSS headlines with coin/category filters and per-source health reporting",
   "keywords": [
     "news",

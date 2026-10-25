@@ -714,7 +714,7 @@
       "slug": "aggregating-crypto-news",
       "name": "aggregating-crypto-news",
       "description": "Aggregate cryptocurrency news from configured RSS sources including CoinDesk, CoinTelegraph, The Block, and Decrypt. Use when needing to monitor crypto market news, track announcements, or find coin-specific updates. Trigger with phrases like \"get crypto news\", \"latest Bitcoin headlines\", \"DeFi announcements\", \"scan for breaking news\", or \"check crypto updates\".",
-      "version": "1.26.0",
+      "version": "1.27.0",
       "category": "crypto",
       "parentPlugin": "crypto-news-aggregator",
       "requires_env": [],
