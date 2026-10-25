@@ -4803,7 +4803,7 @@
       "slug": "dependency-checker",
       "name": "dependency-checker",
       "displayName": "dependency checker",
-      "description": "Check dependencies for known vulnerabilities, outdated packages, and license compliance",
+      "description": "Audit selected dependency reports and review declared license metadata",
       "category": "security",
       "keywords": [
         "security",
@@ -4818,7 +4818,7 @@
         "email": "[email protected]"
       },
       "authorType": "official",
-      "version": "1.28.0",
+      "version": "1.29.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -4826,7 +4826,7 @@
       "verificationScore": 100,
       "verificationGrade": "A",
       "verificationBadge": "gold",
-      "searchText": "dependency checker check dependencies for known vulnerabilities, outdated packages, and license compliance security security dependencies npm pip composer vulnerabilities"
+      "searchText": "dependency checker audit selected dependency reports and review declared license metadata security security dependencies npm pip composer vulnerabilities"
     },
     {
       "type": "plugin",
@@ -17383,12 +17383,10 @@
       "id": "analyzing-dependencies",
       "slug": "analyzing-dependencies",
       "name": "analyzing-dependencies",
-      "description": "Analyze dependencies for known security vulnerabilities and outdated versions. Use when auditing third-party libraries. Trigger with 'check dependencies', 'scan for vulnerabilities', or 'audit packages'.",
+      "description": "Audit selected project dependency reports and review declared license metadata. Use when auditing third-party libraries. Trigger with 'check dependencies', 'scan for vulnerabilities', or 'audit packages'.",
       "category": "security",
       "allowedTools": [
         "Read",
-        "Write",
-        "Edit",
         "Grep",
         "Glob",
         "Bash(security:*)",
@@ -17396,12 +17394,12 @@
         "Bash(audit:*)"
       ],
       "compatibleWith": [],
-      "version": "1.28.0",
+      "version": "1.29.0",
       "parentPlugin": {
         "name": "dependency-checker",
         "category": "security"
       },
-      "searchText": "analyzing-dependencies analyze dependencies for known security vulnerabilities and outdated versions. use when auditing third-party libraries. trigger with 'check dependencies', 'scan for vulnerabilities', or 'audit packages'. security read write edit grep glob bash(security:*) bash(scan:*) bash(audit:*) "
+      "searchText": "analyzing-dependencies audit selected project dependency reports and review declared license metadata. use when auditing third-party libraries. trigger with 'check dependencies', 'scan for vulnerabilities', or 'audit packages'. security read grep glob bash(security:*) bash(scan:*) bash(audit:*) "
     },
     {
       "type": "skill",
