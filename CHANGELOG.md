@@ -2,6 +2,12 @@
 
 ## 2026-10-24
 
+- **fix(apple-notes):** retire the current 24-skill tutorial pack after full source
+  and value review. Remove active installation and legacy scaffolding; keep
+  retired plugin, vendor and skill routes at 404 without an unverified replacement.
+  Historical source remains in Git at `4279a871bccaca10f56f1c2304f7ba487b5a4cfe`.
+  Refs bead `claude-juoz.3.11.56`.
+
 - **fix(gamma):** retire the 24-skill Gamma tutorial pack after reviewing its
   source against current Gamma API and MCP documentation. Remove active install
   entries and legacy scaffolds; keep retired plugin, vendor, and skill URLs at 404. Historical source remains in Git at
