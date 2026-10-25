@@ -10,7 +10,7 @@ AI-powered contract review, risk analysis, document generation, and compliance a
 |-------|-------------|
 | `contract-review` | **Flagship** — Full review with 5 parallel agents. Contract Safety Score (0-100), clause-by-clause analysis, prioritized recommendations. |
 | `risk-analysis` | Clause-by-clause risk scoring (1-10) with financial exposure estimates and poison pill detection. |
-| `contract-compare` | Side-by-side version comparison. Flags additions, removals, and dangerous changes. |
+| `contract-compare` | Clause-level version comparison with exact evidence, coverage gaps and qualified possible effects for the identified parties. |
 | `plain-english` | Translates legalese into plain English at an 8th-grade reading level. Flags deliberately confusing language. |
 | `missing-protections` | Finds protections that should be in the contract but aren't. Ready-to-insert clause language. |
 | `freelancer-review` | Reviews contracts from the freelancer's perspective. IRS 20-Factor Test for misclassification. |

@@ -7385,7 +7385,7 @@
     {
       "slug": "contract-compare",
       "name": "contract-compare",
-      "description": "Compares two contract versions side-by-side to detect added, removed, and modified clauses with favorability analysis. Use when a user receives a revised contract or redline and needs to understand what changed and who each change favors. Trigger with \"/contract-compare\" or \"compare these two contracts\".",
+      "description": "Compare two contract versions with clause-level evidence, coverage limits and qualified analysis of possible effects for the identified parties. Use when reviewing a revised contract or redline. Trigger with \"contract-compare\" or \"compare these two contracts\".",
       "version": "1.1.0",
       "category": "business-tools",
       "parentPlugin": "general-legal-assistant",
