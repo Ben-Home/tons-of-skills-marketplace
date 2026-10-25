@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-10-24T22:48:11.785Z",
+  "generatedAt": "2026-10-25T02:32:58.427Z",
   "max_age_hours": 72,
-  "publishedCount": 382,
-  "establishedCount": 382,
-  "candidateCount": 412,
+  "publishedCount": 381,
+  "establishedCount": 381,
+  "candidateCount": 411,
   "totalDay": 467,
-  "totalWeek": 2061,
-  "totalMonth": 11312,
+  "totalWeek": 2057,
+  "totalMonth": 11301,
   "establishedDay": 467,
-  "establishedWeek": 2061,
-  "establishedMonth": 11312,
+  "establishedWeek": 2057,
+  "establishedMonth": 11301,
   "top": [
     {
       "name": "@intentsolutionsio/claude-pack",
@@ -2028,15 +2028,6 @@
       "latestVersion": "1.0.1"
     },
     {
-      "name": "@intentsolutionsio/apple-notes-pack",
-      "status": "published",
-      "lastDay": 0,
-      "lastWeek": 4,
-      "lastMonth": 11,
-      "createdAt": 1776741465204,
-      "latestVersion": "1.0.2"
-    },
-    {
       "name": "@intentsolutionsio/blockchain-explorer-cli",
       "status": "published",
       "lastDay": 0,
@@ -3451,9 +3442,9 @@
     }
   ],
   "telemetry": {
-    "candidates": 412,
-    "probed": 412,
-    "published": 382,
+    "candidates": 411,
+    "probed": 411,
+    "published": 381,
     "unpublished": 28,
     "foreign": 2,
     "rateLimited": 0,
