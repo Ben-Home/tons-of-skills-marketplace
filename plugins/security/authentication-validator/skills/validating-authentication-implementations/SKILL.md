@@ -84,7 +84,7 @@ Keep input evidence, cryptographic verification and deployed enforcement separat
 
 Retain one JSON report plus process exit status, selected input scope and tool
 versions. Explicit `--output` uses atomic private replacement and refuses a
-symlink destination. Reports omit raw JWT payloads, signature values, keys and
+symlink destination or alias of a selected input file. Reports omit raw JWT payloads, signature values, keys and
 password candidates; arbitrary error excerpts are suppressed. Protect inputs,
 filenames and environment separately rather than assuming general redaction.
 

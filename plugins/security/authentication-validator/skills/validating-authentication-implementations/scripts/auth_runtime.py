@@ -60,7 +60,7 @@ def load_object(path):
     return parse_object(read_bytes(path))
 
 
-def write_report(report, destination=None):
+def write_report(report, destination=None, *, protected_inputs=()):
     text = json.dumps(report, indent=2, allow_nan=False) + "\n"
     if destination is None:
         print(text, end="")
@@ -68,6 +68,15 @@ def write_report(report, destination=None):
     path = Path(destination)
     if path.is_symlink():
         raise InputError("report destination must not be a symbolic link")
+    try:
+        for selected in protected_inputs:
+            if selected is None:
+                continue
+            source = Path(selected)
+            if path.resolve() == source.resolve() or (path.exists() and source.exists() and path.samefile(source)):
+                raise InputError("report destination aliases a selected input")
+    except (OSError, RuntimeError) as error:
+        raise InputError("cannot establish a separate report destination") from error
     temporary = None
     try:
         with tempfile.NamedTemporaryFile(

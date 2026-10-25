@@ -628,3 +628,24 @@ def test_declared_reports_are_private_single_document_outputs(tmp_path, script, 
     assert result.stdout == ""
     assert json.loads(output.read_text())["complete"] is True
     assert output.stat().st_mode & 0o777 == 0o600
+
+
+def test_jwt_report_cannot_replace_the_selected_trust_key(tmp_path, trust_profile):
+    jwt, key, key_file, profile = trust_profile
+    result = run_token(
+        tmp_path, jwt.encode(signed_claims(), key, algorithm="HS256"), *profile, "--output", str(key_file)
+    )
+    assert result.returncode == 2
+    assert key_file.read_bytes() == key
+
+
+@pytest.mark.parametrize(
+    "script,fixture", [("authentication_check.py", jwt_config_fixture), ("password_policy_check.py", policy_fixture)]
+)
+def test_report_cannot_replace_its_configuration_input(tmp_path, script, fixture):
+    path = tmp_path / "input.json"
+    original = json.dumps(fixture())
+    path.write_text(original)
+    result = invoke(tmp_path, script, "--config", str(path), "--output", str(path))
+    assert result.returncode == 2
+    assert path.read_text() == original

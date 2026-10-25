@@ -8,7 +8,7 @@ choice. JSON/keys/candidates are local inputs, not executable configuration.
 ## Common behavior
 
 Reports are one JSON document on stdout, or an atomic private 0600 `--output`
-replacement. Symlink destinations fail. Preserve exit status; the report being
+replacement. Symlink destinations and aliases of selected input files fail. Preserve exit status; the report being
 written is not a passing verdict. Unknown fields/methods, duplicate JSON members,
 wrong types and non-finite numbers fail. File inputs are bounded to 1 MiB, JWTs
 and key files to 256 KiB. This is bounded local I/O, not an OS sandbox. Native

@@ -419,7 +419,7 @@ Examples:
         config = load_object(args.config)
         validator = AuthenticationValidator()
         report = validator.validate_config(config)
-        write_report(report, args.output)
+        write_report(report, args.output, protected_inputs=(args.config,))
 
         # The gate covers every reported finding/review flag, not only CRITICAL.
         return 0 if report["summary"]["passed"] else 1

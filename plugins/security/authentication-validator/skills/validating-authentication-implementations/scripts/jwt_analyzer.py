@@ -224,7 +224,7 @@ def main(argv=None):
         token = args.token if args.token is not None else read_bytes(args.file, MAX_TOKEN).decode("utf-8").strip()
         key = read_bytes(args.key, 256 * 1024) if args.key else None
         report = JWTAnalyzer().analyze_token(token, args.algorithm, key=key, issuer=args.issuer, audience=args.audience)
-        write_report(report, args.output)
+        write_report(report, args.output, protected_inputs=(args.file, args.key))
         return gate(report)
     except (InputError, UnicodeError):
         report = {

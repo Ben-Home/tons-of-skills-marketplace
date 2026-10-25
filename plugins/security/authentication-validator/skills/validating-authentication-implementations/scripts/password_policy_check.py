@@ -201,7 +201,7 @@ def main(argv=None):
             if password is None
             else validator.test_password(password, declaration)
         )
-        write_report(report, args.output)
+        write_report(report, args.output, protected_inputs=(args.config or args.policy, args.password_file))
         return gate(report)
     except (InputError, OSError, UnicodeError, TypeError, ValueError, RecursionError, OverflowError):
         report = {

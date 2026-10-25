@@ -56,7 +56,7 @@ python3 -m pip install -r "${CLAUDE_SKILL_DIR}/scripts/requirements.txt"
 ```
 
 JSON goes to stdout as one document, or to an explicit atomic 0600 output file.
-Symlink destinations are rejected. Preserve process status and report scope.
+Symlink destinations and aliases of selected input files are rejected. Preserve process status and report scope.
 There is no general secret-redaction service or OS sandbox; protect the private
 inputs and environment. Local inputs are bounded; error excerpts are omitted.
 
