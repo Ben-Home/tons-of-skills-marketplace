@@ -900,7 +900,8 @@
         "scripts/feed_parser.py",
         "scripts/formatters.py",
         "scripts/news_aggregator.py",
-        "scripts/scorer.py"
+        "scripts/scorer.py",
+        "tests/test_feed_health.py"
       ]
     },
     {

@@ -1,15 +1,22 @@
 # ARD: Aggregating Crypto News
 
+Implementation status (2026-10-25): the shipped runtime is the on-demand RSS CLI
+under `scripts/news_aggregator.py`, with the registry in `config/sources.yaml`.
+The original source-count and service/latency targets below are design targets,
+not measured coverage or deployed services. Current failure, disabled-source and
+UTC-window behavior is documented in [SKILL.md](SKILL.md). AI sentiment, social
+APIs and push delivery are not implemented by this CLI.
+
 > Part of [Tons of Skills](https://tonsofskills.com) by [Intent Solutions](https://intentsolutions.io) | [jeremylongshore.com](https://jeremylongshore.com)
 
 ## Document Control
 
-| Field | Value |
-|-------|-------|
-| **Skill Name** | aggregating-crypto-news |
-| **Architecture Pattern** | Data Aggregation Pipeline |
-| **Version** | 2.0.0 |
-| **Author** | Jeremy Longshore <jeremy@intentsolutions.io> |
+| Field                    | Value                                        |
+| ------------------------ | -------------------------------------------- |
+| **Skill Name**           | aggregating-crypto-news                      |
+| **Architecture Pattern** | Data Aggregation Pipeline                    |
+| **Version**              | 2.0.0                                        |
+| **Author**               | Jeremy Longshore <jeremy@intentsolutions.io> |
 
 ---
 
@@ -134,15 +141,15 @@ Source selection and score thresholds.
 allowed-tools: Read, Bash(crypto:news-*)
 ```
 
-| Tool | Scope | Purpose |
-|------|-------|---------|
-| Read | Unrestricted | Read config, sources list |
+| Tool | Scope           | Purpose                          |
+| ---- | --------------- | -------------------------------- |
+| Read | Unrestricted    | Read config, sources list        |
 | Bash | `crypto:news-*` | Execute news aggregation scripts |
 
 ### Why These Tools
 
 - **Read**: Load source configuration and settings
-- **Bash(crypto:news-*)**: Execute Python scripts for fetching and parsing
+- **Bash(crypto:news-\*)**: Execute Python scripts for fetching and parsing
 - **No Write**: Aggregation is read-only; exports use script file output
 
 ---
@@ -246,7 +253,7 @@ Input Request
     "after_filter": 25,
     "sources_used": 12,
     "period": "24h",
-    "filters": {"category": "market"}
+    "filters": { "category": "market" }
   }
 }
 ```
@@ -257,12 +264,12 @@ Input Request
 
 ### Error Categories
 
-| Category | Examples | Strategy |
-|----------|----------|----------|
-| Network | Timeout, DNS failure | Skip source, continue with others |
-| Parse | Malformed XML, missing fields | Skip entry, log warning |
-| Filter | Invalid coin symbol | Warn and proceed with partial filter |
-| Export | File permission denied | Error with clear message |
+| Category | Examples                      | Strategy                             |
+| -------- | ----------------------------- | ------------------------------------ |
+| Network  | Timeout, DNS failure          | Skip source, continue with others    |
+| Parse    | Malformed XML, missing fields | Skip entry, log warning              |
+| Filter   | Invalid coin symbol           | Warn and proceed with partial filter |
+| Export   | File permission denied        | Error with clear message             |
 
 ### Graceful Degradation
 
@@ -328,11 +335,11 @@ def get_news_for_coin(coin: str, period: str = "4h") -> list:
 
 ### Performance Targets
 
-| Metric | Target | Approach |
-|--------|--------|----------|
-| Fetch time (50 sources) | < 10s | Parallel fetching with ThreadPoolExecutor |
-| Parse time (500 articles) | < 2s | Efficient XML parsing with feedparser |
-| Memory usage | < 100MB | Stream processing, no full corpus in memory |
+| Metric                    | Target  | Approach                                    |
+| ------------------------- | ------- | ------------------------------------------- |
+| Fetch time (50 sources)   | < 10s   | Parallel fetching with ThreadPoolExecutor   |
+| Parse time (500 articles) | < 2s    | Efficient XML parsing with feedparser       |
+| Memory usage              | < 100MB | Stream processing, no full corpus in memory |
 
 ### Optimization Strategies
 
@@ -353,12 +360,12 @@ def get_news_for_coin(coin: str, period: str = "4h") -> list:
 
 ### Unit Tests
 
-| Component | Test Cases |
-|-----------|------------|
+| Component   | Test Cases                                           |
+| ----------- | ---------------------------------------------------- |
 | FeedFetcher | Timeout handling, cache hit/miss, parallel execution |
-| FeedParser | Valid RSS, malformed XML, missing fields |
-| Scorer | Keyword matching, source quality, recency boost |
-| Formatters | Table, JSON, CSV output validation |
+| FeedParser  | Valid RSS, malformed XML, missing fields             |
+| Scorer      | Keyword matching, source quality, recency boost      |
+| Formatters  | Table, JSON, CSV output validation                   |
 
 ### Integration Tests
 

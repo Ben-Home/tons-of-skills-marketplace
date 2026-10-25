@@ -3521,7 +3521,7 @@
           {
             "authority": [
               {
-                "line": 1164,
+                "line": 1165,
                 "path": ".github/workflows/validate-plugins.yml",
                 "text": "          # Normalize only grep's no-match status, never a find traversal error."
               },
@@ -3668,7 +3668,7 @@
             "observed_deadline": {
               "date": "2026-10-31",
               "expiry_adjudicated": false,
-              "source_line": 1262
+              "source_line": 1263
             },
             "owner": null,
             "promotion": null,

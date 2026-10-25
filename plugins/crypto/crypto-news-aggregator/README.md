@@ -1,14 +1,14 @@
 # Crypto News Aggregator Plugin
 
-Aggregate and analyze cryptocurrency news from multiple sources with sentiment analysis.
+Fetch cryptocurrency RSS feeds on demand with coin/category filters and per-source health reporting.
 
 ## Features
 
 - Multi-source aggregation
-- Sentiment analysis
-- Trending topics detection
-- Market impact assessment
-- Breaking news alerts
+- Keyword and recency scoring
+- UTC publication-date filtering
+- Table, JSON and CSV output
+- Explicit partial-failure and disabled-feed diagnostics
 
 ## Installation
 
@@ -18,9 +18,10 @@ Aggregate and analyze cryptocurrency news from multiple sources with sentiment a
 
 ## Commands
 
-| Command | Description | Shortcut |
-|---------|-------------|----------|
-| `/aggregate-news` | Aggregate crypto news | `an` |
+| Command           | Description           | Shortcut |
+| ----------------- | --------------------- | -------- |
+| `/aggregate-news` | Aggregate crypto news | `an`     |
 
 ---
-*Built by Intent Solutions IO*
+
+_Built by Intent Solutions IO_
