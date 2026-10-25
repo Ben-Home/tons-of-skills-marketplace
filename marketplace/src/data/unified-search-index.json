@@ -220,6 +220,7 @@
       "Bash(pip:*)",
       "Bash(pipdeptree:*)",
       "Bash(pkill:*)",
+      "Bash(pnpm exec j-rig:*)",
       "Bash(pnpm:*)",
       "Bash(profiling:*)",
       "Bash(prometheus:*)",
@@ -14674,7 +14675,7 @@
       "slug": "j-rig",
       "name": "j-rig",
       "displayName": "j rig",
-      "description": "Skill Refiner — the eval-guided SKILL.md improvement loop. Thin wrapper over the published @intentsolutions/refiner CLI (bootstrap/score/propose/apply/status) with a 3-layer cost-tiered hook architecture (sinker/line/hook) that gates skill quality at edit time, end of turn, and commit time.",
+      "description": "Use the J-Rig refiner CLI for evaluation metadata, authorized scoring, edit proposals and candidate inspection; bundled hooks are experimental.",
       "category": "productivity",
       "keywords": [
         "skill-refiner",
@@ -14693,10 +14694,10 @@
       "isNew": false,
       "badges": [],
       "skillCount": 1,
-      "verificationScore": 81,
-      "verificationGrade": "B",
-      "verificationBadge": "silver",
-      "searchText": "j rig skill refiner — the eval-guided skill.md improvement loop. thin wrapper over the published @intentsolutions/refiner cli (bootstrap/score/propose/apply/status) with a 3-layer cost-tiered hook architecture (sinker/line/hook) that gates skill quality at edit time, end of turn, and commit time. productivity skill-refiner eval-guided skill-md meta-tooling hooks"
+      "verificationScore": 99,
+      "verificationGrade": "A",
+      "verificationBadge": "gold",
+      "searchText": "j rig use the j-rig refiner cli for evaluation metadata, authorized scoring, edit proposals and candidate inspection; bundled hooks are experimental. productivity skill-refiner eval-guided skill-md meta-tooling hooks"
     },
     {
       "type": "plugin",
@@ -45938,7 +45939,7 @@
       "id": "j-rig",
       "slug": "j-rig",
       "name": "j-rig",
-      "description": "Skill Refiner, the eval-guided improvement loop for SKILL.md files. Runs the bootstrap, score, propose, apply, and status cycle as a thin wrapper over the published @intentsolutions/refiner CLI, proposing safe, minimal, bounded SKILL.md edits and accepting an edit only when a held-out eval score strictly improves with no regression on any other case. Ships a 3-layer cost-tiered hook architecture (sinker, line, hook) that gates skill quality at edit time, end of turn, and commit time. Use when improving an existing skill, refining a SKILL.md against measured behavior, bootstrapping an eval set for a skill, or gating skill edits before they ship. Trigger with \"/j-rig\", \"refine this skill\", \"bootstrap an eval set\", \"propose a skill edit\", \"promote the candidate\", or \"skill refiner status\".",
+      "description": "Inspect and use the J-Rig refiner CLI to bootstrap evaluation metadata, score a skill with an authorized provider, propose edits and inspect stored candidates. Use when improving an existing SKILL.md with evaluation evidence. Trigger with \"refine this skill\", \"bootstrap an eval set\" or \"skill refiner status\".",
       "category": "productivity",
       "allowedTools": [
         "Read",
@@ -45947,7 +45948,7 @@
         "Glob",
         "Bash(j-rig:*)",
         "Bash(git:*)",
-        "Bash(python:*)"
+        "Bash(pnpm exec j-rig:*)"
       ],
       "compatibleWith": [],
       "version": "0.1.0",
@@ -45955,7 +45956,7 @@
         "name": "j-rig",
         "category": "productivity"
       },
-      "searchText": "j-rig skill refiner, the eval-guided improvement loop for skill.md files. runs the bootstrap, score, propose, apply, and status cycle as a thin wrapper over the published @intentsolutions/refiner cli, proposing safe, minimal, bounded skill.md edits and accepting an edit only when a held-out eval score strictly improves with no regression on any other case. ships a 3-layer cost-tiered hook architecture (sinker, line, hook) that gates skill quality at edit time, end of turn, and commit time. use when improving an existing skill, refining a skill.md against measured behavior, bootstrapping an eval set for a skill, or gating skill edits before they ship. trigger with \"/j-rig\", \"refine this skill\", \"bootstrap an eval set\", \"propose a skill edit\", \"promote the candidate\", or \"skill refiner status\". productivity read write edit glob bash(j-rig:*) bash(git:*) bash(python:*) "
+      "searchText": "j-rig inspect and use the j-rig refiner cli to bootstrap evaluation metadata, score a skill with an authorized provider, propose edits and inspect stored candidates. use when improving an existing skill.md with evaluation evidence. trigger with \"refine this skill\", \"bootstrap an eval set\" or \"skill refiner status\". productivity read write edit glob bash(j-rig:*) bash(git:*) bash(pnpm exec j-rig:*) "
     },
     {
       "type": "skill",

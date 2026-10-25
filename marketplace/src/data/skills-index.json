@@ -16709,7 +16709,7 @@
     {
       "slug": "j-rig",
       "name": "j-rig",
-      "description": "Skill Refiner, the eval-guided improvement loop for SKILL.md files. Runs the bootstrap, score, propose, apply, and status cycle as a thin wrapper over the published @intentsolutions/refiner CLI, proposing safe, minimal, bounded SKILL.md edits and accepting an edit only when a held-out eval score strictly improves with no regression on any other case. Ships a 3-layer cost-tiered hook architecture (sinker, line, hook) that gates skill quality at edit time, end of turn, and commit time. Use when improving an existing skill, refining a SKILL.md against measured behavior, bootstrapping an eval set for a skill, or gating skill edits before they ship. Trigger with \"/j-rig\", \"refine this skill\", \"bootstrap an eval set\", \"propose a skill edit\", \"promote the candidate\", or \"skill refiner status\".",
+      "description": "Inspect and use the J-Rig refiner CLI to bootstrap evaluation metadata, score a skill with an authorized provider, propose edits and inspect stored candidates. Use when improving an existing SKILL.md with evaluation evidence. Trigger with \"refine this skill\", \"bootstrap an eval set\" or \"skill refiner status\".",
       "version": "0.1.0",
       "category": "productivity",
       "parentPlugin": "j-rig",
