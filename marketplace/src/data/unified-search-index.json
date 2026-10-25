@@ -2986,7 +2986,7 @@
       "slug": "authentication-validator",
       "name": "authentication-validator",
       "displayName": "authentication validator",
-      "description": "Validate authentication implementations",
+      "description": "Review authentication declarations and verify explicit local JWT profiles",
       "category": "security",
       "keywords": [
         "security",
@@ -2998,7 +2998,7 @@
         "email": "[email protected]"
       },
       "authorType": "official",
-      "version": "1.27.0",
+      "version": "1.28.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -3006,7 +3006,7 @@
       "verificationScore": 100,
       "verificationGrade": "A",
       "verificationBadge": "gold",
-      "searchText": "authentication validator validate authentication implementations security security compliance auditing"
+      "searchText": "authentication validator review authentication declarations and verify explicit local jwt profiles security security compliance auditing"
     },
     {
       "type": "plugin",
@@ -72939,12 +72939,10 @@
       "id": "validating-authentication-implementations",
       "slug": "validating-authentication-implementations",
       "name": "validating-authentication-implementations",
-      "description": "Validate authentication mechanisms for security weaknesses and compliance. Use when reviewing login systems or auth flows. Trigger with 'validate authentication', 'check auth security', or 'review login'.",
+      "description": "Review authentication declarations and verify explicit local JWT trust profiles. Use when reviewing login systems or auth flows. Trigger with 'validate authentication', 'check auth security', or 'review login'.",
       "category": "security",
       "allowedTools": [
         "Read",
-        "Write",
-        "Edit",
         "Grep",
         "Glob",
         "Bash(security:*)",
@@ -72952,12 +72950,12 @@
         "Bash(audit:*)"
       ],
       "compatibleWith": [],
-      "version": "1.27.0",
+      "version": "1.28.0",
       "parentPlugin": {
         "name": "authentication-validator",
         "category": "security"
       },
-      "searchText": "validating-authentication-implementations validate authentication mechanisms for security weaknesses and compliance. use when reviewing login systems or auth flows. trigger with 'validate authentication', 'check auth security', or 'review login'. security read write edit grep glob bash(security:*) bash(scan:*) bash(audit:*) "
+      "searchText": "validating-authentication-implementations review authentication declarations and verify explicit local jwt trust profiles. use when reviewing login systems or auth flows. trigger with 'validate authentication', 'check auth security', or 'review login'. security read grep glob bash(security:*) bash(scan:*) bash(audit:*) "
     },
     {
       "type": "skill",

@@ -31073,8 +31073,8 @@
     {
       "slug": "validating-authentication-implementations",
       "name": "validating-authentication-implementations",
-      "description": "Validate authentication mechanisms for security weaknesses and compliance. Use when reviewing login systems or auth flows. Trigger with 'validate authentication', 'check auth security', or 'review login'.",
-      "version": "1.27.0",
+      "description": "Review authentication declarations and verify explicit local JWT trust profiles. Use when reviewing login systems or auth flows. Trigger with 'validate authentication', 'check auth security', or 'review login'.",
+      "version": "1.28.0",
       "category": "security",
       "parentPlugin": "authentication-validator",
       "requires_env": [],

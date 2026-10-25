@@ -1121,8 +1121,8 @@
       "slug": "authentication-validator",
       "name": "authentication-validator",
       "displayName": "authentication validator",
-      "description": "Validate authentication implementations",
-      "version": "1.27.0",
+      "description": "Review authentication declarations and verify explicit local JWT profiles",
+      "version": "1.28.0",
       "category": "security",
       "keywords": [
         "security",
