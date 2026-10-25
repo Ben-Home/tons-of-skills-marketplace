@@ -13805,7 +13805,7 @@
     {
       "slug": "freelancer-review",
       "name": "freelancer-review",
-      "description": "Reviews contracts from a freelancer's perspective across 14 evaluation lenses including misclassification risk, IP ownership, payment terms, kill fees, and non-compete scope. Use when a freelancer or independent contractor needs to evaluate a client agreement. Trigger with \"/freelancer-review\" or \"review this contract as a freelancer\".",
+      "description": "Review a freelancer's supplied agreement across fourteen commercial lenses, with clause evidence, actual-work questions and scoped classification limits. Use when assessing a client or independent-contractor agreement. Trigger with \"freelancer-review\" or \"review this contract as a freelancer\".",
       "version": "1.1.0",
       "category": "business-tools",
       "parentPlugin": "general-legal-assistant",
@@ -20765,7 +20765,7 @@
     {
       "slug": "missing-protections",
       "name": "missing-protections",
-      "description": "Audits a contract against type-specific protection checklists to find gaps, then provides ready-to-insert clause language for each missing protection. Use when a user wants to know what protections are absent from their contract. Trigger with \"/missing-protections\" or \"what protections is this contract missing\".",
+      "description": "Review supplied contract terms for relevant protection gaps, with applicability, coverage limits, source evidence and scoped drafting options when requested. Use when checking what protections a contract may be missing. Trigger with \"missing-protections\" or \"what protections is this contract missing\".",
       "version": "1.1.0",
       "category": "business-tools",
       "parentPlugin": "general-legal-assistant",

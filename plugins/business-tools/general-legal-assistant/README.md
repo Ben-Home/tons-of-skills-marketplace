@@ -12,8 +12,8 @@ AI-powered contract review, risk analysis, document generation, and compliance a
 | `risk-analysis` | Evidence-linked review across ten issue categories, with explicit assumptions, unknowns and source-backed scenarios. |
 | `contract-compare` | Clause-level version comparison with exact evidence, coverage gaps and qualified possible effects for the identified parties. |
 | `plain-english` | Clause-linked explanations that preserve conditions, exceptions and ambiguity; readability metrics only when actually measured. |
-| `missing-protections` | Finds protections that should be in the contract but aren't. Ready-to-insert clause language. |
-| `freelancer-review` | Reviews contracts from the freelancer's perspective. IRS 20-Factor Test for misclassification. |
+| `missing-protections` | Relevant clause-topic gap review with applicability, evidence status and scoped drafting options when requested. |
+| `freelancer-review` | Fourteen commercial review lenses, clause evidence and actual-work questions, with scoped worker-classification limits. |
 | `negotiate` | Generates counter-proposals with replacement language and a negotiation email template. |
 
 ### Document Generation

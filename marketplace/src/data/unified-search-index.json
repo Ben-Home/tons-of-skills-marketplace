@@ -14942,9 +14942,9 @@
       "isNew": false,
       "badges": [],
       "skillCount": 12,
-      "verificationScore": 88,
-      "verificationGrade": "B",
-      "verificationBadge": "silver",
+      "verificationScore": 91,
+      "verificationGrade": "A",
+      "verificationBadge": "gold",
       "searchText": "general legal assistant ai-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents business-tools legal contracts nda compliance gdpr ccpa risk-analysis terms-of-service privacy-policy"
     },
     {
@@ -40601,12 +40601,13 @@
       "id": "freelancer-review",
       "slug": "freelancer-review",
       "name": "freelancer-review",
-      "description": "Reviews contracts from a freelancer's perspective across 14 evaluation lenses including misclassification risk, IP ownership, payment terms, kill fees, and non-compete scope. Use when a freelancer or independent contractor needs to evaluate a client agreement. Trigger with \"/freelancer-review\" or \"review this contract as a freelancer\".",
+      "description": "Review a freelancer's supplied agreement across fourteen commercial lenses, with clause evidence, actual-work questions and scoped classification limits. Use when assessing a client or independent-contractor agreement. Trigger with \"freelancer-review\" or \"review this contract as a freelancer\".",
       "category": "business-tools",
       "allowedTools": [
         "Read",
         "Glob",
-        "Grep"
+        "Grep",
+        "Write"
       ],
       "compatibleWith": [],
       "version": "1.1.0",
@@ -40614,7 +40615,7 @@
         "name": "general-legal-assistant",
         "category": "business-tools"
       },
-      "searchText": "freelancer-review reviews contracts from a freelancer's perspective across 14 evaluation lenses including misclassification risk, ip ownership, payment terms, kill fees, and non-compete scope. use when a freelancer or independent contractor needs to evaluate a client agreement. trigger with \"/freelancer-review\" or \"review this contract as a freelancer\". business-tools read glob grep "
+      "searchText": "freelancer-review review a freelancer's supplied agreement across fourteen commercial lenses, with clause evidence, actual-work questions and scoped classification limits. use when assessing a client or independent-contractor agreement. trigger with \"freelancer-review\" or \"review this contract as a freelancer\". business-tools read glob grep write "
     },
     {
       "type": "skill",
@@ -53463,12 +53464,13 @@
       "id": "missing-protections",
       "slug": "missing-protections",
       "name": "missing-protections",
-      "description": "Audits a contract against type-specific protection checklists to find gaps, then provides ready-to-insert clause language for each missing protection. Use when a user wants to know what protections are absent from their contract. Trigger with \"/missing-protections\" or \"what protections is this contract missing\".",
+      "description": "Review supplied contract terms for relevant protection gaps, with applicability, coverage limits, source evidence and scoped drafting options when requested. Use when checking what protections a contract may be missing. Trigger with \"missing-protections\" or \"what protections is this contract missing\".",
       "category": "business-tools",
       "allowedTools": [
         "Read",
         "Glob",
-        "Grep"
+        "Grep",
+        "Write"
       ],
       "compatibleWith": [],
       "version": "1.1.0",
@@ -53476,7 +53478,7 @@
         "name": "general-legal-assistant",
         "category": "business-tools"
       },
-      "searchText": "missing-protections audits a contract against type-specific protection checklists to find gaps, then provides ready-to-insert clause language for each missing protection. use when a user wants to know what protections are absent from their contract. trigger with \"/missing-protections\" or \"what protections is this contract missing\". business-tools read glob grep "
+      "searchText": "missing-protections review supplied contract terms for relevant protection gaps, with applicability, coverage limits, source evidence and scoped drafting options when requested. use when checking what protections a contract may be missing. trigger with \"missing-protections\" or \"what protections is this contract missing\". business-tools read glob grep write "
     },
     {
       "type": "skill",
