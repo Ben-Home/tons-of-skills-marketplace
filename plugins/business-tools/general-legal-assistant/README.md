@@ -21,8 +21,8 @@ AI-powered contract review, risk analysis, document generation, and compliance a
 | Skill | What It Does |
 |-------|-------------|
 | `nda-generator` | Generates custom NDAs — mutual, one-way, employee, or vendor. |
-| `terms-generator` | Generates Terms of Service by analyzing what a website actually does. |
-| `privacy-generator` | Generates a privacy policy by detecting data collection practices. GDPR/CCPA compliant. |
+| `terms-generator` | Service-specific terms drafts from confirmed features and business choices, with scoped applicability review. |
+| `privacy-generator` | Privacy-notice drafts from confirmed processing facts, with a separate evidence and unresolved-questions record. |
 | `agreement-generator` | Generates business agreements — freelancer contracts, partnerships, SOWs, MSAs, and more. |
 
 ### Compliance
