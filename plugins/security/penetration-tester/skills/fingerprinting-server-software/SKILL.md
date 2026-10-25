@@ -22,7 +22,7 @@ allowed-tools:
 disallowed-tools:
   - Bash(rm:*)
   - Edit(/etc/*)
-version: 3.31.0
+version: 3.32.0
 author: Jeremy Longshore <jeremy@intentsolutions.io>
 license: MIT
 compatibility: Designed for Claude Code
