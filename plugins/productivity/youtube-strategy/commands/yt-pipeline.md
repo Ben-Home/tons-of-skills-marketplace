@@ -97,9 +97,15 @@ Which ideas do you want to develop into briefs?
 
 ## Phase 3: Brief (per selected idea)
 
+Choose one video ID (`{slug}`) per selected idea and reuse it across brief,
+packaging, outline and checklist filenames. Read existing selected artifacts
+before revising them; preserve explicitly supplied legacy paths. Each artifact
+records its video ID, approval status and exact input/output paths. If a target
+belongs to another video, choose another ID rather than replacing it.
+
 For each idea the user selects:
 
-1. Read `skills/yt-brief/SKILL.md`
+1. Read `${CLAUDE_PLUGIN_ROOT}/skills/yt-brief/SKILL.md`
 2. Define: angle, key points, value proposition, CTA asset, audience segment, content tier
 3. Output: `video-brief-{slug}.md`
 4. Present to user for review
@@ -117,8 +123,8 @@ For each idea the user selects:
 
 For each approved brief:
 
-1. Read `skills/yt-packaging/SKILL.md`
-2. Generate: 5-10 title options, 3-5 thumbnail concepts
+1. Read `${CLAUDE_PLUGIN_ROOT}/skills/yt-packaging/SKILL.md`
+2. Read the approved `video-brief-{slug}.md`; generate title options and thumbnail concepts
 3. Output: `packaging-{slug}.md`
 
 "Here are the title and thumbnail options. Pick your favorites."
@@ -133,8 +139,8 @@ For each approved brief:
 
 For each packaged video:
 
-1. Read `skills/yt-outline/SKILL.md`
-2. Build: step-by-step outline with demo prep, screen-share sequences, visuals
+1. Read `${CLAUDE_PLUGIN_ROOT}/skills/yt-outline/SKILL.md`
+2. Read the approved `video-brief-{slug}.md` and `packaging-{slug}.md`; build the outline and demo prep checklist
 3. Output: `video-outline-{slug}.md` + `demo-prep-checklist-{slug}.md`
 
 "Here's the outline and demo prep checklist. Ready for the team to prep and film."
@@ -156,11 +162,11 @@ Pipeline Complete.
 
 ## Agent Identifiers
 
-| Agent | subagent_type |
-|---|---|
-| YouTube Scraper | `youtube-strategy:yt-scraper` |
+| Agent            | subagent_type                       |
+| ---------------- | ----------------------------------- |
+| YouTube Scraper  | `youtube-strategy:yt-scraper`       |
 | Channel Analyzer | `youtube-strategy:channel-analyzer` |
-| Idea Validator | `youtube-strategy:idea-validator` |
+| Idea Validator   | `youtube-strategy:idea-validator`   |
 
 ## Parallelism Rules
 

@@ -11575,9 +11575,9 @@
       "isNew": false,
       "badges": [],
       "skillCount": 5,
-      "verificationScore": 89,
-      "verificationGrade": "B",
-      "verificationBadge": "silver",
+      "verificationScore": 93,
+      "verificationGrade": "A",
+      "verificationBadge": "gold",
       "searchText": "youtube strategy complete youtube content production workflow: research competitors, generate video ideas, build briefs, craft titles and thumbnails, and create detailed video outlines with demo prep checklists. productivity youtube content-strategy video-production ideation research thumbnails titles outlining content-creation"
     },
     {
@@ -77245,7 +77245,7 @@
       "id": "yt-brief",
       "slug": "yt-brief",
       "name": "yt-brief",
-      "description": "Refine a YouTube video idea into a structured production brief with angle, key points, value proposition, CTA asset, and audience segment. Use this skill whenever the user says \"create a brief\", \"brief this idea\", \"develop this idea\", \"write a video brief\", \"production brief\", or has selected a video idea from ideation and wants to define the angle and structure before packaging and outlining. Use when working with yt brief. Trigger with 'yt', 'brief'.",
+      "description": "Create a YouTube production brief with viewer outcome, angle, demo scope and CTA. Use when developing a selected video idea before packaging. Trigger with \"write a video brief\" or \"brief this idea\".",
       "category": "productivity",
       "allowedTools": [
         "WebSearch",
@@ -77258,7 +77258,7 @@
         "name": "youtube-strategy",
         "category": "productivity"
       },
-      "searchText": "yt-brief refine a youtube video idea into a structured production brief with angle, key points, value proposition, cta asset, and audience segment. use this skill whenever the user says \"create a brief\", \"brief this idea\", \"develop this idea\", \"write a video brief\", \"production brief\", or has selected a video idea from ideation and wants to define the angle and structure before packaging and outlining. use when working with yt brief. trigger with 'yt', 'brief'. productivity websearch read write "
+      "searchText": "yt-brief create a youtube production brief with viewer outcome, angle, demo scope and cta. use when developing a selected video idea before packaging. trigger with \"write a video brief\" or \"brief this idea\". productivity websearch read write "
     },
     {
       "type": "skill",
@@ -77286,7 +77286,7 @@
       "id": "yt-outline",
       "slug": "yt-outline",
       "name": "yt-outline",
-      "description": "Build detailed step-by-step YouTube video outlines with demo prep, screen-share sequences, and visual planning. Use this skill whenever the user says \"create an outline\", \"outline this video\", \"video outline\", \"build the outline\", \"production outline\", or has an approved brief and packaging and needs the final pre-production document before demo prep and filming. Use when working with yt outline. Trigger with 'yt', 'outline'.",
+      "description": "Create a filmable YouTube outline and demo prep checklist from approved brief and packaging artifacts. Use when planning screen actions, section timing and rehearsals. Trigger with \"outline this video\" or \"demo prep checklist\".",
       "category": "productivity",
       "allowedTools": [
         "WebSearch",
@@ -77299,14 +77299,14 @@
         "name": "youtube-strategy",
         "category": "productivity"
       },
-      "searchText": "yt-outline build detailed step-by-step youtube video outlines with demo prep, screen-share sequences, and visual planning. use this skill whenever the user says \"create an outline\", \"outline this video\", \"video outline\", \"build the outline\", \"production outline\", or has an approved brief and packaging and needs the final pre-production document before demo prep and filming. use when working with yt outline. trigger with 'yt', 'outline'. productivity websearch read write "
+      "searchText": "yt-outline create a filmable youtube outline and demo prep checklist from approved brief and packaging artifacts. use when planning screen actions, section timing and rehearsals. trigger with \"outline this video\" or \"demo prep checklist\". productivity websearch read write "
     },
     {
       "type": "skill",
       "id": "yt-packaging",
       "slug": "yt-packaging",
       "name": "yt-packaging",
-      "description": "Create optimized YouTube titles and thumbnail concepts for maximum CTR. Use this skill whenever the user says \"title ideas\", \"thumbnail concepts\", \"package this video\", \"CTR optimization\", \"title options\", \"packaging\", or has an approved brief and needs to finalize the title and thumbnail direction before outlining. Packaging determines whether viewers click. Use when working with yt packaging. Trigger with 'yt', 'packaging'.",
+      "description": "Develop title and thumbnail concept pairs from an approved YouTube brief and record the user selection. Use when preparing packaging before outlining. Trigger with \"package this video\", \"title ideas\" or \"thumbnail concepts\".",
       "category": "productivity",
       "allowedTools": [
         "WebSearch",
@@ -77319,7 +77319,7 @@
         "name": "youtube-strategy",
         "category": "productivity"
       },
-      "searchText": "yt-packaging create optimized youtube titles and thumbnail concepts for maximum ctr. use this skill whenever the user says \"title ideas\", \"thumbnail concepts\", \"package this video\", \"ctr optimization\", \"title options\", \"packaging\", or has an approved brief and needs to finalize the title and thumbnail direction before outlining. packaging determines whether viewers click. use when working with yt packaging. trigger with 'yt', 'packaging'. productivity websearch read write "
+      "searchText": "yt-packaging develop title and thumbnail concept pairs from an approved youtube brief and record the user selection. use when preparing packaging before outlining. trigger with \"package this video\", \"title ideas\" or \"thumbnail concepts\". productivity websearch read write "
     },
     {
       "type": "skill",

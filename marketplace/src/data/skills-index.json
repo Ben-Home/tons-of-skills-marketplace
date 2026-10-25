@@ -33353,7 +33353,7 @@
     {
       "slug": "yt-brief",
       "name": "yt-brief",
-      "description": "Refine a YouTube video idea into a structured production brief with angle, key points, value proposition, CTA asset, and audience segment. Use this skill whenever the user says \"create a brief\", \"brief this idea\", \"develop this idea\", \"write a video brief\", \"production brief\", or has selected a video idea from ideation and wants to define the angle and structure before packaging and outlining. Use when working with yt brief. Trigger with 'yt', 'brief'.",
+      "description": "Create a YouTube production brief with viewer outcome, angle, demo scope and CTA. Use when developing a selected video idea before packaging. Trigger with \"write a video brief\" or \"brief this idea\".",
       "version": "1.10.0",
       "category": "productivity",
       "parentPlugin": "youtube-strategy",
@@ -33377,7 +33377,7 @@
     {
       "slug": "yt-outline",
       "name": "yt-outline",
-      "description": "Build detailed step-by-step YouTube video outlines with demo prep, screen-share sequences, and visual planning. Use this skill whenever the user says \"create an outline\", \"outline this video\", \"video outline\", \"build the outline\", \"production outline\", or has an approved brief and packaging and needs the final pre-production document before demo prep and filming. Use when working with yt outline. Trigger with 'yt', 'outline'.",
+      "description": "Create a filmable YouTube outline and demo prep checklist from approved brief and packaging artifacts. Use when planning screen actions, section timing and rehearsals. Trigger with \"outline this video\" or \"demo prep checklist\".",
       "version": "1.10.0",
       "category": "productivity",
       "parentPlugin": "youtube-strategy",
@@ -33389,7 +33389,7 @@
     {
       "slug": "yt-packaging",
       "name": "yt-packaging",
-      "description": "Create optimized YouTube titles and thumbnail concepts for maximum CTR. Use this skill whenever the user says \"title ideas\", \"thumbnail concepts\", \"package this video\", \"CTR optimization\", \"title options\", \"packaging\", or has an approved brief and needs to finalize the title and thumbnail direction before outlining. Packaging determines whether viewers click. Use when working with yt packaging. Trigger with 'yt', 'packaging'.",
+      "description": "Develop title and thumbnail concept pairs from an approved YouTube brief and record the user selection. Use when preparing packaging before outlining. Trigger with \"package this video\", \"title ideas\" or \"thumbnail concepts\".",
       "version": "1.10.0",
       "category": "productivity",
       "parentPlugin": "youtube-strategy",
