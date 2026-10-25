@@ -27,7 +27,7 @@ Requested inputs: $ARGUMENTS
    python "${CLAUDE_PLUGIN_ROOT}/skills/aggregating-crypto-news/scripts/news_aggregator.py" --coin BTC --period 24h
    ```
 
-   Omit `--coin` for general news. Supported windows are `1h`, `4h`, `24h` and
+   Omit `--coin` for general news; use `--coins BTC,ETH` for multiple symbols. Supported windows are `1h`, `4h`, `24h` and
    `7d`. Use `--category defi` for a category filter or `--format json` for
    articles plus structured `meta.feed_health`. Dependencies are listed in the
    plugin's `requirements.txt`.

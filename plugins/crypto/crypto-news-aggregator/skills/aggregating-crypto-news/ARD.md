@@ -11,11 +11,13 @@ APIs and push delivery are not implemented by this CLI.
 
 ## Document Control
 
+The document version is independent of plugin and skill release versions.
+
 | Field                    | Value                                        |
 | ------------------------ | -------------------------------------------- |
 | **Skill Name**           | aggregating-crypto-news                      |
 | **Architecture Pattern** | Data Aggregation Pipeline                    |
-| **Version**              | 2.0.0                                        |
+| **Document Version**     | 2.0.0                                        |
 | **Author**               | Jeremy Longshore <jeremy@intentsolutions.io> |
 
 ---
@@ -138,18 +140,18 @@ Source selection and score thresholds.
 ### Allowed Tools (Scoped)
 
 ```yaml
-allowed-tools: Read, Bash(crypto:news-*)
+allowed-tools: Read, Bash(python:*)
 ```
 
-| Tool | Scope           | Purpose                          |
-| ---- | --------------- | -------------------------------- |
-| Read | Unrestricted    | Read config, sources list        |
-| Bash | `crypto:news-*` | Execute news aggregation scripts |
+| Tool | Scope        | Purpose                        |
+| ---- | ------------ | ------------------------------ |
+| Read | Unrestricted | Read config, sources list      |
+| Bash | `python:*`   | Execute bundled Python RSS CLI |
 
 ### Why These Tools
 
 - **Read**: Load source configuration and settings
-- **Bash(crypto:news-\*)**: Execute Python scripts for fetching and parsing
+- **Bash(python:\*)**: Execute Python scripts for fetching and parsing
 - **No Write**: Aggregation is read-only; exports use script file output
 
 ---

@@ -79,7 +79,7 @@ class NewsFormatter:
         sources = meta.get("sources_checked", 0)
         total = meta.get("after_filter", 0)
 
-        lines.append(f"  Summary: {shown} articles shown | Scanned: {sources} sources | Matched: {total}")
+        lines.append(f"  Summary: {shown} articles shown | Attempted: {sources} sources | Matched: {total}")
 
         lines.append(
             f"  Feed health: {meta.get('sources_succeeded', 0)} fetched | "

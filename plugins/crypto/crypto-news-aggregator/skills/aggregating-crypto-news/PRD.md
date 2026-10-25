@@ -9,15 +9,17 @@ APIs and push delivery are not implemented by this CLI.
 
 ## Document Control
 
-| Field            | Value                                              |
-| ---------------- | -------------------------------------------------- |
-| **Skill Name**   | aggregating-crypto-news                            |
-| **Type**         | Data Aggregation & Information                     |
-| **Domain**       | Cryptocurrency News & Media                        |
-| **Target Users** | Traders, Analysts, Researchers, Portfolio Managers |
-| **Priority**     | P1 - Foundation Skill                              |
-| **Version**      | 2.0.0                                              |
-| **Author**       | Jeremy Longshore <jeremy@intentsolutions.io>       |
+The document version is independent of plugin and skill release versions.
+
+| Field                | Value                                              |
+| -------------------- | -------------------------------------------------- |
+| **Skill Name**       | aggregating-crypto-news                            |
+| **Type**             | Data Aggregation & Information                     |
+| **Domain**           | Cryptocurrency News & Media                        |
+| **Target Users**     | Traders, Analysts, Researchers, Portfolio Managers |
+| **Priority**         | P1 - Foundation Skill                              |
+| **Document Version** | 2.0.0                                              |
+| **Author**           | Jeremy Longshore <jeremy@intentsolutions.io>       |
 
 ---
 
