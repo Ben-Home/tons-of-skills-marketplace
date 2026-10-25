@@ -3823,17 +3823,17 @@
       "dimension": "Inventory header versus rows",
       "reproduce": "pnpm run measure:e1 --row=52 --stdout",
       "source": [
-        "freshie/reports/run-delta-147.json",
+        "freshie/reports/run-delta-148.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
       ],
       "status": "target_met",
       "values": {
-        "dolt_commit": "fnbkai03j9se9ehogapfochmhhprfcat",
-        "header_total_skills": 2799,
-        "run_id": 147,
+        "dolt_commit": "ibt1i2r1b19qk9ishhm750joui06gh7k",
+        "header_total_skills": 2775,
+        "run_id": 148,
         "skill_row_delta": 0,
-        "skill_rows": 2799,
+        "skill_rows": 2775,
         "target_skill_row_delta": 0
       }
     },
@@ -3844,32 +3844,32 @@
       "source": [
         "freshie/grade-histogram.json",
         "freshie/grades.csv",
-        "freshie/reports/run-delta-147.json"
+        "freshie/reports/run-delta-148.json"
       ],
       "status": "target_met",
       "values": {
-        "compliance_rows": 3376,
-        "export_dolt_commit": "fnbkai03j9se9ehogapfochmhhprfcat",
-        "export_run_id": 147,
-        "grades_csv_rows": 3376,
-        "grades_csv_sha256": "07b1dd1fb33e60a51f0fd631e7b760dc6ca1c5720905fd94076e801fe993088a",
+        "compliance_rows": 3352,
+        "export_dolt_commit": "ibt1i2r1b19qk9ishhm750joui06gh7k",
+        "export_run_id": 148,
+        "grades_csv_rows": 3352,
+        "grades_csv_sha256": "8b49cecb17d2a2a926dd37d9c79a0800f820e62e1d2643989ee8f479b2c9eda6",
         "histogram_grades": {
-          "A": 2855,
-          "B": 240,
+          "A": 2853,
+          "B": 218,
           "C": 123,
           "D": 154,
           "F": 4
         },
-        "histogram_total": 3376,
+        "histogram_total": 3352,
         "immutable_grade_counts": {
-          "A": 2855,
-          "B": 240,
+          "A": 2853,
+          "B": 218,
           "C": 123,
           "D": 154,
           "F": 4
         },
-        "inventory_dolt_commit": "fnbkai03j9se9ehogapfochmhhprfcat",
-        "inventory_run_id": 147,
+        "inventory_dolt_commit": "ibt1i2r1b19qk9ishhm750joui06gh7k",
+        "inventory_run_id": 148,
         "target_lag_runs": 0
       }
     },
@@ -3879,7 +3879,7 @@
       "reproduce": "pnpm run measure:e1 --row=54 --stdout",
       "source": [
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-147.json",
+        "freshie/reports/run-delta-148.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py",
@@ -3893,7 +3893,7 @@
           "E2": 0,
           "E3": 0
         },
-        "current_run_id": 147,
+        "current_run_id": 148,
         "invalid_identities": 0,
         "legacy_e0_records": 3,
         "retained_e2_e3": 0,
@@ -3917,7 +3917,7 @@
       "source": [
         "000-docs/807-DR-STND-evaluation-evidence.md",
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-147.json",
+        "freshie/reports/run-delta-148.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
