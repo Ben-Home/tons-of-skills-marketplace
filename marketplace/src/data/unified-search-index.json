@@ -7310,7 +7310,7 @@
         "email": "[email protected]"
       },
       "authorType": "official",
-      "version": "3.31.0",
+      "version": "3.32.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -17722,7 +17722,7 @@
         "Bash(openssl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -21208,7 +21208,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -21229,7 +21229,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -21251,7 +21251,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -23954,7 +23954,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -23999,7 +23999,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -27962,7 +27962,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -28076,7 +28076,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31278,7 +31278,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31393,7 +31393,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31459,7 +31459,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31479,7 +31479,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31500,7 +31500,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31520,7 +31520,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31566,7 +31566,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31657,7 +31657,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31701,7 +31701,7 @@
         "Bash(openssl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31722,7 +31722,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -36013,7 +36013,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -40451,7 +40451,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -51824,7 +51824,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -58889,7 +58889,7 @@
         "Bash(tar:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -61050,20 +61050,19 @@
       "id": "probing-dangerous-http-methods",
       "slug": "probing-dangerous-http-methods",
       "name": "probing-dangerous-http-methods",
-      "description": "Probe a target for HTTP methods that should not be enabled in production — TRACE (XST attack), unrestricted PUT/DELETE, DEBUG/CONNECT, WebDAV (PROPFIND/MKCOL/COPY/MOVE), and Allow header enumeration. Use when: penetration test rules of engagement include HTTP method testing, OR a load balancer change went live and you suspect default methods were exposed. Threshold: TRACE returns 200 on any path (XST), PUT/DELETE returns anything other than 405/403/404 on a non-API endpoint, OPTIONS Allow header lists DEBUG/CONNECT/PROPFIND, or WebDAV methods succeed. Trigger with: \"audit http methods\", \"trace check\", \"options enumeration\", \"webdav probe\".",
+      "description": "Discover advertised HTTP methods with bounded OPTIONS requests, then verify separately selected methods only under explicit scoped ROE permission. Use when auditing post-deploy method policy or approved WebDAV/proxy experiments. Requires disposable fixtures, conditional cleanup and private evidence for writes; reports missing or ambiguous evidence as inconclusive. Trigger with \"audit http methods\", \"trace check\", or \"webdav probe\".",
       "category": "security",
       "allowedTools": [
         "Read",
-        "Bash(python3:*)",
-        "Bash(curl:*)"
+        "Bash(python3:*)"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
       },
-      "searchText": "probing-dangerous-http-methods probe a target for http methods that should not be enabled in production — trace (xst attack), unrestricted put/delete, debug/connect, webdav (propfind/mkcol/copy/move), and allow header enumeration. use when: penetration test rules of engagement include http method testing, or a load balancer change went live and you suspect default methods were exposed. threshold: trace returns 200 on any path (xst), put/delete returns anything other than 405/403/404 on a non-api endpoint, options allow header lists debug/connect/propfind, or webdav methods succeed. trigger with: \"audit http methods\", \"trace check\", \"options enumeration\", \"webdav probe\". security read bash(python3:*) bash(curl:*) "
+      "searchText": "probing-dangerous-http-methods discover advertised http methods with bounded options requests, then verify separately selected methods only under explicit scoped roe permission. use when auditing post-deploy method policy or approved webdav/proxy experiments. requires disposable fixtures, conditional cleanup and private evidence for writes; reports missing or ambiguous evidence as inconclusive. trigger with \"audit http methods\", \"trace check\", or \"webdav probe\". security read bash(python3:*) "
     },
     {
       "type": "skill",
@@ -62935,7 +62934,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -66043,7 +66042,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -71912,7 +71911,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.31.0",
+      "version": "3.32.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
