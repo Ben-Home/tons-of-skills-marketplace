@@ -994,11 +994,11 @@ def test_ledger_pins_verified_directory_across_parent_path_replacement(tmp_path,
     original_open = method_probe.os.open
     replaced = []
 
-    def replace_parent_before_leaf(path, flags, mode=0o777, **kwargs):
+    def replace_parent_before_leaf(path, flags, mode=0o600, **kwargs):
         if Path(path).name == "operations.jsonl":
             assert isinstance(kwargs.get("dir_fd"), int)
             private.rename(held)
-            private.mkdir(mode=0o777)
+            private.mkdir(mode=0o700)
             replaced.append(True)
         return original_open(path, flags, mode, **kwargs)
 
