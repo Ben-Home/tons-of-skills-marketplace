@@ -2790,7 +2790,7 @@ plugins/security/penetration-tester/skills/detecting-weak-cryptography,A,94
 plugins/security/penetration-tester/skills/fingerprinting-server-software,A,90
 plugins/security/penetration-tester/skills/generating-executive-summary,A,91
 plugins/security/penetration-tester/skills/mapping-findings-to-owasp-top10,A,95
-plugins/security/penetration-tester/skills/performing-penetration-testing,A,92
+plugins/security/penetration-tester/skills/performing-penetration-testing,A,91
 plugins/security/penetration-tester/skills/probing-dangerous-http-methods,A,94
 plugins/security/penetration-tester/skills/recording-pentest-engagement,A,91
 plugins/security/penetration-tester/skills/scanning-for-hardcoded-secrets,A,94

@@ -7310,7 +7310,7 @@
         "email": "[email protected]"
       },
       "authorType": "official",
-      "version": "3.32.0",
+      "version": "3.33.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -17722,7 +17722,7 @@
         "Bash(openssl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -21208,7 +21208,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -21229,7 +21229,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -21251,7 +21251,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -23954,7 +23954,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -23999,7 +23999,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -27962,7 +27962,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -28076,7 +28076,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31278,7 +31278,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31393,7 +31393,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31459,7 +31459,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31479,7 +31479,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31500,7 +31500,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31520,7 +31520,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31566,7 +31566,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31657,7 +31657,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31701,7 +31701,7 @@
         "Bash(openssl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -31722,7 +31722,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -36013,7 +36013,7 @@
         "Bash(curl:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -40451,7 +40451,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -51824,7 +51824,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -58871,30 +58871,22 @@
       "id": "performing-penetration-testing",
       "slug": "performing-penetration-testing",
       "name": "performing-penetration-testing",
-      "description": "Orchestrate a penetration test by routing user intent to one or more of the 25 narrow skills in this pack. Confirms authorization + scope FIRST (cluster 5), runs the relevant scan skills (clusters 1-4), then composes findings into the customer deliverables (cluster 6) plus an integrity-attestable engagement archive (cluster 5). Backward-compatible with v2 invocations — \"pentest\", \"security scan\", \"audit dependencies\" still work but now route to the narrow skills instead of the v2 monolithic scripts. Use when: starting a security engagement, running an ad-hoc scan, planning a multi-day pentest, or operating the full authorization-to-deliverable workflow end-to-end. Trigger with: \"pentest\", \"security scan\", \"vulnerability check\", \"audit dependencies\", \"check headers\", \"find secrets\", \"OWASP scan\", \"security audit\".",
+      "description": "Route approved security work to the pack's 25 narrow operators, with authorization/scope gates, retained evidence and compatible report inputs. Use when starting a pentest, auditing dependencies or source code, checking an approved URL, or preparing engagement deliverables. Familiar requests route to the appropriate operator; retained legacy CLIs keep separate completion and JSON contracts. Trigger with \"pentest\", \"security scan\", \"audit dependencies\", \"check headers\", \"find secrets\", or \"OWASP coverage\".",
       "category": "security",
       "allowedTools": [
         "Read",
         "Write",
-        "Edit",
         "Glob",
         "Grep",
-        "Bash(python3:*)",
-        "Bash(pip:*)",
-        "Bash(npm:*)",
-        "Bash(bandit:*)",
-        "Bash(pip-audit:*)",
-        "Bash(pipdeptree:*)",
-        "Bash(gpg:*)",
-        "Bash(tar:*)"
+        "Bash(python3:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
       },
-      "searchText": "performing-penetration-testing orchestrate a penetration test by routing user intent to one or more of the 25 narrow skills in this pack. confirms authorization + scope first (cluster 5), runs the relevant scan skills (clusters 1-4), then composes findings into the customer deliverables (cluster 6) plus an integrity-attestable engagement archive (cluster 5). backward-compatible with v2 invocations — \"pentest\", \"security scan\", \"audit dependencies\" still work but now route to the narrow skills instead of the v2 monolithic scripts. use when: starting a security engagement, running an ad-hoc scan, planning a multi-day pentest, or operating the full authorization-to-deliverable workflow end-to-end. trigger with: \"pentest\", \"security scan\", \"vulnerability check\", \"audit dependencies\", \"check headers\", \"find secrets\", \"owasp scan\", \"security audit\". security read write edit glob grep bash(python3:*) bash(pip:*) bash(npm:*) bash(bandit:*) bash(pip-audit:*) bash(pipdeptree:*) bash(gpg:*) bash(tar:*) "
+      "searchText": "performing-penetration-testing route approved security work to the pack's 25 narrow operators, with authorization/scope gates, retained evidence and compatible report inputs. use when starting a pentest, auditing dependencies or source code, checking an approved url, or preparing engagement deliverables. familiar requests route to the appropriate operator; retained legacy clis keep separate completion and json contracts. trigger with \"pentest\", \"security scan\", \"audit dependencies\", \"check headers\", \"find secrets\", or \"owasp coverage\". security read write glob grep bash(python3:*) "
     },
     {
       "type": "skill",
@@ -61057,7 +61049,7 @@
         "Bash(python3:*)"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -62934,7 +62926,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -66042,7 +66034,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
@@ -71911,7 +71903,7 @@
         "Glob"
       ],
       "compatibleWith": [],
-      "version": "3.32.0",
+      "version": "3.33.0",
       "parentPlugin": {
         "name": "penetration-tester",
         "category": "security"
