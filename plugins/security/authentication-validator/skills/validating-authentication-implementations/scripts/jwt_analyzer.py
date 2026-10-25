@@ -176,7 +176,7 @@ class JWTAnalyzer:
             report["signature"]["verified"] = True
             # Earlier timestamp findings remain a failed gate even at a boundary.
             if report["findings"]:
-                report.update(valid=False, status="invalid")
+                report.update(valid=False, status="invalid", claims_verified=False)
         except InputError as error:
             report["errors"].append(str(error))
             report["status"] = "incomplete"

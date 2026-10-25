@@ -649,3 +649,25 @@ def test_report_cannot_replace_its_configuration_input(tmp_path, script, fixture
     result = invoke(tmp_path, script, "--config", str(path), "--output", str(path))
     assert result.returncode == 2
     assert path.read_text() == original
+
+
+def test_claim_rejection_cannot_keep_a_verified_claims_flag(tmp_path, trust_profile, monkeypatch):
+    """A clock/profile disagreement must not erase a local claim rejection."""
+    import importlib.util
+
+    jwt, key, _, _ = trust_profile
+    spec = importlib.util.spec_from_file_location("auth_jwt_clock_fixture", SCRIPTS / "jwt_analyzer.py")
+    module = importlib.util.module_from_spec(spec)
+    monkeypatch.syspath_prepend(str(SCRIPTS))
+    spec.loader.exec_module(module)
+    claims = {"iss": "https://issuer.invalid", "aud": "fictional-app", "exp": 4102444800, "iat": 1}
+    token = jwt.encode(claims, key, algorithm="HS256")
+    # Real backend cryptography/claims remain active; only the inspector clock
+    # disagrees, exercising a failed local predicate after successful decoding.
+    monkeypatch.setattr(module.time, "time", lambda: 0)
+    report = module.JWTAnalyzer().analyze_token(
+        token, "HS256", key=key, issuer="https://issuer.invalid", audience="fictional-app"
+    )
+    assert report["status"] == "invalid" and report["valid"] is False
+    assert report["signature"]["verified"] is True
+    assert report["claims_verified"] is False
