@@ -29,6 +29,8 @@ Fetch configured RSS feeds on demand, filter dated articles by coin/category and
 
 ## Prerequisites
 
+The user prepares the Python environment before invoking this skill.
+
 1. **Python 3.8+** installed
 2. **Dependencies**: `pip install feedparser requests pyyaml`
 3. Internet connectivity for RSS feed access
@@ -99,7 +101,7 @@ source only after checking its current feed and any publisher usage terms.
 | No results      | Filters too strict   | Inspect feed health before suggesting relaxed filters   |
 | Invalid coin    | Unknown symbol       | List similar valid symbols                              |
 
-See [`references/errors.md`](references/errors.md) for comprehensive error handling.
+Use Read to inspect [`references/errors.md`](references/errors.md) for comprehensive error handling.
 
 ## Examples
 
