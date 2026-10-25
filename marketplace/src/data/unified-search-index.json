@@ -14942,7 +14942,7 @@
       "isNew": false,
       "badges": [],
       "skillCount": 12,
-      "verificationScore": 86,
+      "verificationScore": 88,
       "verificationGrade": "B",
       "verificationBadge": "silver",
       "searchText": "general legal assistant ai-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents business-tools legal contracts nda compliance gdpr ccpa risk-analysis terms-of-service privacy-policy"
@@ -60116,12 +60116,13 @@
       "id": "plain-english",
       "slug": "plain-english",
       "name": "plain-english",
-      "description": "Translates every clause of a contract into plain language at an 8th-grade reading level and flags deliberately confusing language patterns. Use when a user says \"explain this contract\", \"what does this mean\", or needs a non-lawyer to understand an agreement. Trigger with \"/plain-english\" or \"translate this contract to plain English\".",
+      "description": "Explain supplied contract clauses in clear language while preserving conditions, exceptions and source locators. Use when a non-lawyer wants to understand an agreement. Trigger with \"explain this contract\", \"plain-english\" or \"translate this contract to plain English\".",
       "category": "business-tools",
       "allowedTools": [
         "Read",
         "Glob",
-        "Grep"
+        "Grep",
+        "Write"
       ],
       "compatibleWith": [],
       "version": "1.1.0",
@@ -60129,7 +60130,7 @@
         "name": "general-legal-assistant",
         "category": "business-tools"
       },
-      "searchText": "plain-english translates every clause of a contract into plain language at an 8th-grade reading level and flags deliberately confusing language patterns. use when a user says \"explain this contract\", \"what does this mean\", or needs a non-lawyer to understand an agreement. trigger with \"/plain-english\" or \"translate this contract to plain english\". business-tools read glob grep "
+      "searchText": "plain-english explain supplied contract clauses in clear language while preserving conditions, exceptions and source locators. use when a non-lawyer wants to understand an agreement. trigger with \"explain this contract\", \"plain-english\" or \"translate this contract to plain english\". business-tools read glob grep write "
     },
     {
       "type": "skill",
@@ -64735,12 +64736,13 @@
       "id": "risk-analysis",
       "slug": "risk-analysis",
       "name": "risk-analysis",
-      "description": "Performs deep clause-by-clause risk scoring across 10 categories with poison pill detection and financial exposure estimation. Use when a user needs to understand the specific risks in a contract before signing. Trigger with \"/risk-analysis\" or \"what are the risks in this contract\".",
+      "description": "Analyze supplied contract clauses and prepare an evidence-linked issue register with triggers, possible impacts and questions for review. Use when assessing contract risks from an identified party's perspective. Trigger with \"risk-analysis\" or \"what are the risks in this contract\".",
       "category": "business-tools",
       "allowedTools": [
         "Read",
         "Glob",
-        "Grep"
+        "Grep",
+        "Write"
       ],
       "compatibleWith": [],
       "version": "1.1.0",
@@ -64748,7 +64750,7 @@
         "name": "general-legal-assistant",
         "category": "business-tools"
       },
-      "searchText": "risk-analysis performs deep clause-by-clause risk scoring across 10 categories with poison pill detection and financial exposure estimation. use when a user needs to understand the specific risks in a contract before signing. trigger with \"/risk-analysis\" or \"what are the risks in this contract\". business-tools read glob grep "
+      "searchText": "risk-analysis analyze supplied contract clauses and prepare an evidence-linked issue register with triggers, possible impacts and questions for review. use when assessing contract risks from an identified party's perspective. trigger with \"risk-analysis\" or \"what are the risks in this contract\". business-tools read glob grep write "
     },
     {
       "type": "skill",
