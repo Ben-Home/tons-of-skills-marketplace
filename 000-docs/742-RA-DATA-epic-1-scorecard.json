@@ -22,8 +22,8 @@
       "error_files": 278,
       "error_total": 2798,
       "grade_distribution": {
-        "A": 2854,
-        "B": 241,
+        "A": 2855,
+        "B": 240,
         "C": 123,
         "D": 154,
         "F": 4
@@ -112,8 +112,8 @@
           "error_files": 278,
           "error_total": 2798,
           "grade_distribution": {
-            "A": 2854,
-            "B": 241,
+            "A": 2855,
+            "B": 240,
             "C": 123,
             "D": 154,
             "F": 4
@@ -131,14 +131,14 @@
       "values": {
         "average_score": 92,
         "grade_distribution": {
-          "A": 2854,
-          "B": 241,
+          "A": 2855,
+          "B": 240,
           "C": 123,
           "D": 154,
           "F": 4
         },
         "grade_percentages": {
-          "A": 84.5,
+          "A": 84.6,
           "B": 7.1,
           "C": 3.6,
           "D": 4.6,

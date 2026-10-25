@@ -7373,7 +7373,7 @@
     {
       "slug": "confirming-pentest-authorization",
       "name": "confirming-pentest-authorization",
-      "description": "Verify that a penetration test has explicit, written, signed authorization before any scanning begins. Reads a Rules-of- Engagement (ROE) attestation file, validates required fields (authorizer, in-scope targets, time window, emergency contact, signature), checks the signer against an allowlist, and emits a CRITICAL finding if anything is missing. Designed as the first skill the orchestrator routes to. Use when: starting a new engagement, after a scope change, or before any cluster 1-4 scan skill runs. Threshold: any missing or unsigned ROE field; any time-window expiry; any in-scope target outside the authorized list. Trigger with: \"confirm authorization\", \"verify ROE\", \"check pentest authz\", \"pre-flight authorization\".",
+      "description": "Check ROE metadata types, time windows, an optional signer allowlist, and literal target inclusions and exclusions before a penetration test. This checks structure, not signature authenticity or legal permission. Use when starting an engagement, reviewing a scope change, or checking a target before scanning. Trigger with \"confirm authorization\", \"verify ROE\", \"check pentest authz\", or \"pre-flight authorization\".",
       "version": "3.30.0",
       "category": "security",
       "parentPlugin": "penetration-tester",
@@ -9053,7 +9053,7 @@
     {
       "slug": "defining-pentest-scope",
       "name": "defining-pentest-scope",
-      "description": "Parse the ROE scope definition, enumerate every in-scope target (hostnames, IPs, CIDRs, URLs, cloud accounts, SaaS tenants), validate syntax, detect overlap with out-of-scope or known third-party SaaS ranges, and emit a normalized target list plus IP allowlist for scanning tools. Runs after confirming-pentest- authorization and before any cluster 1-4 scan. Use when: starting an engagement, expanding scope mid-engagement, validating that a target list matches the ROE, or generating an allowlist for an external scanner. Threshold: malformed syntax, in-scope overlap with out-of-scope, reserved or third-party SaaS ranges without acknowledgement. Trigger with: \"define scope\", \"enumerate targets\", \"validate target list\", \"generate IP allowlist\".",
+      "description": "Parse the ROE scope definition, enumerate every in-scope target (hostnames, IPs, CIDRs, URLs, cloud accounts, SaaS tenants), validate syntax, detect overlap with out-of-scope or known third-party SaaS ranges, and emit a normalized target list plus IP allowlist for scanning tools. Runs after confirming-pentest- authorization and before any cluster 1-4 scan. Use when: starting an engagement, expanding scope mid-engagement, validating that a target list matches the ROE, or generating an allowlist for an external scanner. Threshold: malformed syntax, in-scope overlap with out-of-scope, unsupported exclusions, all-address ranges, or recorded third-party IP matches. Trigger with: \"define scope\", \"enumerate targets\", \"validate target list\", \"generate IP allowlist\".",
       "version": "3.30.0",
       "category": "security",
       "parentPlugin": "penetration-tester",
@@ -26117,7 +26117,7 @@
     {
       "slug": "recording-pentest-engagement",
       "name": "recording-pentest-engagement",
-      "description": "Package an engagement's findings, scan outputs, evidence, and signed ROE into a timestamped archive with a SHA-256 manifest covering every file. Establishes chain of custody so legal counsel, internal audit, or an outside SOC can verify the archive hasn't been modified after closeout. Optionally signs the manifest with GPG for cryptographic attestation. Use when: closing an engagement, snapshotting evidence after each scan day, before handing artifacts to customer, or after an emergency-stop event. Threshold: file in tree without a manifest entry, hash mismatch, out-of-tree path referenced in findings, unsigned manifest when signing was requested. Trigger with: \"record engagement\", \"archive evidence\", \"create chain of custody\", \"package pentest artifacts\".",
+      "description": "Package an engagement's findings, scan outputs, evidence, and signed ROE into a timestamped archive with a SHA-256 manifest covering supported, non-excluded regular files. Verifies an existing manifest without replacing it; integrity failures block signing and packaging. Optionally signs a new manifest with GPG. This supports evidence integrity but does not establish legal chain of custody, authorization, signature trust or compliance certification. Use when: closing an engagement, snapshotting evidence after each scan day, before handing artifacts to customer, or after an emergency-stop event. Threshold: file in tree without a manifest entry, hash mismatch, out-of-tree path referenced in findings, unsigned manifest when signing was requested. Trigger with: \"record engagement\", \"archive evidence\", \"create chain of custody\", \"package pentest artifacts\".",
       "version": "3.30.0",
       "category": "security",
       "parentPlugin": "penetration-tester",
