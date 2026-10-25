@@ -1,6 +1,6 @@
 {
   "name": "dependency-checker",
-  "version": "1.28.0",
+  "version": "1.29.0",
   "description": "Audit selected dependency reports and review declared license metadata",
   "author": {
     "name": "Jeremy Longshore",

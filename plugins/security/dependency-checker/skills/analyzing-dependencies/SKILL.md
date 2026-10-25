@@ -3,7 +3,7 @@ name: analyzing-dependencies
 description: Audit selected project dependency reports and review declared license
   metadata. Use when auditing third-party libraries. Trigger with 'check dependencies',
   'scan for vulnerabilities', or 'audit packages'.
-version: 1.28.0
+version: 1.29.0
 allowed-tools: Read, Grep, Glob, Bash(security:*), Bash(scan:*), Bash(audit:*)
 license: MIT
 author: Jeremy Longshore <jeremy@intentsolutions.io>
