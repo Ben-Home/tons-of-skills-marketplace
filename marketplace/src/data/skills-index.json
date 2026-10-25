@@ -3989,7 +3989,7 @@
     {
       "slug": "brand-strategy",
       "name": "brand-strategy",
-      "description": "A 7-part brand strategy framework for building comprehensive brand foundations. Trigger with phrases like \"create brand strategy\", \"build brand brief\", \"define brand positioning\", \"brand messaging\", \"audience architecture\", \"brand truth\", or \"go-to-market brand plan\". Use when working with brand strategy.",
+      "description": "Build or review a seven-part brand strategy covering identity, audience, positioning, messaging, visual principles, channels and measurement. Use when creating a brand brief, defining positioning or revising brand messaging. Trigger with \"create brand strategy\", \"build brand brief\" or \"brand messaging\".",
       "version": "1.7.0",
       "category": "business-tools",
       "parentPlugin": "brand-strategy-framework",

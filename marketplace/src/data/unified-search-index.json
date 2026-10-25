@@ -5362,7 +5362,7 @@
       "slug": "brand-strategy-framework",
       "name": "brand-strategy-framework",
       "displayName": "brand strategy framework",
-      "description": "A 7-part brand strategy framework for building comprehensive brand foundations - the same methodology top agencies use with Fortune 500 clients.",
+      "description": "A seven-part brand strategy framework for identity, audience, positioning, messaging, visual principles, channels and measurement.",
       "category": "business-tools",
       "keywords": [
         "brand-strategy",
@@ -5384,10 +5384,10 @@
       "isNew": false,
       "badges": [],
       "skillCount": 1,
-      "verificationScore": 83,
-      "verificationGrade": "B",
-      "verificationBadge": "silver",
-      "searchText": "brand strategy framework a 7-part brand strategy framework for building comprehensive brand foundations - the same methodology top agencies use with fortune 500 clients. business-tools brand-strategy marketing branding positioning messaging brand-guidelines audience-architecture brand-identity"
+      "verificationScore": 96,
+      "verificationGrade": "A",
+      "verificationBadge": "gold",
+      "searchText": "brand strategy framework a seven-part brand strategy framework for identity, audience, positioning, messaging, visual principles, channels and measurement. business-tools brand-strategy marketing branding positioning messaging brand-guidelines audience-architecture brand-identity"
     },
     {
       "type": "plugin",
@@ -22455,14 +22455,12 @@
       "id": "brand-strategy",
       "slug": "brand-strategy",
       "name": "brand-strategy",
-      "description": "A 7-part brand strategy framework for building comprehensive brand foundations. Trigger with phrases like \"create brand strategy\", \"build brand brief\", \"define brand positioning\", \"brand messaging\", \"audience architecture\", \"brand truth\", or \"go-to-market brand plan\". Use when working with brand strategy.",
+      "description": "Build or review a seven-part brand strategy covering identity, audience, positioning, messaging, visual principles, channels and measurement. Use when creating a brand brief, defining positioning or revising brand messaging. Trigger with \"create brand strategy\", \"build brand brief\" or \"brand messaging\".",
       "category": "business-tools",
       "allowedTools": [
         "Read",
         "Write",
-        "Edit",
-        "Glob",
-        "Grep"
+        "Edit"
       ],
       "compatibleWith": [],
       "version": "1.7.0",
@@ -22470,7 +22468,7 @@
         "name": "brand-strategy-framework",
         "category": "business-tools"
       },
-      "searchText": "brand-strategy a 7-part brand strategy framework for building comprehensive brand foundations. trigger with phrases like \"create brand strategy\", \"build brand brief\", \"define brand positioning\", \"brand messaging\", \"audience architecture\", \"brand truth\", or \"go-to-market brand plan\". use when working with brand strategy. business-tools read write edit glob grep "
+      "searchText": "brand-strategy build or review a seven-part brand strategy covering identity, audience, positioning, messaging, visual principles, channels and measurement. use when creating a brand brief, defining positioning or revising brand messaging. trigger with \"create brand strategy\", \"build brand brief\" or \"brand messaging\". business-tools read write edit "
     },
     {
       "type": "skill",

@@ -2987,7 +2987,7 @@
     {
       "name": "brand-strategy-framework",
       "source": "./plugins/business-tools/brand-strategy-framework",
-      "description": "A 7-part brand strategy framework for building comprehensive brand foundations - the same methodology top agencies use with Fortune 500 clients.",
+      "description": "A seven-part brand strategy framework for identity, audience, positioning, messaging, visual principles, channels and measurement.",
       "version": "1.7.0",
       "category": "business-tools",
       "keywords": [
@@ -3009,10 +3009,10 @@
         "skills": 1
       },
       "verification": {
-        "score": 83,
-        "grade": "B",
-        "badge": "silver",
-        "lastValidated": "2026-09-11T00:00:00.000Z"
+        "score": 96,
+        "grade": "A",
+        "badge": "gold",
+        "lastValidated": "2026-10-25T00:00:00.000Z"
       }
     },
     {
