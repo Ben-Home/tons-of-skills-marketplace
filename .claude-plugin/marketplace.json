@@ -1879,7 +1879,7 @@
     {
       "name": "dependency-checker",
       "source": "./plugins/security/dependency-checker",
-      "description": "Check dependencies for known vulnerabilities, outdated packages, and license compliance",
+      "description": "Audit selected dependency reports and review declared license metadata",
       "version": "1.28.0",
       "category": "security",
       "keywords": [
