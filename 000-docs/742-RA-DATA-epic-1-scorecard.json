@@ -3823,15 +3823,15 @@
       "dimension": "Inventory header versus rows",
       "reproduce": "pnpm run measure:e1 --row=52 --stdout",
       "source": [
-        "freshie/reports/run-delta-146.json",
+        "freshie/reports/run-delta-147.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
       ],
       "status": "target_met",
       "values": {
-        "dolt_commit": "hojmhsd8hid48mkpr1htmukgbc24gls4",
+        "dolt_commit": "fnbkai03j9se9ehogapfochmhhprfcat",
         "header_total_skills": 2799,
-        "run_id": 146,
+        "run_id": 147,
         "skill_row_delta": 0,
         "skill_rows": 2799,
         "target_skill_row_delta": 0
@@ -3844,13 +3844,13 @@
       "source": [
         "freshie/grade-histogram.json",
         "freshie/grades.csv",
-        "freshie/reports/run-delta-146.json"
+        "freshie/reports/run-delta-147.json"
       ],
       "status": "target_met",
       "values": {
         "compliance_rows": 3376,
-        "export_dolt_commit": "hojmhsd8hid48mkpr1htmukgbc24gls4",
-        "export_run_id": 146,
+        "export_dolt_commit": "fnbkai03j9se9ehogapfochmhhprfcat",
+        "export_run_id": 147,
         "grades_csv_rows": 3376,
         "grades_csv_sha256": "07b1dd1fb33e60a51f0fd631e7b760dc6ca1c5720905fd94076e801fe993088a",
         "histogram_grades": {
@@ -3868,8 +3868,8 @@
           "D": 154,
           "F": 4
         },
-        "inventory_dolt_commit": "hojmhsd8hid48mkpr1htmukgbc24gls4",
-        "inventory_run_id": 146,
+        "inventory_dolt_commit": "fnbkai03j9se9ehogapfochmhhprfcat",
+        "inventory_run_id": 147,
         "target_lag_runs": 0
       }
     },
@@ -3879,7 +3879,7 @@
       "reproduce": "pnpm run measure:e1 --row=54 --stdout",
       "source": [
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-146.json",
+        "freshie/reports/run-delta-147.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py",
@@ -3893,7 +3893,7 @@
           "E2": 0,
           "E3": 0
         },
-        "current_run_id": 146,
+        "current_run_id": 147,
         "invalid_identities": 0,
         "legacy_e0_records": 3,
         "retained_e2_e3": 0,
@@ -3917,7 +3917,7 @@
       "source": [
         "000-docs/807-DR-STND-evaluation-evidence.md",
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-146.json",
+        "freshie/reports/run-delta-147.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
