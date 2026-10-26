@@ -8270,7 +8270,7 @@
     {
       "name": "general-legal-assistant",
       "source": "./plugins/business-tools/general-legal-assistant",
-      "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents",
+      "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents.",
       "version": "1.2.0",
       "category": "business-tools",
       "keywords": [

@@ -14919,7 +14919,7 @@
       "slug": "general-legal-assistant",
       "name": "general-legal-assistant",
       "displayName": "general legal assistant",
-      "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents",
+      "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents.",
       "category": "business-tools",
       "keywords": [
         "legal",
@@ -14945,7 +14945,7 @@
       "verificationScore": 98,
       "verificationGrade": "A",
       "verificationBadge": "gold",
-      "searchText": "general legal assistant ai-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents business-tools legal contracts nda compliance gdpr ccpa risk-analysis terms-of-service privacy-policy"
+      "searchText": "general legal assistant ai-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents. business-tools legal contracts nda compliance gdpr ccpa risk-analysis terms-of-service privacy-policy"
     },
     {
       "type": "plugin",

@@ -1941,7 +1941,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/agreement-generator/SKILL.md"
     },
@@ -18954,7 +18954,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/compliance-audit/SKILL.md"
     },
@@ -19173,7 +19173,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/contract-compare/SKILL.md"
     },
@@ -19203,7 +19203,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/contract-review/SKILL.md"
     },
@@ -35937,7 +35937,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/freelancer-review/SKILL.md"
     },
@@ -54020,7 +54020,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/missing-protections/SKILL.md"
     },
@@ -55930,7 +55930,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/nda-generator/SKILL.md"
     },
@@ -55959,7 +55959,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/negotiate/SKILL.md"
     },
@@ -63329,7 +63329,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/plain-english/SKILL.md"
     },
@@ -65379,7 +65379,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/privacy-generator/SKILL.md"
     },
@@ -69794,7 +69794,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/risk-analysis/SKILL.md"
     },
@@ -79538,7 +79538,7 @@
         "category": "business-tools",
         "path": "plugins/business-tools/general-legal-assistant",
         "version": "1.2.0",
-        "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents"
+        "description": "AI-assisted contract review, risk analysis, document drafting, and compliance readiness review with 12 skills and 5 bundled review agents."
       },
       "filePath": "plugins/business-tools/general-legal-assistant/skills/terms-generator/SKILL.md"
     },
