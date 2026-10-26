@@ -21509,7 +21509,7 @@
     {
       "slug": "negotiate",
       "name": "negotiate",
-      "description": "Analyzes contracts for unfavorable or risky clauses and generates prioritized counter-proposals with replacement language. Use when reviewing a contract before signing, preparing for a negotiation, or responding to unfavorable terms. Trigger with \"/negotiate\" or \"generate counter-proposals for this contract\".",
+      "description": "Use when preparing clause-linked contract counterproposals, fallback positions, or a negotiation email draft from supplied terms and commercial priorities. Trigger with /negotiate or generate counter-proposals for this contract.",
       "version": "1.1.0",
       "category": "business-tools",
       "parentPlugin": "general-legal-assistant",

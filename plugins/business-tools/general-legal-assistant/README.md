@@ -14,7 +14,7 @@ AI-powered contract review, risk analysis, document generation, and compliance a
 | `plain-english` | Clause-linked explanations that preserve conditions, exceptions and ambiguity; readability metrics only when actually measured. |
 | `missing-protections` | Relevant clause-topic gap review with applicability, evidence status and scoped drafting options when requested. |
 | `freelancer-review` | Fourteen commercial review lenses, clause evidence and actual-work questions, with scoped worker-classification limits. |
-| `negotiate` | Generates counter-proposals with replacement language and a negotiation email template. |
+| `negotiate` | Clause-linked counterproposals and fallback options grounded in actual priorities, with source provenance and an optional unsent email draft. |
 
 ### Document Generation
 
