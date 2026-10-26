@@ -2,7 +2,7 @@
 
 Use the questions for the requested phase; skip answers already present in the selected inputs. Audience archetypes and competitor maps are hypotheses until supported by supplied research. Baselines and targets must be labeled observed, proposed or unknown.
 
-### Phase 1: Brand Truth
+## Phase 1: Brand Truth
 
 The foundation. Define who the brand authentically is before anything else.
 
@@ -18,7 +18,7 @@ The foundation. Define who the brand authentically is before anything else.
 
 ---
 
-### Phase 2: Audience Architecture
+## Phase 2: Audience Architecture
 
 Define who the brand serves — not demographics, but motivations.
 
@@ -40,7 +40,7 @@ Define who the brand serves — not demographics, but motivations.
 
 ---
 
-### Phase 3: Cultural Context
+## Phase 3: Cultural Context
 
 Position the brand within the broader landscape.
 
@@ -56,7 +56,7 @@ Position the brand within the broader landscape.
 
 ---
 
-### Phase 4: Messaging Framework
+## Phase 4: Messaging Framework
 
 Translate strategy into language.
 
@@ -77,7 +77,7 @@ Translate strategy into language.
 
 ---
 
-### Phase 5: Visual Language
+## Phase 5: Visual Language
 
 Define the principles (not the executions) for visual identity.
 
@@ -100,7 +100,7 @@ Define the principles (not the executions) for visual identity.
 
 ---
 
-### Phase 6: Channel Strategy
+## Phase 6: Channel Strategy
 
 Define where and how the brand shows up.
 
@@ -122,7 +122,7 @@ Define where and how the brand shows up.
 
 ---
 
-### Phase 7: Measurement Framework
+## Phase 7: Measurement Framework
 
 Define what success looks like.
 
