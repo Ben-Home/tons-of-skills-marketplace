@@ -29,7 +29,7 @@ AI-powered contract review, risk analysis, document generation, and compliance a
 
 | Skill | What It Does |
 |-------|-------------|
-| `compliance-audit` | Gap analysis across GDPR, CCPA, ADA/WCAG, PCI-DSS, CAN-SPAM, COPPA, SOC 2. |
+| `compliance-audit` | Scoped readiness review across seven lenses, with applicability questions, traceable evidence gaps and remediation actions; no compliance grade or attestation. |
 
 ## Agents
 

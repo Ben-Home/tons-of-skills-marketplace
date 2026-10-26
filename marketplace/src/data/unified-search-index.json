@@ -14942,7 +14942,7 @@
       "isNew": false,
       "badges": [],
       "skillCount": 12,
-      "verificationScore": 96,
+      "verificationScore": 97,
       "verificationGrade": "A",
       "verificationBadge": "gold",
       "searchText": "general legal assistant ai-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents business-tools legal contracts nda compliance gdpr ccpa risk-analysis terms-of-service privacy-policy"
@@ -28496,7 +28496,7 @@
       "id": "compliance-audit",
       "slug": "compliance-audit",
       "name": "compliance-audit",
-      "description": "Performs regulatory gap analysis across 7 compliance frameworks with a scored report card and prioritized remediation roadmap. Use when assessing a website or application for GDPR, CCPA, ADA, PCI-DSS, CAN-SPAM, COPPA, or SOC 2 compliance. Trigger with \"/compliance-audit\" or \"audit my website for regulatory compliance\".",
+      "description": "Use when reviewing a website, application, or supplied evidence for potential gaps across GDPR, CCPA/CPRA, accessibility, PCI DSS, CAN-SPAM, COPPA, or SOC 2 readiness. Produces scoped findings, applicability questions, and an evidence-based remediation plan.",
       "category": "business-tools",
       "allowedTools": [
         "Read",
@@ -28510,7 +28510,7 @@
         "name": "general-legal-assistant",
         "category": "business-tools"
       },
-      "searchText": "compliance-audit performs regulatory gap analysis across 7 compliance frameworks with a scored report card and prioritized remediation roadmap. use when assessing a website or application for gdpr, ccpa, ada, pci-dss, can-spam, coppa, or soc 2 compliance. trigger with \"/compliance-audit\" or \"audit my website for regulatory compliance\". business-tools read glob grep webfetch "
+      "searchText": "compliance-audit use when reviewing a website, application, or supplied evidence for potential gaps across gdpr, ccpa/cpra, accessibility, pci dss, can-spam, coppa, or soc 2 readiness. produces scoped findings, applicability questions, and an evidence-based remediation plan. business-tools read glob grep webfetch "
     },
     {
       "type": "skill",
