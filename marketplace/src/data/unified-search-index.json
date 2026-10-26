@@ -14942,7 +14942,7 @@
       "isNew": false,
       "badges": [],
       "skillCount": 12,
-      "verificationScore": 97,
+      "verificationScore": 98,
       "verificationGrade": "A",
       "verificationBadge": "gold",
       "searchText": "general legal assistant ai-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents business-tools legal contracts nda compliance gdpr ccpa risk-analysis terms-of-service privacy-policy"
@@ -28673,7 +28673,7 @@
       "id": "contract-review",
       "slug": "contract-review",
       "name": "contract-review",
-      "description": "Orchestrates a comprehensive multi-agent contract review that analyzes risk, plain-English translation, missing protections, and compliance in parallel. Use when a user shares a contract and wants a full review, safety score, or executive summary. Trigger with \"/contract-review\" or \"review this contract\".",
+      "description": "Use when reviewing a supplied contract for clause meaning, obligations, risks, missing protections, and regulatory questions. Produces an evidence-linked executive report with actual document coverage. Trigger with /contract-review or review this contract.",
       "category": "business-tools",
       "allowedTools": [
         "Read",
@@ -28687,7 +28687,7 @@
         "name": "general-legal-assistant",
         "category": "business-tools"
       },
-      "searchText": "contract-review orchestrates a comprehensive multi-agent contract review that analyzes risk, plain-english translation, missing protections, and compliance in parallel. use when a user shares a contract and wants a full review, safety score, or executive summary. trigger with \"/contract-review\" or \"review this contract\". business-tools read glob grep task "
+      "searchText": "contract-review use when reviewing a supplied contract for clause meaning, obligations, risks, missing protections, and regulatory questions. produces an evidence-linked executive report with actual document coverage. trigger with /contract-review or review this contract. business-tools read glob grep task "
     },
     {
       "type": "skill",

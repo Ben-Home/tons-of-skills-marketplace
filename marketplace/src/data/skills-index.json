@@ -7397,7 +7397,7 @@
     {
       "slug": "contract-review",
       "name": "contract-review",
-      "description": "Orchestrates a comprehensive multi-agent contract review that analyzes risk, plain-English translation, missing protections, and compliance in parallel. Use when a user shares a contract and wants a full review, safety score, or executive summary. Trigger with \"/contract-review\" or \"review this contract\".",
+      "description": "Use when reviewing a supplied contract for clause meaning, obligations, risks, missing protections, and regulatory questions. Produces an evidence-linked executive report with actual document coverage. Trigger with /contract-review or review this contract.",
       "version": "1.1.0",
       "category": "business-tools",
       "parentPlugin": "general-legal-assistant",

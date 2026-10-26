@@ -1,6 +1,6 @@
 # General Legal Assistant
 
-AI-powered contract review, risk analysis, document generation, and compliance auditing. 12 skills, 5 parallel agents.
+AI-powered contract review, risk analysis, document generation, and compliance auditing. 12 skills and 5 bundled agents.
 
 ## Skills
 
@@ -8,7 +8,7 @@ AI-powered contract review, risk analysis, document generation, and compliance a
 
 | Skill | What It Does |
 |-------|-------------|
-| `contract-review` | **Flagship** — Full review with 5 parallel agents. Contract Safety Score (0-100), clause-by-clause analysis, prioritized recommendations. |
+| `contract-review` | Evidence-linked contract review with explicit coverage, five analysis lenses, optional permitted delegation and prioritized negotiation questions. |
 | `risk-analysis` | Evidence-linked review across ten issue categories, with explicit assumptions, unknowns and source-backed scenarios. |
 | `contract-compare` | Clause-level version comparison with exact evidence, coverage gaps and qualified possible effects for the identified parties. |
 | `plain-english` | Clause-linked explanations that preserve conditions, exceptions and ambiguity; readability metrics only when actually measured. |
@@ -33,15 +33,18 @@ AI-powered contract review, risk analysis, document generation, and compliance a
 
 ## Agents
 
-The `contract-review` skill spawns 5 specialized agents in parallel:
+Contract review can run directly or use permitted, available agents. Clause inventory
+precedes dependent risk, compliance and obligation passes; recommendations consume
+their actual results. Shared-model agreement and numeric scores do not prove legal
+correctness. See the skill's handoff reference for output checks and current limits.
 
-| Agent | Role | Weight |
-|-------|------|--------|
-| `legal-clauses` | Clause extraction and categorization | 20% |
-| `legal-risks` | Risk scoring and threat identification | 25% |
-| `legal-compliance` | Regulatory compliance verification | 20% |
-| `legal-obligations` | Obligation mapping and financial exposure | 15% |
-| `legal-recommendations` | Recommendations and negotiation strategy | 20% |
+| Agent | Intended role |
+|-------|---------------|
+| `legal-clauses` | Clause inventory and cross-references |
+| `legal-risks` | Draft risk analysis for source verification |
+| `legal-compliance` | Draft regulatory questions and findings for authority checks |
+| `legal-obligations` | Obligation mapping and conditional calculations |
+| `legal-recommendations` | Synthesis of available upstream findings and proposed options |
 
 ## Install
 
