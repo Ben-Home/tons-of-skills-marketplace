@@ -20,10 +20,10 @@ AI-powered contract review, risk analysis, document generation, and compliance a
 
 | Skill | What It Does |
 |-------|-------------|
-| `nda-generator` | Generates custom NDAs — mutual, one-way, employee, or vendor. |
+| `nda-generator` | Confidentiality drafts with explicit disclosure direction, relationship context, term decisions and template provenance. |
 | `terms-generator` | Service-specific terms drafts from confirmed features and business choices, with scoped applicability review. |
 | `privacy-generator` | Privacy-notice drafts from confirmed processing facts, with a separate evidence and unresolved-questions record. |
-| `agreement-generator` | Generates business agreements — freelancer contracts, partnerships, SOWs, MSAs, and more. |
+| `agreement-generator` | Ten relationship-based drafting flows using confirmed commercial facts, proposed choices and source provenance. |
 
 ### Compliance
 

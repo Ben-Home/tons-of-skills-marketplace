@@ -14942,7 +14942,7 @@
       "isNew": false,
       "badges": [],
       "skillCount": 12,
-      "verificationScore": 94,
+      "verificationScore": 96,
       "verificationGrade": "A",
       "verificationBadge": "gold",
       "searchText": "general legal assistant ai-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents business-tools legal contracts nda compliance gdpr ccpa risk-analysis terms-of-service privacy-policy"
@@ -16406,7 +16406,7 @@
       "id": "agreement-generator",
       "slug": "agreement-generator",
       "name": "agreement-generator",
-      "description": "Generates customized business agreements for 10 common relationship types with plain English annotations. Use when formalizing a business relationship, creating a partnership agreement, or drafting a service contract from scratch. Trigger with \"/agreement-generator\" or \"create a freelancer agreement\".",
+      "description": "Draft a business agreement from the selected relationship type, confirmed party and commercial facts, and explicit proposed choices with provenance. Use when preparing a service, partnership, licensing or other business agreement. Trigger with \"agreement-generator\" or \"create a freelancer agreement\".",
       "category": "business-tools",
       "allowedTools": [
         "Read",
@@ -16420,7 +16420,7 @@
         "name": "general-legal-assistant",
         "category": "business-tools"
       },
-      "searchText": "agreement-generator generates customized business agreements for 10 common relationship types with plain english annotations. use when formalizing a business relationship, creating a partnership agreement, or drafting a service contract from scratch. trigger with \"/agreement-generator\" or \"create a freelancer agreement\". business-tools read write glob grep "
+      "searchText": "agreement-generator draft a business agreement from the selected relationship type, confirmed party and commercial facts, and explicit proposed choices with provenance. use when preparing a service, partnership, licensing or other business agreement. trigger with \"agreement-generator\" or \"create a freelancer agreement\". business-tools read write glob grep "
     },
     {
       "type": "skill",
@@ -54825,7 +54825,7 @@
       "id": "nda-generator",
       "slug": "nda-generator",
       "name": "nda-generator",
-      "description": "Generates custom non-disclosure agreements with plain English annotations. Use when creating an NDA for business discussions, hiring, vendor relationships, or partnerships. Supports mutual, one-way, employee, and vendor variants. Trigger with \"/nda-generator\" or \"create an NDA for our partnership\".",
+      "description": "Draft a confidentiality agreement from identified parties, disclosure direction, purpose and explicit term choices, with a separate decision/provenance record. Use for mutual, one-way, employee-context or vendor-context NDA drafting. Trigger with \"nda-generator\" or \"create an NDA\".",
       "category": "business-tools",
       "allowedTools": [
         "Read",
@@ -54839,7 +54839,7 @@
         "name": "general-legal-assistant",
         "category": "business-tools"
       },
-      "searchText": "nda-generator generates custom non-disclosure agreements with plain english annotations. use when creating an nda for business discussions, hiring, vendor relationships, or partnerships. supports mutual, one-way, employee, and vendor variants. trigger with \"/nda-generator\" or \"create an nda for our partnership\". business-tools read write glob grep "
+      "searchText": "nda-generator draft a confidentiality agreement from identified parties, disclosure direction, purpose and explicit term choices, with a separate decision/provenance record. use for mutual, one-way, employee-context or vendor-context nda drafting. trigger with \"nda-generator\" or \"create an nda\". business-tools read write glob grep "
     },
     {
       "type": "skill",
