@@ -5,7 +5,7 @@ description: >
   positioning, messaging, visual principles, channels and measurement. Use when
   creating a brand brief, defining positioning or revising brand messaging.
   Trigger with "create brand strategy", "build brand brief" or "brand messaging".
-version: 1.7.0
+version: 1.8.0
 author: Rowan Brooks <rowanbrooks100@github.com>
 license: MIT
 allowed-tools: Read, Write, Edit

@@ -6,7 +6,7 @@ description: >
   Use when preparing a service, partnership, licensing or other business agreement.
   Trigger with "agreement-generator" or "create a freelancer agreement".
 allowed-tools: Read, Write, Glob, Grep
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

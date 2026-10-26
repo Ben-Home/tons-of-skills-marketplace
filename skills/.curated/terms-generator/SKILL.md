@@ -6,7 +6,7 @@ description: >
   record. Use when preparing or revising website or app terms. Trigger with
   "terms-generator" or "create terms of service".
 allowed-tools: Read, Write, Glob, Grep, WebFetch
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

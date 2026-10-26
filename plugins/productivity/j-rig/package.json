@@ -1,6 +1,6 @@
 {
   "name": "@intentsolutionsio/j-rig",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Use the J-Rig refiner CLI for evaluation metadata, authorized scoring, edit proposals and candidate inspection; bundled hooks are experimental.",
   "keywords": [
     "skill-refiner",

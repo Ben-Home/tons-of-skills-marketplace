@@ -6,7 +6,7 @@ description: >
   Use when assessing a client or independent-contractor agreement. Trigger with
   "freelancer-review" or "review this contract as a freelancer".
 allowed-tools: Read, Glob, Grep, Write
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

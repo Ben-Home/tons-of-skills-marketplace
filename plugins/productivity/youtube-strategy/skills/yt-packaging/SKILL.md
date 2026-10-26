@@ -4,7 +4,7 @@ description: Develop title and thumbnail concept pairs from an approved YouTube 
   and record the user selection. Use when preparing packaging before outlining. Trigger
   with "package this video", "title ideas" or "thumbnail concepts".
 allowed-tools: WebSearch, Read, Write
-version: 1.10.0
+version: 1.11.0
 author: Claude Code Plugins <jeremy@intentsolutions.io>
 license: MIT
 tags:

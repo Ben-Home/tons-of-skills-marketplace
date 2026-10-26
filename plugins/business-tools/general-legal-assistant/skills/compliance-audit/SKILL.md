@@ -2,7 +2,7 @@
 name: compliance-audit
 description: "Use when reviewing a website, application, or supplied evidence for potential gaps across GDPR, CCPA/CPRA, accessibility, PCI DSS, CAN-SPAM, COPPA, or SOC 2 readiness. Produces scoped findings, applicability questions, and an evidence-based remediation plan."
 allowed-tools: Read, Glob, Grep, WebFetch
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

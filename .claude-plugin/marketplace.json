@@ -2229,7 +2229,7 @@
       "name": "brand-strategy-framework",
       "source": "./plugins/business-tools/brand-strategy-framework",
       "description": "A seven-part brand strategy framework for identity, audience, positioning, messaging, visual principles, channels and measurement.",
-      "version": "1.7.0",
+      "version": "1.8.0",
       "category": "business-tools",
       "keywords": [
         "brand-strategy",
@@ -3664,7 +3664,7 @@
       "name": "research-to-deploy",
       "source": "./plugins/skill-enhancers/research-to-deploy",
       "description": "Research infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized.",
-      "version": "0.14.0",
+      "version": "0.15.0",
       "category": "skill-enhancers",
       "keywords": [
         "research",
@@ -6098,7 +6098,7 @@
       "name": "youtube-strategy",
       "source": "./plugins/productivity/youtube-strategy",
       "description": "Complete YouTube content production workflow: research competitors, generate video ideas, build briefs, craft titles and thumbnails, and create detailed video outlines with demo prep checklists.",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "category": "productivity",
       "keywords": [
         "youtube",
@@ -7318,7 +7318,7 @@
       "name": "zero-tech-debt",
       "source": "./plugins/skill-enhancers/zero-tech-debt",
       "description": "Rebuild a feature as if the correct product architecture existed from day one. Removes compatibility cruft, dead abstractions, and historical compromises instead of preserving them. Methodology-only — surfaces refactor candidates and walks a 7-step workflow before any deletion.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "skill-enhancers",
       "keywords": [
         "refactoring",
@@ -8108,7 +8108,7 @@
       "name": "j-rig",
       "source": "./plugins/productivity/j-rig",
       "description": "Use the J-Rig refiner CLI for evaluation metadata, authorized scoring, edit proposals and candidate inspection; bundled hooks are experimental.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "productivity",
       "keywords": [
         "skill-refiner",
@@ -8271,7 +8271,7 @@
       "name": "general-legal-assistant",
       "source": "./plugins/business-tools/general-legal-assistant",
       "description": "AI-powered contract review, risk analysis, document generation, and compliance auditing with 12 skills and 5 parallel agents",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "business-tools",
       "keywords": [
         "legal",

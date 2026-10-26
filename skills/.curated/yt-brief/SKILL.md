@@ -4,7 +4,7 @@ description: Create a YouTube production brief with viewer outcome, angle, demo 
   and CTA. Use when developing a selected video idea before packaging. Trigger with
   "write a video brief" or "brief this idea".
 allowed-tools: WebSearch, Read, Write
-version: 1.10.0
+version: 1.11.0
 author: Claude Code Plugins <jeremy@intentsolutions.io>
 license: MIT
 tags:

@@ -6,7 +6,7 @@ description: >
   and unresolved-questions record. Use when preparing or revising a privacy
   policy. Trigger with "privacy-generator" or "create a privacy policy".
 allowed-tools: Read, Write, Glob, Grep, WebFetch
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

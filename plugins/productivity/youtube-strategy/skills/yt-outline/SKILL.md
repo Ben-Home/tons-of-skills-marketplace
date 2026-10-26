@@ -4,7 +4,7 @@ description: Create a filmable YouTube outline and demo prep checklist from appr
   brief and packaging artifacts. Use when planning screen actions, section timing
   and rehearsals. Trigger with "outline this video" or "demo prep checklist".
 allowed-tools: WebSearch, Read, Write
-version: 1.10.0
+version: 1.11.0
 author: Claude Code Plugins <jeremy@intentsolutions.io>
 license: MIT
 tags:
