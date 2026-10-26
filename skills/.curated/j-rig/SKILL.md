@@ -6,7 +6,7 @@ description: >-
   Use when improving an existing SKILL.md with evaluation evidence. Trigger with
   "refine this skill", "bootstrap an eval set" or "skill refiner status".
 allowed-tools: Read, Write, Edit, Glob, Bash(j-rig:*), Bash(git:*), Bash(pnpm exec j-rig:*)
-version: 0.1.0
+version: 0.2.0
 author: Jeremy Longshore <jeremy@intentsolutions.io>
 license: Apache-2.0
 compatibility: Designed for Claude Code; requires a separately installed compatible J-Rig CLI for refiner commands

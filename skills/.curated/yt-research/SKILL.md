@@ -4,7 +4,7 @@ description: Analyze competitor YouTube coverage and video opportunities using s
   observations with explicit sampling limits. Use when researching channels or a niche
   before ideation. Trigger with "research channels" or "competitive video research".
 allowed-tools: WebSearch, Read, Write, Task
-version: 1.10.0
+version: 1.11.0
 author: Claude Code Plugins <jeremy@intentsolutions.io>
 license: MIT
 tags:

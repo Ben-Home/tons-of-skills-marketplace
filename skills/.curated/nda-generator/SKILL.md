@@ -6,7 +6,7 @@ description: >
   Use for mutual, one-way, employee-context or vendor-context NDA drafting.
   Trigger with "nda-generator" or "create an NDA".
 allowed-tools: Read, Write, Glob, Grep
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

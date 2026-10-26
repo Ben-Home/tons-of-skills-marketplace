@@ -6,7 +6,7 @@ description: >
   Use when checking what protections a contract may be missing. Trigger with
   "missing-protections" or "what protections is this contract missing".
 allowed-tools: Read, Glob, Grep, Write
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

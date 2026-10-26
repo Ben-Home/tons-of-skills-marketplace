@@ -8,7 +8,7 @@ description: >
   or "generate infrastructure configs".
 allowed-tools: Read, Write, Edit, Bash(terraform:*), Bash(docker:*), Bash(kubectl:*),
   Glob, Grep, WebSearch, WebFetch
-version: 0.14.0
+version: 0.15.0
 author: Jeremy Longshore <jeremy@intentsolutions.io>
 license: MIT
 tags:

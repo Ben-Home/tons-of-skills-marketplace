@@ -1,6 +1,6 @@
 {
   "name": "j-rig",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Use the J-Rig refiner CLI for evaluation metadata, authorized scoring, edit proposals and candidate inspection; bundled hooks are experimental.",
   "author": {
     "name": "Jeremy Longshore",

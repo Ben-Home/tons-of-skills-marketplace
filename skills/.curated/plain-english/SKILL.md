@@ -6,7 +6,7 @@ description: >
   agreement. Trigger with "explain this contract", "plain-english" or "translate
   this contract to plain English".
 allowed-tools: Read, Glob, Grep, Write
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

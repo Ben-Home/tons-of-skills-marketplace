@@ -6,7 +6,7 @@ description: >
   contract risks from an identified party's perspective. Trigger with
   "risk-analysis" or "what are the risks in this contract".
 allowed-tools: Read, Glob, Grep, Write
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

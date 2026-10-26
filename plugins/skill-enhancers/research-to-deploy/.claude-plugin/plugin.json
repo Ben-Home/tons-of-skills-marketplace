@@ -1,6 +1,6 @@
 {
   "name": "research-to-deploy",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "Research infrastructure documentation, generate reviewable deployment configurations and runbooks, and execute scoped deployments when authorized.",
   "author": {
     "name": "Claude Code Plugins Team",

@@ -5380,7 +5380,7 @@
         "email": "rowanbrooks100@github.com"
       },
       "authorType": "community",
-      "version": "1.7.0",
+      "version": "1.8.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -7712,7 +7712,7 @@
         "name": "Claude Code Plugins Team"
       },
       "authorType": "official",
-      "version": "0.14.0",
+      "version": "0.15.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -11571,7 +11571,7 @@
         "name": "Claude Code Plugins"
       },
       "authorType": "official",
-      "version": "1.10.0",
+      "version": "1.11.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -13555,7 +13555,7 @@
         "email": "jeremy@intentsolutions.io"
       },
       "authorType": "official",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -14689,7 +14689,7 @@
         "email": "jeremy@intentsolutions.io"
       },
       "authorType": "official",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -14937,7 +14937,7 @@
         "email": "jeremy@intentsolutions.io"
       },
       "authorType": "official",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "isFeatured": false,
       "isNew": false,
       "badges": [],
@@ -16415,7 +16415,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -22464,7 +22464,7 @@
         "Edit"
       ],
       "compatibleWith": [],
-      "version": "1.7.0",
+      "version": "1.8.0",
       "parentPlugin": {
         "name": "brand-strategy-framework",
         "category": "business-tools"
@@ -28505,7 +28505,7 @@
         "WebFetch"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -28661,7 +28661,7 @@
         "Write"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -28682,7 +28682,7 @@
         "Task"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -40610,7 +40610,7 @@
         "Write"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -45953,7 +45953,7 @@
         "Bash(pnpm exec j-rig:*)"
       ],
       "compatibleWith": [],
-      "version": "0.1.0",
+      "version": "0.2.0",
       "parentPlugin": {
         "name": "j-rig",
         "category": "productivity"
@@ -53473,7 +53473,7 @@
         "Write"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -54834,7 +54834,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -54854,7 +54854,7 @@
         "Grep"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -60127,7 +60127,7 @@
         "Write"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -61601,7 +61601,7 @@
         "WebFetch"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -63999,7 +63999,7 @@
         "WebFetch"
       ],
       "compatibleWith": [],
-      "version": "0.14.0",
+      "version": "0.15.0",
       "parentPlugin": {
         "name": "research-to-deploy",
         "category": "skill-enhancers"
@@ -64747,7 +64747,7 @@
         "Write"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -71746,7 +71746,7 @@
         "WebFetch"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "general-legal-assistant",
         "category": "business-tools"
@@ -77255,7 +77255,7 @@
         "Write"
       ],
       "compatibleWith": [],
-      "version": "1.10.0",
+      "version": "1.11.0",
       "parentPlugin": {
         "name": "youtube-strategy",
         "category": "productivity"
@@ -77276,7 +77276,7 @@
         "Task"
       ],
       "compatibleWith": [],
-      "version": "1.10.0",
+      "version": "1.11.0",
       "parentPlugin": {
         "name": "youtube-strategy",
         "category": "productivity"
@@ -77296,7 +77296,7 @@
         "Write"
       ],
       "compatibleWith": [],
-      "version": "1.10.0",
+      "version": "1.11.0",
       "parentPlugin": {
         "name": "youtube-strategy",
         "category": "productivity"
@@ -77316,7 +77316,7 @@
         "Write"
       ],
       "compatibleWith": [],
-      "version": "1.10.0",
+      "version": "1.11.0",
       "parentPlugin": {
         "name": "youtube-strategy",
         "category": "productivity"
@@ -77337,7 +77337,7 @@
         "Task"
       ],
       "compatibleWith": [],
-      "version": "1.10.0",
+      "version": "1.11.0",
       "parentPlugin": {
         "name": "youtube-strategy",
         "category": "productivity"
@@ -77362,7 +77362,7 @@
         "Bash(fd:*)"
       ],
       "compatibleWith": [],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "parentPlugin": {
         "name": "zero-tech-debt",
         "category": "skill-enhancers"

@@ -7,7 +7,7 @@ description: >
   Trigger with "refactor properly", "remove legacy" or "zero-tech-debt";
   use a focused patch for hotfixes and security backports.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash(git:*), Bash(rg:*), Bash(fd:*)
-version: 1.1.0
+version: 1.2.0
 author: Jeremy Longshore <jeremy@intentsolutions.io>
 license: MIT
 compatibility: Designed for Claude Code

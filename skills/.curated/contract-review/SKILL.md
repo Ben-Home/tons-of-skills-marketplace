@@ -2,7 +2,7 @@
 name: contract-review
 description: "Use when reviewing a supplied contract for clause meaning, obligations, risks, missing protections, and regulatory questions. Produces an evidence-linked executive report with actual document coverage. Trigger with /contract-review or review this contract."
 allowed-tools: Read, Glob, Grep, Task
-version: 1.1.0
+version: 1.2.0
 author: Intent Solutions <jeremy@intentsolutions.io>
 license: MIT
 tags:

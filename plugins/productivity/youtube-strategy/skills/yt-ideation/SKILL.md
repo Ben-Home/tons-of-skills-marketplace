@@ -4,7 +4,7 @@ description: Generate filmable YouTube video ideas, explain their evidence and p
   and save user selections for briefing. Use when planning content from research or
   a topic. Trigger with "video ideas", "what should I make next" or "brainstorm videos".
 allowed-tools: WebSearch, Read, Write, Task
-version: 1.10.0
+version: 1.11.0
 author: Claude Code Plugins <jeremy@intentsolutions.io>
 license: MIT
 tags:
