@@ -20,6 +20,12 @@ SPEC = importlib.util.spec_from_file_location("section_identity_migration", SCRI
 migration = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(migration)
 
+VALIDATOR_SPEC = importlib.util.spec_from_file_location(
+    "section_migration_fixture_validator", ROOT / migration.VALIDATOR_PATH
+)
+fixture_validator = importlib.util.module_from_spec(VALIDATOR_SPEC)
+VALIDATOR_SPEC.loader.exec_module(fixture_validator)
+
 
 class SectionIdentityMigrationTests(unittest.TestCase):
     def setUp(self):
@@ -46,7 +52,7 @@ class SectionIdentityMigrationTests(unittest.TestCase):
         self.source_sha = self.git("rev-parse", "HEAD").strip()
         self.baseline = {
             "$comment": "Existing baseline policy",
-            "schema_version": "4.1.0",
+            "schema_version": fixture_validator.SCHEMA_VERSION,
             "generated_from": {"sha": self.source_sha, "run_id": "123", "captured_at": "2026-08-27T00:00:00Z"},
             "corpus_definition": "resolveCorpus('graded')",
             "corpus": {"skill_files": 1, "agent_files": 0, "command_files": 0, "plugin_dirs": 1},
@@ -85,6 +91,12 @@ class SectionIdentityMigrationTests(unittest.TestCase):
             text=True,
         )
         return result, json.loads(baseline_file.read_text())
+
+    def test_different_schema_contract_still_refuses_migration(self):
+        baseline = copy.deepcopy(self.baseline)
+        baseline["schema_version"] = "different-contract"
+        with self.assertRaisesRegex(ValueError, "must not change the validator schema contract"):
+            self.migrate(baseline)
 
     def test_original_debt_expands_without_grandfathering_current_missing_section(self):
         # Examples existed at capture but is now missing. Live debt must not be
