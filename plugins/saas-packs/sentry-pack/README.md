@@ -1,12 +1,6 @@
 # Sentry Skill Pack
 
-**v2.0.0**: five operational skills for running Sentry in production. Version 1 was a 30-skill
-tutorial curriculum organized around SDK features; version 2 is organized around the jobs
-operators actually bring to Sentry.
-
-All five skills are **advisory**: they work on configuration, stats and event JSON you paste in
-(or `sentry-cli` output), and they recommend changes. They do not change your Sentry
-organization. Live read-only API fetch is a planned follow-up.
+Version 2 provides five self-contained offline operators. Supply selected configuration, event or usage exports and local source/build evidence. The helpers do not read credentials, call Sentry, change files or send messages.
 
 ## Installation
 
@@ -14,48 +8,29 @@ organization. Live read-only API fetch is a planned follow-up.
 /plugin install sentry-pack@claude-code-plugins-plus
 ```
 
-## The five skills
+## Operators
 
-| Skill | Use it to |
-|-------|-----------|
-| `sentry-quota-leak-hunter` | Find which meter moved and which lever fixes it (sampling, filters, cardinality) before buying more quota |
-| `sentry-event-forensics` | Explain why an event, sourcemap or trace did not show up, layer by layer |
-| `sentry-release-medic` | Repair a release: CI sourcemap upload, finalize, deploy markers and release health |
-| `sentry-issue-triage` | Triage a page: severity, suspect release, slow span and the correlated log line |
-| `sentry-pii-scrub-enforcer` | Check PII scrubbing and project-standard drift; recommends changes, never applies them |
+| Skill | Job | Evidence limit |
+|---|---|---|
+| `sentry-quota-leak-hunter` | Compare observed usage categories and propose reductions | Missing counts remain unknown; no verified invoice |
+| `sentry-event-forensics` | Investigate missing events and source-map resolution | Redaction is pattern based; no privacy certification |
+| `sentry-release-medic` | Review local build IDs, upload plans and query metadata | Local markers do not prove deployment; health is not assessed |
+| `sentry-issue-triage` | Classify supplied issue facts and investigate correlation | Missing severity inputs stay inconclusive; lexical hits are not log writes |
+| `sentry-pii-scrub-enforcer` | Review scrubbing evidence, settings drift and requested erasure plans | Missing settings are incomplete; no runtime or compliance guarantee |
 
-Each skill ships bundled helper scripts (shared code in `scripts/lib/sentry_readonly.py`). They read
-input and print to stdout. They make no network calls, write no files, and refuse `--apply` and
-`--send`. Each skill's `allowed-tools` is limited to its own scripts and read-only tooling.
+Each skill contains its own Python 3.10+ runtime under `scripts/lib/`; an installed skill needs no pack-level module or API token. Helpers use bounded inputs, reject malformed JSON and refuse write flags. Read the individual SKILL.md for commands and nonzero/incomplete results. Permission hints do not replace script validation or independent review.
 
-## Migrating from v1
+`references/roles/` contains procedures to perform inline when relevant. These are not registered native agents and do not require spawning agents. Supporting historical checklists retain their paths under `agents/<role>/skills/`; they are reference data. The pack registers no hooks, MCP servers or native agents.
 
-Every v1 skill name still resolves to a short redirect that tells you where its job went, so saved
-prompts keep working. The redirects are removed in a later release.
+## Migration from v1
 
-| v1 skill(s) | v2 skill |
-|-------------|----------|
-| `sentry-cost-tuning` (Keep) · `sentry-load-scale` · `sentry-performance-tuning` · `sentry-rate-limits` | `sentry-quota-leak-hunter` |
-| `sentry-advanced-troubleshooting` (Keep) · `sentry-debug-bundle` · `sentry-migration-deep-dive` · `sentry-upgrade-migration` | `sentry-event-forensics` |
-| `sentry-release-management` (Keep) · `sentry-ci-integration` · `sentry-deploy-integration` | `sentry-release-medic` |
-| `sentry-incident-runbook` (Keep) · `sentry-observability` | `sentry-issue-triage` |
-| `sentry-data-handling` (Keep) · `sentry-policy-guardrails` · `sentry-security-basics` | `sentry-pii-scrub-enforcer` |
-| `sentry-architecture-variants` · `sentry-common-errors` · `sentry-enterprise-rbac` · `sentry-error-capture` · `sentry-hello-world` · `sentry-install-auth` · `sentry-known-pitfalls` · `sentry-local-dev-loop` · `sentry-multi-env-setup` · `sentry-performance-tracing` · `sentry-prod-checklist` · `sentry-reference-architecture` · `sentry-reliability-patterns` · `sentry-sdk-patterns` | Cut: no direct replacement (the redirect explains why) |
+All 30 compatibility-only SKILL.md definitions and the legacy tutorial database are retired. Sixteen matching website aliases lead to the five operators; fourteen tutorials have no direct replacement and deliberately return 404. Saved native invocations must migrate explicitly. No redirect notice is counted as a callable skill.
 
-Full map with reasons: [`000-docs/phase0-kill-list.md`](000-docs/phase0-kill-list.md).
+See [the complete map](000-docs/phase0-kill-list.md) and [the decision record](000-docs/001-AT-ADEC-sentry-v2-rebuild-decisions.md). The legacy generators refuse to recreate Sentry tutorial scaffolds or overwrite this curated pack.
 
-## How the pack is organized
+## Verification
 
-- Each skill keeps its agents under `skills/<skill>/agents/`. Agent procedures are
-  `CHECKLIST.md` files (not `SKILL.md`), so they are not listed as separate marketplace skills.
-- Where two skills need the same reference, it is a labeled copy (`OWNER.md` names the owning
-  skill, `COPIED-FROM.md` names the source) rather than a silent duplicate.
-- The pack ships no hooks and no MCP server.
-
-## Design records
-
-- [`000-docs/000-INDEX.md`](000-docs/000-INDEX.md)
-- [`000-docs/001-AT-ADEC-sentry-v2-rebuild-decisions.md`](000-docs/001-AT-ADEC-sentry-v2-rebuild-decisions.md)
+Run `python3 scripts/sync-runtime.py --check` from this pack to check runtime parity. Repository regressions in `tests/test_sentry_pack_scripts.py` exercise actual isolated helper invocations, missing evidence, malformed counts, secret redaction and lexical false positives. Advisory `eval-spec.yaml` files describe behavioral cases; their presence does not mean a model evaluation ran or passed.
 
 ## License
 

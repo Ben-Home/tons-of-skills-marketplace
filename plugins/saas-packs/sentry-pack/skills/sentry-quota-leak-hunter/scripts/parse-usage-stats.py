@@ -13,18 +13,21 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 from typing import Any
 
-_LIB = Path(__file__).resolve().parents[3] / "scripts" / "lib"
-if _LIB.is_dir() and str(_LIB) not in sys.path:
-    sys.path.insert(0, str(_LIB))
+_LIB = Path(__file__).resolve().parent / "lib"
+if not (_LIB / "sentry_readonly.py").is_file():
+    raise SystemExit("Missing bundled offline runtime")
+sys.path.insert(0, str(_LIB))
 
 from sentry_readonly import (  # noqa: E402
     SentryReadOnlyError,
     client_from_env,
 )
+from sentry_readonly import emit_json, read_text, run_cli  # noqa: E402
 
 # Outcomes the usage API may return. Do not fold one into another.
 KNOWN_OUTCOMES = (
@@ -49,11 +52,11 @@ UNOFFICIAL_PRICE_KEYS = (
 
 
 def _as_int(value: Any) -> int | None:
-    if isinstance(value, bool):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
         return None
-    if isinstance(value, (int, float)):
-        return int(value)
-    return None
+    if isinstance(value, float) and (not math.isfinite(value) or not value.is_integer()):
+        return None
+    return int(value) if value >= 0 else None
 
 
 def _blank() -> dict[str, int]:
@@ -103,19 +106,23 @@ def _total_from_group(group: dict[str, Any]) -> int | None:
     totals = group.get("totals")
     if isinstance(totals, dict):
         for key in ("sum(quantity)", "quantity", "sum"):
-            n = _as_int(totals.get(key))
-            if n is not None:
+            if key in totals:
+                n = _as_int(totals[key])
+                if n is None:
+                    raise SentryReadOnlyError("Stats totals must be nonnegative integer counts")
                 return n
     series = group.get("series")
     if isinstance(series, dict):
         for key in ("sum(quantity)", "quantity"):
-            points = series.get(key)
-            if (
-                isinstance(points, list)
-                and points
-                and all(isinstance(p, (int, float)) and not isinstance(p, bool) for p in points)
-            ):
-                return int(sum(points))
+            if key not in series:
+                continue
+            points = series[key]
+            if not isinstance(points, list) or not points:
+                raise SentryReadOnlyError("Stats series must contain observed count values")
+            numbers = [_as_int(point) for point in points]
+            if any(point is None for point in numbers):
+                raise SentryReadOnlyError("Stats series must contain nonnegative integer counts")
+            return sum(numbers)
     return None
 
 
@@ -128,8 +135,10 @@ def from_groups(groups: list[Any]) -> dict[str, dict[str, int]]:
         by = group.get("by") or {}
         if not isinstance(by, dict):
             raise SentryReadOnlyError("stats group.by must be an object")
-        category = by.get("category") or by.get("reason") or "unspecified"
-        outcome = str(by.get("outcome") or "unspecified")
+        category = by.get("category")
+        outcome = by.get("outcome")
+        if not isinstance(category, str) or not category.strip() or not isinstance(outcome, str) or not outcome.strip():
+            raise SentryReadOnlyError("Each stats group needs explicit category and outcome strings")
         qty = _total_from_group(group)
         if qty is None:
             raise SentryReadOnlyError(f"group category={category!r} outcome={outcome!r} has no numeric total")
@@ -172,12 +181,16 @@ def dollar_report(data: dict[str, Any]) -> dict[str, Any]:
                 "The customer's subscription screen is the price."
             ),
         }
+    if _as_int(cited) is None and (
+        not isinstance(cited, (int, float)) or isinstance(cited, bool) or not math.isfinite(cited) or cited < 0
+    ):
+        raise SentryReadOnlyError("Supplied subscription amount must be a finite nonnegative number")
     return {
         "dollars": cited if isinstance(cited, (int, float)) and not isinstance(cited, bool) else None,
-        "dollar_source": "customer_subscription_screen_field",
+        "dollar_source": "user_supplied_unverified_subscription_field",
         "ignored_unofficial_price_keys": unofficial,
         "dollar_note": (
-            "Only subscription_screen_usd is cited, and only because the payload "
+            "The subscription_screen_usd field is user-supplied, not verified billing evidence; the payload "
             "carried it. Third-party per-event prices are ignored."
         ),
     }
@@ -198,8 +211,8 @@ def build_report(data: dict[str, Any], *, mode: str) -> dict[str, Any]:
     with_drops: list[str] = []
     with_filtered: list[str] = []
     for name, slot in ordered.items():
-        acc = slot.get("accepted", 0)
-        if acc > highest_n:
+        acc = slot.get("accepted")
+        if acc is not None and acc > highest_n:
             highest_n = acc
             highest = name
         if slot.get("dropped", 0) or slot.get("rate_limited", 0):
@@ -222,10 +235,11 @@ def build_report(data: dict[str, Any], *, mode: str) -> dict[str, Any]:
         if prev_cats is not None:
             deltas = []
             for name, slot in ordered.items():
-                prev = prev_cats.get(name, {}).get("accepted", 0)
-                deltas.append((slot.get("accepted", 0) - prev, name))
-            deltas.sort(reverse=True)
-            if deltas:
+                prev = prev_cats.get(name, {}).get("accepted")
+                if prev is not None and "accepted" in slot:
+                    deltas.append((slot["accepted"] - prev, name))
+            deltas.sort(key=lambda item: (-abs(item[0]), item[1]))
+            if deltas and deltas[0][0] != 0:
                 moved = {"category": deltas[0][1], "accepted_delta": deltas[0][0]}
 
     return {
@@ -272,7 +286,7 @@ def main(argv: list[str] | None = None) -> int:
         try:
             client.refuse_write("apply stats filter / discard / sample rate")
         except SentryReadOnlyError as exc:
-            print(json.dumps({"ok": False, "error": str(exc), "wrote": False}))
+            emit_json({"ok": False, "error": str(exc), "wrote": False})
             return 2
 
     if args.sum_lost:
@@ -289,11 +303,11 @@ def main(argv: list[str] | None = None) -> int:
 
     mode = "advisory"
     if args.json_path:
-        raw = sys.stdin.read() if args.json_path == "-" else Path(args.json_path).read_text()
+        raw = read_text(args.json_path)
         try:
             data = client.fetch_org_stats_usage(pasted=raw)
         except SentryReadOnlyError as exc:
-            print(json.dumps({"ok": False, "mode": "advisory", "error": str(exc)}))
+            emit_json({"ok": False, "mode": "advisory", "error": str(exc)})
             return 2
         mode = "advisory"
     else:
@@ -317,13 +331,13 @@ def main(argv: list[str] | None = None) -> int:
     try:
         report = build_report(data, mode=mode)
     except SentryReadOnlyError as exc:
-        print(json.dumps({"ok": False, "mode": mode, "error": str(exc)}))
+        emit_json({"ok": False, "mode": mode, "error": str(exc)})
         return 2
     report["ok"] = True
     report["wrote"] = False
-    print(json.dumps(report, indent=2, sort_keys=False))
+    emit_json(report)
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(run_cli(main))

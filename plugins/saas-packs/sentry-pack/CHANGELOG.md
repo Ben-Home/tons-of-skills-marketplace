@@ -1,32 +1,12 @@
 # Changelog — sentry-pack
 
-All notable changes to this pack. Format follows [Keep a Changelog](https://keepachangelog.com/);
-versioning is SemVer on the `sentry-pack` marketplace slug.
-
 ## [2.0.0]
 
-### Changed
-
-- Rebuilt the pack around five operational jobs instead of 30 SDK tutorials:
-  `sentry-quota-leak-hunter`, `sentry-event-forensics`, `sentry-release-medic`,
-  `sentry-issue-triage` and `sentry-pii-scrub-enforcer`.
-- All five skills are advisory: they work on pasted configuration, stats and event JSON (or
-  `sentry-cli` output) and recommend changes. Live read-only API fetch is a planned follow-up.
-
-### Added
-
-- Per-skill agents whose procedures are `CHECKLIST.md` files, so they are not listed as separate
-  marketplace skills.
-- Bundled helper scripts with a shared module, `scripts/lib/sentry_readonly.py`. Scripts print to
-  stdout, make no network calls, write no files, and refuse `--apply` / `--send`.
-- `000-docs/`: the v1 → v2 migration map (`phase0-kill-list.md`) and the rebuild decision record.
-
-### Deprecated
-
-- All 30 v1 skill names now resolve to short redirects that name the replacement skill or explain
-  the cut (Keep 5 · Merge 11 · Cut 14). The redirects are removed in a later release.
-
-### Security
-
-- Each skill's `allowed-tools` is limited to its own bundled scripts and read-only tooling, so the
-  advisory-only design is enforced by the permission boundary, not only by instructions.
+- Replace the 30 tutorial/compatibility definitions with five offline operational skills. Retire the legacy database; protect both legacy generators from recreating it or overwriting this curated pack.
+- Provide 16 canonical website aliases and 14 explicit no-replacement decisions. Saved native invocations must migrate.
+- Fold 21 nested agent definitions into conditional inline reference procedures. No native-agent registration or spawning dependency.
+- Bundle the bounded, credential-free parser runtime into each skill so isolated installation works.
+- Keep missing issue counters, settings, usage periods and release health unknown. Query metadata does not authenticate an API read or certify health.
+- Treat Debug ID and source searches as local lexical evidence, without deployed-runtime or logging-write claims.
+- Harden malformed JSON/count handling and quoted/multiline token redaction. Redaction and PII review remain incomplete safeguards, not certifications.
+- Print erasure request candidates only; distinguish asynchronous queue acceptance from completed deletion and unknown data-surface coverage.

@@ -8,12 +8,18 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { glob } from 'glob';
 import { simpleGit } from 'simple-git';
-import { promises as fs } from 'fs';
+import { promises as fs, realpathSync } from 'fs';
+import { pathToFileURL } from 'url';
 import { z } from 'zod';
 import path from 'path';
 
 // Input schemas
-const ListRepoFilesSchema = z.object({
+const PaginationSchema = z.object({
+  limit: z.number().int().min(1).max(100).optional().default(100),
+  offset: z.number().int().min(0).optional().default(0)
+});
+
+const ListRepoFilesSchema = PaginationSchema.extend({
   repoPath: z.string(),
   globs: z.array(z.string()).optional().default(['**/*']),
   exclude: z.array(z.string()).optional().default(['node_modules/**', '.git/**', 'dist/**', 'build/**'])
@@ -28,13 +34,13 @@ const GitChurnSchema = z.object({
   since: z.string().optional().default('6 months ago')
 });
 
-const MapTestsSchema = z.object({
+const MapTestsSchema = PaginationSchema.extend({
   repoPath: z.string()
 });
 
 // Tool implementations
-async function listRepoFiles(args: z.infer<typeof ListRepoFilesSchema>) {
-  const { repoPath, globs: patterns, exclude } = args;
+export async function listRepoFiles(args: z.input<typeof ListRepoFilesSchema>) {
+  const { repoPath, globs: patterns, exclude, limit, offset } = ListRepoFilesSchema.parse(args);
 
   const files: string[] = [];
 
@@ -50,17 +56,22 @@ async function listRepoFiles(args: z.infer<typeof ListRepoFilesSchema>) {
 
   // Remove duplicates and sort
   const uniqueFiles = [...new Set(files)].sort();
+  const page = uniqueFiles.slice(offset, offset + limit);
 
   return {
     repoPath,
     totalFiles: uniqueFiles.length,
-    files: uniqueFiles,
+    files: page,
+    limit,
+    offset,
+    showing: page.length,
+    hasMore: offset + limit < uniqueFiles.length,
     patterns,
     excluded: exclude
   };
 }
 
-async function fileMetrics(args: z.infer<typeof FileMetricsSchema>) {
+export async function fileMetrics(args: z.infer<typeof FileMetricsSchema>) {
   const { filePath } = args;
 
   try {
@@ -204,7 +215,7 @@ async function gitChurn(args: z.infer<typeof GitChurnSchema>) {
 }
 
 async function mapTests(args: z.infer<typeof MapTestsSchema>) {
-  const { repoPath } = args;
+  const { repoPath, limit, offset } = args;
 
   try {
     // Find test files
@@ -229,13 +240,16 @@ async function mapTests(args: z.infer<typeof MapTestsSchema>) {
       nodir: true
     });
 
+    // Stable ordering makes pages repeatable while the repository is unchanged.
+    sourceFiles.sort();
+    testFiles.sort();
+
     // Map tests to source files
     const testCoverage: Record<string, string[]> = {};
     const missingTests: string[] = [];
 
     for (const sourceFile of sourceFiles) {
       const baseName = path.basename(sourceFile, path.extname(sourceFile));
-      const sourceDir = path.dirname(sourceFile);
 
       // Look for corresponding test files
       const matchingTests = testFiles.filter(testFile => {
@@ -254,16 +268,27 @@ async function mapTests(args: z.infer<typeof MapTestsSchema>) {
       ? ((sourceFiles.length - missingTests.length) / sourceFiles.length) * 100
       : 0;
 
+    const page = sourceFiles.slice(offset, offset + limit);
+    const pageCoverage = Object.fromEntries(
+      page.filter(file => file in testCoverage).map(file => [file, testCoverage[file]])
+    );
+    const pageMissingTests = page.filter(file => !(file in testCoverage));
+
     return {
       repoPath,
+      limit,
+      offset,
+      showing: page.length,
+      hasMore: offset + limit < sourceFiles.length,
+      sourceFiles: page,
       summary: {
         totalSourceFiles: sourceFiles.length,
         totalTestFiles: testFiles.length,
         testedFiles: sourceFiles.length - missingTests.length,
         coverageRatio: Math.round(coverageRatio * 100) / 100
       },
-      coverage: testCoverage,
-      missingTests: missingTests.slice(0, 50), // Limit to 50 for readability
+      coverage: pageCoverage,
+      missingTests: pageMissingTests,
       recommendations: generateTestRecommendations(missingTests, coverageRatio)
     };
   } catch (error) {
@@ -295,175 +320,193 @@ function generateTestRecommendations(missingTests: string[], coverageRatio: numb
   return recommendations;
 }
 
-// Create and start the server
-const server = new Server(
-  {
-    name: 'code-metrics',
-    version: '1.0.0',
-  },
-  {
-    capabilities: {
-      tools: {},
+// Each caller owns its server and transport lifecycle.
+export function createServer() {
+  const server = new Server(
+    {
+      name: 'code-metrics',
+      version: '1.0.0',
     },
-  }
-);
-
-// Register tool list handler
-server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return {
-    tools: [
-      {
-        name: 'list_repo_files',
-        description: 'List all files in a repository matching glob patterns',
-        inputSchema: {
-          type: 'object',
-          properties: {
-            repoPath: {
-              type: 'string',
-              description: 'Absolute path to the repository'
-            },
-            globs: {
-              type: 'array',
-              items: { type: 'string' },
-              description: 'Glob patterns to match (default: ["**/*"])',
-              default: ['**/*']
-            },
-            exclude: {
-              type: 'array',
-              items: { type: 'string' },
-              description: 'Glob patterns to exclude',
-              default: ['node_modules/**', '.git/**', 'dist/**', 'build/**']
-            }
-          },
-          required: ['repoPath']
-        }
+    {
+      capabilities: {
+        tools: {},
       },
-      {
-        name: 'file_metrics',
-        description: 'Analyze a single file for complexity, size, and health metrics',
-        inputSchema: {
-          type: 'object',
-          properties: {
-            filePath: {
-              type: 'string',
-              description: 'Absolute path to the file to analyze'
-            }
-          },
-          required: ['filePath']
-        }
-      },
-      {
-        name: 'git_churn',
-        description: 'Analyze git commit history to identify high-churn files (files that change frequently)',
-        inputSchema: {
-          type: 'object',
-          properties: {
-            repoPath: {
-              type: 'string',
-              description: 'Absolute path to the git repository'
-            },
-            since: {
-              type: 'string',
-              description: 'Time period to analyze (e.g., "6 months ago", "1 year ago")',
-              default: '6 months ago'
-            }
-          },
-          required: ['repoPath']
-        }
-      },
-      {
-        name: 'map_tests',
-        description: 'Map source files to test files and identify files missing tests',
-        inputSchema: {
-          type: 'object',
-          properties: {
-            repoPath: {
-              type: 'string',
-              description: 'Absolute path to the repository'
-            }
-          },
-          required: ['repoPath']
-        }
-      }
-    ]
-  };
-});
-
-// Register tool call handler
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  try {
-    switch (request.params.name) {
-      case 'list_repo_files': {
-        const args = ListRepoFilesSchema.parse(request.params.arguments);
-        const result = await listRepoFiles(args);
-        return {
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify(result, null, 2)
-            }
-          ]
-        };
-      }
-
-      case 'file_metrics': {
-        const args = FileMetricsSchema.parse(request.params.arguments);
-        const result = await fileMetrics(args);
-        return {
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify(result, null, 2)
-            }
-          ]
-        };
-      }
-
-      case 'git_churn': {
-        const args = GitChurnSchema.parse(request.params.arguments);
-        const result = await gitChurn(args);
-        return {
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify(result, null, 2)
-            }
-          ]
-        };
-      }
-
-      case 'map_tests': {
-        const args = MapTestsSchema.parse(request.params.arguments);
-        const result = await mapTests(args);
-        return {
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify(result, null, 2)
-            }
-          ]
-        };
-      }
-
-      default:
-        throw new Error(`Unknown tool: ${request.params.name}`);
     }
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      throw new Error(`Invalid arguments: ${error.issues.map((e: any) => `${e.path.join('.')}: ${e.message}`).join(', ')}`);
+  );
+
+  // Register tool list handler
+  server.setRequestHandler(ListToolsRequestSchema, async () => {
+    return {
+      tools: [
+        {
+          name: 'list_repo_files',
+          description: 'List a page of repository files matching glob patterns. Advance offset by showing while hasMore is true; totalFiles describes all matches.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              repoPath: {
+                type: 'string',
+                description: 'Absolute path to the repository'
+              },
+              ...z.toJSONSchema(PaginationSchema).properties,
+              globs: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Glob patterns to match (default: ["**/*"])',
+                default: ['**/*']
+              },
+              exclude: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Glob patterns to exclude',
+                default: ['node_modules/**', '.git/**', 'dist/**', 'build/**']
+              }
+            },
+            required: ['repoPath']
+          }
+        },
+        {
+          name: 'file_metrics',
+          description: 'Analyze a single file for complexity, size, and health metrics',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              filePath: {
+                type: 'string',
+                description: 'Absolute path to the file to analyze'
+              }
+            },
+            required: ['filePath']
+          }
+        },
+        {
+          name: 'git_churn',
+          description: 'Analyze git commit history to identify high-churn files (files that change frequently)',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              repoPath: {
+                type: 'string',
+                description: 'Absolute path to the git repository'
+              },
+              since: {
+                type: 'string',
+                description: 'Time period to analyze (e.g., "6 months ago", "1 year ago")',
+                default: '6 months ago'
+              }
+            },
+            required: ['repoPath']
+          }
+        },
+        {
+          name: 'map_tests',
+          description: 'Page source-to-test filename matches and missing tests. Advance offset by showing while hasMore is true; summary describes all source files. Filename matches do not prove measured coverage or passing tests.',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              ...z.toJSONSchema(PaginationSchema).properties,
+              repoPath: {
+                type: 'string',
+                description: 'Absolute path to the repository'
+              }
+            },
+            required: ['repoPath']
+          }
+        }
+      ]
+    };
+  });
+
+  // Register tool call handler
+  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    try {
+      switch (request.params.name) {
+        case 'list_repo_files': {
+          const args = ListRepoFilesSchema.parse(request.params.arguments);
+          const result = await listRepoFiles(args);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2)
+              }
+            ]
+          };
+        }
+
+        case 'file_metrics': {
+          const args = FileMetricsSchema.parse(request.params.arguments);
+          const result = await fileMetrics(args);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2)
+              }
+            ]
+          };
+        }
+
+        case 'git_churn': {
+          const args = GitChurnSchema.parse(request.params.arguments);
+          const result = await gitChurn(args);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2)
+              }
+            ]
+          };
+        }
+
+        case 'map_tests': {
+          const args = MapTestsSchema.parse(request.params.arguments);
+          const result = await mapTests(args);
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(result, null, 2)
+              }
+            ]
+          };
+        }
+
+        default:
+          throw new Error(`Unknown tool: ${request.params.name}`);
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        throw new Error(`Invalid arguments: ${error.issues.map((e: any) => `${e.path.join('.')}: ${e.message}`).join(', ')}`);
+      }
+      throw error;
     }
-    throw error;
-  }
-});
+  });
+
+  return server;
+}
 
 // Start the server
 async function main() {
   const transport = new StdioServerTransport();
-  await server.connect(transport);
+  await createServer().connect(transport);
   console.error('Code Metrics MCP Server running on stdio');
 }
 
-main().catch((error) => {
-  console.error('Fatal error in main():', error);
-  process.exit(1);
-});
+// Resolve symlinked launchers too, while keeping imports free of stdio effects.
+function isDirectEntry() {
+  if (!process.argv[1]) return false;
+  try {
+    return import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href;
+  } catch {
+    return false;
+  }
+}
+
+if (isDirectEntry()) {
+  main().catch((error) => {
+    console.error('Fatal error in main():', error);
+    process.exit(1);
+  });
+}

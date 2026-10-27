@@ -1,5 +1,7 @@
 # Sentry Issue Triage
 
+> Historical v2 design note. Superseded by the parent SKILL.md, `references/roles/`, actual helper output and the pack decision record. Agent spawning, live/auth modes, fixed historical SDK claims and health/logging certainty in this note are not implemented behavior. Behavioral specs require actual run evidence; none is implied here.
+
 **Turns one Sentry issue page into a severity, a suspect release, a grouping or noise lever, and a log query — from the payload, without clicking Ignore or inventing a timeline.**
 
 ## Problem

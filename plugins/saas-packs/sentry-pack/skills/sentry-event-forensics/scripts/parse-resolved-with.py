@@ -17,11 +17,13 @@ import sys
 from pathlib import Path
 from typing import Any
 
-_LIB = Path(__file__).resolve().parents[3] / "scripts" / "lib"
-if _LIB.is_dir() and str(_LIB) not in sys.path:
-    sys.path.insert(0, str(_LIB))
+_LIB = Path(__file__).resolve().parent / "lib"
+if not (_LIB / "sentry_readonly.py").is_file():
+    raise SystemExit("Missing bundled offline runtime")
+sys.path.insert(0, str(_LIB))
 
 from sentry_readonly import SentryReadOnlyError, client_from_env  # noqa: E402
+from sentry_readonly import emit_json, read_text, run_cli  # noqa: E402
 
 # Help Center "How were my source maps resolved" (RL06). Do not extend.
 KNOWN_RESOLVED_WITH = (
@@ -214,8 +216,7 @@ def main(argv: list[str] | None = None) -> int:
 
     mode = "advisory"
     if args.json_path:
-        raw = sys.stdin.read() if args.json_path == "-" else Path(args.json_path).read_text()
-        raw = redact(raw)
+        raw = read_text(args.json_path)
         try:
             event = client.fetch_event_json(args.event_id or "pasted", pasted=raw)
         except SentryReadOnlyError as exc:
@@ -242,10 +243,9 @@ def main(argv: list[str] | None = None) -> int:
 
     report = build(event, mode=mode, maps_release=args.maps_release)
     report["ok"] = True
-    text = json.dumps(report, indent=2)
-    sys.stdout.write(redact(text) + "\n")
+    emit_json(report)
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(run_cli(main))

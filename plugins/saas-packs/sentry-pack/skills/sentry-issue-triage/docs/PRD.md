@@ -1,5 +1,7 @@
 # PRD: sentry-issue-triage
 
+> Historical v2 design note. Superseded by the parent SKILL.md, `references/roles/`, actual helper output and the pack decision record. Agent spawning, live/auth modes, fixed historical SDK claims and health/logging certainty in this note are not implemented behavior. Behavioral specs require actual run evidence; none is implied here.
+
 **Author:** Jeremy Longshore (Intent Solutions)
 **Date:** 2026-10-03
 **Status:** Draft (`2.0.0-draft`) — local, not pushed

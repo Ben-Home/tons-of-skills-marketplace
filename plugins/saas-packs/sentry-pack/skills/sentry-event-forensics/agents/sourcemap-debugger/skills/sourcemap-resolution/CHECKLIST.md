@@ -15,7 +15,7 @@ Trust the script:
 
 | Field | Meaning |
 |---|---|
-| `has_debug_meta` | Event has `debug_meta.images[].debug_id`. The running bytes were injected, or at least this event says so. |
+| `has_debug_meta` | Event has `debug_meta.images[].debug_id`. This is a supplied event declaration, not independently verified deployed-byte evidence. |
 | `has_matching_bundle` | Always null here. A debug id on the event does not prove an artifact bundle was uploaded. |
 | `resolved_with` | Per frame. Allowed: `debug-id`, `url`, `index`, `release`, `release-old`, `scraping`, `unknown`. |
 | `unknown_matchers` | Not in that enum. Do not adopt them. |

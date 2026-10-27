@@ -98,7 +98,7 @@
     {
       "id": "sentry-pack",
       "name": "Sentry",
-      "description": "Error tracking, performance monitoring, alerts, and Sentry SDK integration",
+      "description": "Five offline Sentry operators for quota, event, release, issue and PII evidence review",
       "color": "#362D59",
       "category": "saas-packs",
       "packName": "sentry-pack",
@@ -132,16 +132,6 @@
       "color": "#00A1E0",
       "category": "saas-packs",
       "packName": "salesforce-pack",
-      "featured": true,
-      "isSaasPack": true
-    },
-    {
-      "id": "anthropic-pack",
-      "name": "Anthropic",
-      "description": "Claude API, prompt engineering, tool use, and Anthropic SDK patterns",
-      "color": "#D4A27F",
-      "category": "saas-packs",
-      "packName": "anthropic-pack",
       "featured": true,
       "isSaasPack": true
     },
@@ -253,6 +243,6 @@
   "meta": {
     "version": "1.0.0",
     "lastUpdated": "2026-02-19",
-    "totalPacks": 28
+    "totalPacks": 27
   }
 }

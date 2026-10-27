@@ -6,11 +6,20 @@ import sys
 import csv
 
 
-# These vendors have replaced the legacy fixed-taxonomy database with a curated,
-# outcome-focused pack. Refuse regeneration so deleted filler cannot silently
-# reappear through an old release command.
+# These vendors have replaced or retired the legacy fixed-taxonomy database.
+# Refuse regeneration so deleted filler cannot silently reappear through an old
+# release command.
 RETIRED_SKILL_DATABASES = {
+    "sentry": "Sentry v2 uses the five curated offline sentry-pack operator skills",
+    "anthropic": "The Anthropic tutorial pack is retired (claude-juoz.3.11.58)",
+    "framer": "The unsupported Framer tutorial pack is retired (claude-juoz.3.11.57)",
+    "apple-notes": "The unsupported Apple Notes tutorial pack is retired (claude-juoz.3.11.56)",
+    "gamma": "The unsupported Gamma tutorial pack is retired (claude-juoz.3.11.55)",
+    "glean": "The unsafe Glean tutorial pack is retired (claude-juoz.3.11.54)",
+    "clay": "The unsupported Clay tutorial pack is retired (claude-juoz.3.11.53)",
+    "appfolio": "The unsupported AppFolio tutorial pack is retired (claude-juoz.3.11.52)",
     "snowflake": "Snowflake v2 uses the curated snowflake-pack operator skills",
+    "langfuse": "Langfuse v2 uses the five evidence-driven langfuse-pack operator skills",
 }
 
 # Skill templates for flagship tier (24 skills)
@@ -153,6 +162,8 @@ This skill helps developers {what.lower()}. It provides step-by-step guidance fo
 def generate_skill_database(vendor: str, display: str, tier: str):
     """Generate complete skill database for a vendor."""
     normalized_vendor = vendor.strip().casefold()
+    if normalized_vendor == "sentry-pack":
+        normalized_vendor = "sentry"
     if normalized_vendor in RETIRED_SKILL_DATABASES:
         reason = RETIRED_SKILL_DATABASES[normalized_vendor]
         raise ValueError(f"skill database generation is retired for {vendor!r}: {reason}")

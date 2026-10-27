@@ -255,7 +255,7 @@ const allTools = _rawCatalog.allowedToolsUsed;
         <p id="results-count" class="results-count">
           Showing {_rawCatalog.count} of {_rawCatalog.count} marketplace-visible skills
         </p>
-        <button onclick="clearFilters()" class="clear-filters-btn">
+        <button type="button" data-action="clear-filters" class="clear-filters-btn">
           Clear Filters
         </button>
       </div>
@@ -285,7 +285,7 @@ const allTools = _rawCatalog.allowedToolsUsed;
 
   <!-- Client-side search functionality using Fuse.js -->
   <script type="module">
-    import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/+esm';
+    import Fuse from 'fuse.js';
 
     // Full skills catalog fetched lazily — not inlined into HTML.
     // First 24 cards are already server-rendered for instant paint.
@@ -385,7 +385,7 @@ const allTools = _rawCatalog.allowedToolsUsed;
         grid.innerHTML = `
           <div class="no-results" style="grid-column: 1 / -1;">
             <p>No skills found matching your filters.</p>
-            <button onclick="clearFilters()">Clear Filters</button>
+            <button type="button" data-action="clear-filters">Clear Filters</button>
           </div>
         `;
         return;
@@ -425,6 +425,12 @@ const allTools = _rawCatalog.allowedToolsUsed;
         document.getElementById('tool-filter').value = '';
         filterSkills();
       };
+
+      // Both "Clear Filters" buttons (one static, one rendered into the grid
+      // at runtime) bind by delegation instead of an inline onclick.
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('[data-action="clear-filters"]')) window.clearFilters();
+      });
     });
   </script>
 

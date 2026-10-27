@@ -13,10 +13,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
-_LIB = Path(__file__).resolve().parents[3] / "scripts" / "lib"
-if _LIB.is_dir() and str(_LIB) not in sys.path:
-    sys.path.insert(0, str(_LIB))
+_LIB = Path(__file__).resolve().parent / "lib"
+if not (_LIB / "sentry_readonly.py").is_file():
+    raise SystemExit("Missing bundled offline runtime")
+sys.path.insert(0, str(_LIB))
 from sentry_readonly import SentryReadOnlyError, client_from_env  # noqa: E402
+from sentry_readonly import emit_json, read_text, run_cli  # noqa: E402
 
 _UUID = re.compile(r"\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b")
 _DIGITS = re.compile(r"\d{2,}")
@@ -35,12 +37,20 @@ def _exception(data: dict[str, Any]) -> tuple[str | None, str | None, bool]:
     if not values and isinstance(data.get("entries"), list):
         for entry in data["entries"]:
             if isinstance(entry, dict) and entry.get("type") == "exception":
-                values = (entry.get("data") or {}).get("values")
+                entry_data = entry.get("data")
+                if not isinstance(entry_data, dict):
+                    raise SentryReadOnlyError("Exception entry data must be an object")
+                values = entry_data.get("values")
                 break
     if not isinstance(values, list) or not values:
         return None, None, False
     last = values[-1] if isinstance(values[-1], dict) else {}
-    frames = ((last.get("stacktrace") or {}).get("frames")) or []
+    stack = last.get("stacktrace")
+    if stack is not None and not isinstance(stack, dict):
+        raise SentryReadOnlyError("Event stacktrace must be an object")
+    frames = (stack or {}).get("frames", [])
+    if not isinstance(frames, list):
+        raise SentryReadOnlyError("Stack frames must be a list")
     return (
         last.get("type") if isinstance(last.get("type"), str) else None,
         last.get("value") if isinstance(last.get("value"), str) else None,
@@ -58,19 +68,22 @@ def analyze(data: dict[str, Any]) -> dict[str, Any]:
     elif isinstance(fingerprint, list):
         fp_list = fingerprint
     else:
-        fp_list = [fingerprint]
+        raise SentryReadOnlyError("Fingerprint must be a list of strings")
+    if not all(isinstance(item, str) for item in fp_list):
+        raise SentryReadOnlyError("Fingerprint must be a list of strings")
     fp_strings = [str(x) for x in fp_list]
     has_default = any(x.strip() == "{{ default }}" for x in fp_strings)
     fully_custom = bool(fp_strings) and not has_default and fp_strings != ["{{ default }}"]
     # SDK default is often the literal "default" or absent — treat absent as built-in.
-    if not fp_strings or fp_strings == ["default"]:
+    if not fp_strings:
         fully_custom = False
         has_default = False
     return {
         "fingerprint": fp_strings,
         "includes_default_placeholder": has_default,
         "fully_custom_fingerprint": fully_custom,
-        "ai_grouping_opt_out": fully_custom,
+        "ai_grouping_opt_out": None,
+        "ai_grouping_note": "Project-side grouping eligibility was not inspected",
         "exception_type": exc_type,
         "exception_value": exc_value,
         "has_stack": has_stack,
@@ -99,9 +112,7 @@ def main() -> None:
             print(json.dumps({"ok": False, "wrote": False, "error": str(exc)}))
             return 2
     if args.pasted:
-        raw = Path(args.pasted).read_text(encoding="utf-8") if Path(args.pasted).is_file() else args.pasted
-        if raw == "-":
-            raw = sys.stdin.read()
+        raw = read_text(args.pasted, inline=True)
         data = client.fetch_event_json("pasted", pasted=raw)
         mode = "advisory"
     elif args.event_id:
@@ -115,9 +126,8 @@ def main() -> None:
     out = analyze(data)
     out["mode"] = "advisory" if client.advisory or mode == "advisory" else mode
     out["writes"] = "none"
-    json.dump(out, sys.stdout, indent=2)
-    sys.stdout.write("\n")
+    emit_json(out)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(run_cli(main))

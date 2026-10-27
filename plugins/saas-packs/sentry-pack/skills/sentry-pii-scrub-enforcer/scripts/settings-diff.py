@@ -1,183 +1,149 @@
 #!/usr/bin/env python3
-"""Diff project settings or SDK inits against a written scrub standard.
+"""Compare offline project settings with an explicit, typed local standard.
 
-Flags dirty projects only. Does not restate tracesSampler decision order.
-Does not apply settings. Read-only client; refuse_write on --apply.
+Missing settings are incomplete evidence, not clean projects. This compares
+exported declarations; it does not prove SDK execution or server enforcement.
 """
 
 from __future__ import annotations
 
 import argparse
-import json
+import math
 import sys
 from pathlib import Path
 from typing import Any
 
-_LIB = Path(__file__).resolve().parents[3] / "scripts" / "lib"
-if _LIB.is_dir() and str(_LIB) not in sys.path:
-    sys.path.insert(0, str(_LIB))
-from sentry_readonly import SentryReadOnlyError, client_from_env  # noqa: E402
+_LIB = Path(__file__).resolve().parent / "lib"
+if not (_LIB / "sentry_readonly.py").is_file():
+    raise SystemExit("Missing bundled offline runtime")
+sys.path.insert(0, str(_LIB))
+from sentry_readonly import SentryReadOnlyError, client_from_env, emit_json, load_json, run_cli  # noqa: E402
 
-# Compared as equality when the standard contains the key.
-SCRUB_KEYS = (
+BOOL_KEYS = {
     "sendDefaultPii",
     "dataScrubber",
     "scrubIPAddresses",
     "maskAllText",
     "blockAllMedia",
-    "networkDetailAllowUrls",
     "networkCaptureBodies",
-)
-# Present in standard → project must include every listed string.
-LIST_KEYS = ("sensitiveFields", "scrubFields")
-# Numeric sample fields. Drift is reported; sampling ORDER is not evaluated.
-SAMPLE_KEYS = ("tracesSampleRate", "profilesSampleRate", "sampleRate", "replaysSessionSampleRate")
+}
+LIST_KEYS = {"sensitiveFields", "scrubFields", "networkDetailAllowUrls"}
+SAMPLE_KEYS = {"tracesSampleRate", "profilesSampleRate", "sampleRate", "replaysSessionSampleRate"}
+SUPPORTED = BOOL_KEYS | LIST_KEYS | SAMPLE_KEYS | {"tracesSampler"}
 
 
-def _load(path: str) -> Any:
-    if path == "-":
-        raw = sys.stdin.read()
-    else:
-        candidate = Path(path)
-        raw = candidate.read_text(encoding="utf-8") if candidate.is_file() else path
-    return json.loads(raw)
+def _valid(key: str, value: Any, *, standard: bool = False) -> bool:
+    if key in BOOL_KEYS:
+        return type(value) is bool
+    if key in LIST_KEYS:
+        return isinstance(value, list) and all(isinstance(x, str) and x.strip() for x in value)
+    if key in SAMPLE_KEYS:
+        return type(value) in (int, float) and math.isfinite(value) and 0 <= value <= 1
+    if standard:
+        return isinstance(value, str) and value in {"present", "absent"}
+    return value is None or type(value) is bool or isinstance(value, str)
+
+
+def _presence(value: Any) -> str:
+    return "absent" if value is None or value is False or value == "" or value == "absent" else "present"
 
 
 def _projects(payload: Any) -> list[dict[str, Any]]:
     if isinstance(payload, list):
         rows = payload
-    elif isinstance(payload, dict) and isinstance(payload.get("projects"), list):
+    elif isinstance(payload, dict) and "projects" in payload:
         rows = payload["projects"]
-    elif isinstance(payload, dict) and ("slug" in payload or "project" in payload or "settings" in payload):
+    elif isinstance(payload, dict):
         rows = [payload]
     else:
-        raise SystemExit("projects JSON must be a list or {projects: [...]}")
-    out = []
+        raise SentryReadOnlyError("Projects must be a list or project object")
+    if not isinstance(rows, list) or not rows:
+        raise SentryReadOnlyError("At least one observed project is required")
+    result = []
+    seen = set()
     for row in rows:
         if not isinstance(row, dict):
-            raise SystemExit("each project must be an object")
-        settings = (
-            row.get("settings")
-            if isinstance(row.get("settings"), dict)
-            else {k: v for k, v in row.items() if k not in {"slug", "project", "name"}}
-        )
-        slug = str(row.get("slug") or row.get("project") or row.get("name") or "unknown")
-        out.append({"slug": slug, "settings": settings})
-    return out
+            raise SentryReadOnlyError("Each project must be an object")
+        slug = row.get("slug", row.get("project", row.get("name")))
+        if not isinstance(slug, str) or not slug.strip() or slug in seen:
+            raise SentryReadOnlyError("Projects require distinct nonempty identifiers")
+        settings = row.get("settings", {k: v for k, v in row.items() if k not in {"slug", "project", "name"}})
+        if not isinstance(settings, dict):
+            raise SentryReadOnlyError("Project settings must be an object")
+        seen.add(slug)
+        result.append({"slug": slug, "settings": settings})
+    return result
 
 
-def _diff_one(slug: str, settings: dict[str, Any], standard: dict[str, Any]) -> list[dict[str, Any]]:
-    findings: list[dict[str, Any]] = []
-    for key in SCRUB_KEYS:
-        if key not in standard or key not in settings:
-            continue
-        if settings[key] != standard[key]:
-            findings.append(
-                {
-                    "project": slug,
-                    "key": key,
-                    "found": settings[key],
-                    "expected": standard[key],
-                    "kind": "scrub",
-                }
-            )
-    for key in LIST_KEYS:
-        if key not in standard or key not in settings:
-            continue
-        expected = set(standard[key] or [])
-        found = set(settings[key] or [])
-        missing = sorted(expected - found)
-        if missing:
-            findings.append(
-                {
-                    "project": slug,
-                    "key": key,
-                    "missing": missing,
-                    "kind": "scrub",
-                }
-            )
-    for key in SAMPLE_KEYS:
-        if key not in standard or key not in settings:
-            continue
-        if settings[key] != standard[key]:
-            findings.append(
-                {
-                    "project": slug,
-                    "key": key,
-                    "found": settings[key],
-                    "expected": standard[key],
-                    "kind": "sample-rate",
-                    "order": "not evaluated — owner is quota volume-cutter sampler-and-filters",
-                }
-            )
-    # tracesSampler presence is a flag, not an order rewrite.
-    if "tracesSampler" in settings and settings["tracesSampler"] not in (None, False, ""):
-        if standard.get("tracesSampler") in (None, False, "absent") or "tracesSampler" not in standard:
-            findings.append(
-                {
-                    "project": slug,
-                    "key": "tracesSampler",
-                    "found": "present",
-                    "kind": "sample-rate",
-                    "order": "not restated",
-                }
-            )
-    return findings
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Scrub/sample settings drift")
-    parser.add_argument("--projects", help="JSON file or - for stdin")
-    parser.add_argument("--standard", help="Written standard JSON")
-    parser.add_argument("--project", help="Live slug via read-only client (advisory if no token)")
-    parser.add_argument("--apply", action="store_true")
-    args = parser.parse_args()
-    client = client_from_env()
-    if args.apply:
-        try:
-            client.refuse_write("project scrub settings update")
-        except SentryReadOnlyError as exc:
-            print(json.dumps({"applied": False, "refused": str(exc)}))
-            raise SystemExit(3) from exc
-
-    if args.projects:
-        payload = _load(args.projects)
-        mode = "advisory"
-    elif args.project:
-        try:
-            payload = client.fetch_project_settings(args.project)
-            mode = "live"
-        except SentryReadOnlyError as exc:
-            raise SystemExit(f"advisory required: {exc}") from exc
-    else:
-        raise SystemExit("pass --projects or --project")
-
-    standard: dict[str, Any] = {}
-    if args.standard:
-        loaded = _load(args.standard)
-        if not isinstance(loaded, dict):
-            raise SystemExit("standard must be an object")
-        standard = loaded.get("settings", loaded) if isinstance(loaded.get("settings"), dict) else loaded
-
+def compare(payload: Any, standard: Any) -> dict[str, Any]:
+    if not isinstance(standard, dict):
+        raise SentryReadOnlyError("The written standard must be an object")
+    standard = standard.get("settings", standard)
+    if not isinstance(standard, dict) or not standard:
+        raise SentryReadOnlyError("A nonempty written standard is required")
+    if set(standard) - SUPPORTED or any(not _valid(k, v, standard=True) for k, v in standard.items()):
+        raise SentryReadOnlyError("The standard contains unsupported keys or invalid policy types")
     rows = _projects(payload)
-    findings: list[dict[str, Any]] = []
+    findings = []
+    dirty = set()
+    incomplete = set()
     for row in rows:
-        findings.extend(_diff_one(row["slug"], row["settings"], standard))
-    dirty = sorted({f["project"] for f in findings})
-    report = {
-        "mode": "advisory" if client.advisory or mode == "advisory" else mode,
-        "dirty_projects": dirty,
-        "clean_projects": [r["slug"] for r in rows if r["slug"] not in dirty],
+        slug, settings = row["slug"], row["settings"]
+        for key, wanted in sorted(standard.items()):
+            if key not in settings or not _valid(key, settings.get(key)):
+                incomplete.add(slug)
+                findings.append(
+                    {"project": slug, "key": key, "kind": "incomplete", "reason": "missing or invalid observed setting"}
+                )
+                continue
+            found = settings[key]
+            if key in {"sensitiveFields", "scrubFields"}:
+                matches = set(wanted).issubset(set(found))
+            elif key == "tracesSampler":
+                matches = _presence(found) == wanted
+            else:
+                matches = found == wanted
+            if not matches:
+                dirty.add(slug)
+                findings.append(
+                    {
+                        "project": slug,
+                        "key": key,
+                        "kind": "drift",
+                        "found": _presence(found) if key == "tracesSampler" else found,
+                        "expected": wanted,
+                    }
+                )
+    return {
+        "mode": "advisory",
+        "assessment": "incomplete" if incomplete else "complete",
+        "dirty_projects": sorted(dirty),
+        "incomplete_projects": sorted(incomplete),
+        "clean_projects": sorted(row["slug"] for row in rows if row["slug"] not in dirty | incomplete),
         "findings": findings,
+        "compared_standard_keys": sorted(standard),
+        "scope": "provided declarations only; runtime enforcement and other projects were not inspected",
         "sampling_order_restated": False,
         "applied": False,
         "writes": "none",
-        "recommends_not_applies": True,
     }
-    json.dump(report, sys.stdout, indent=2)
-    sys.stdout.write("\n")
-    raise SystemExit(2 if dirty else 0)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--projects", help="Offline JSON file, literal JSON, or '-' for stdin")
+    parser.add_argument("--standard", help="Explicit written standard file or literal JSON")
+    parser.add_argument("--project", help="Unsupported live selector; provide an offline export")
+    parser.add_argument("--apply", action="store_true")
+    args = parser.parse_args()
+    if args.apply:
+        client_from_env().refuse_write("project scrub settings update")
+    if not args.projects or not args.standard or (args.projects == "-" and args.standard == "-"):
+        raise SentryReadOnlyError("Provide projects and a written standard; at most one may read stdin")
+    report = compare(load_json(args.projects), load_json(args.standard))
+    emit_json(report)
+    return 2 if report["dirty_projects"] or report["incomplete_projects"] else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(run_cli(main))

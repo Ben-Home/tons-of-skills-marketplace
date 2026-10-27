@@ -1,141 +1,148 @@
 #!/usr/bin/env python3
-"""Grep built JS artifacts for a Debug ID comment.
+"""Inspect bounded local JS/source-map files for syntactically valid Debug IDs.
 
-Source of truth is the artifact, not the action-release docs.
-Absence of `debugId` in the files that will run means those bytes were not injected.
-A `.map` that contains `debug_id` does not count as the running bytes.
-
-Does not call the Sentry API. `--apply` is refused via sentry_readonly.
+A matching word is not a Debug ID. Local marker presence does not establish
+what was deployed, executed, or uploaded to a Sentry project.
 """
 
 from __future__ import annotations
 
 import argparse
-import json
+import os
+import re
 import sys
 from pathlib import Path
 
-_LIB = Path(__file__).resolve().parents[3] / "scripts" / "lib"
-if _LIB.is_dir() and str(_LIB) not in sys.path:
-    sys.path.insert(0, str(_LIB))
+_LIB = Path(__file__).resolve().parent / "lib"
+if not (_LIB / "sentry_readonly.py").is_file():
+    raise SystemExit("Missing bundled offline runtime")
+sys.path.insert(0, str(_LIB))
+from sentry_readonly import client_from_env, emit_json, parse_json, read_text, run_cli  # noqa: E402
 
-from sentry_readonly import SentryReadOnlyError, client_from_env  # noqa: E402
-
-JS_SUFFIXES = {".js", ".mjs", ".cjs", ".html", ".htm"}
-MAP_SUFFIXES = {".map"}
-SKIP_DIRS = {".git", "node_modules", ".next", "coverage"}
-
-HELP_CENTER = "https://www.sentry.help/en/articles/13965232-javascript-how-do-i-verify-debug-ids-for-source-maps"
-BLOG = "https://blog.sentry.io/how-to-fix-source-map-upload-errors/"
-ACTIONS_DOC = "https://docs.sentry.io/product/releases/setup/release-automation/github-actions/"
-
-# Both claims stay. Do not delete one to "resolve" the conflict.
-CITATIONS = {
-    "help_center_claims_action_v3_injects": HELP_CENTER,
-    "blog_claims_github_action_cannot_inject": BLOG,
-    "actions_doc_upload_and_release_not_a_winner": ACTIONS_DOC,
-    "rule": (
-        "Cite both the Help Center and the blog. Do not pick a winner URL. "
-        "Trust this grep. Re-check the action source at build time."
-    ),
-}
+UUID = r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+MARKER = re.compile(r"^[ \t]*//[#@][ \t]*debugId=(" + UUID + r")[ \t]*$", re.MULTILINE)
+ID = re.compile(UUID)
+JS = {".js", ".mjs", ".cjs", ".html", ".htm"}
+SKIP = {".git", "node_modules", "coverage"}
+MAX_FILES = 256
+MAX_FILE_BYTES = 16 * 1024 * 1024
+MAX_TOTAL_BYTES = 64 * 1024 * 1024
+REFERENCE = "https://docs.sentry.io/platforms/javascript/sourcemaps/troubleshooting_js/debug-ids/"
 
 
-def _iter_files(root: Path) -> list[Path]:
-    if root.is_file():
-        return [root]
-    found: list[Path] = []
-    for path in root.rglob("*"):
-        if not path.is_file():
+def discover(roots: list[Path]) -> tuple[list[Path], list[dict]]:
+    paths = set()
+    errors = []
+    visited = 0
+    for root in roots:
+        if root.is_symlink() or not root.exists():
+            errors.append({"path": str(root), "reason": "missing path or symlink"})
             continue
-        if any(part in SKIP_DIRS for part in path.parts):
-            continue
-        if path.suffix.lower() in JS_SUFFIXES | MAP_SUFFIXES or path.suffix == "":
-            # Keep unknown suffixes out; empty suffix is not a bundle.
-            if path.suffix.lower() in JS_SUFFIXES | MAP_SUFFIXES:
-                found.append(path)
-    return found
+        if root.is_file():
+            candidates = [root]
+        else:
+            candidates = []
+            for directory, dirs, names in os.walk(
+                root, followlinks=False, onerror=lambda _: errors.append({"reason": "unreadable directory"})
+            ):
+                visited += 1
+                if visited > 2048:
+                    errors.append({"reason": "directory budget exceeded"})
+                    break
+                for name in list(dirs):
+                    child = Path(directory) / name
+                    if name in SKIP:
+                        dirs.remove(name)
+                    elif child.is_symlink():
+                        dirs.remove(name)
+                        errors.append({"path": str(child), "reason": "symlink directory not inspected"})
+                dirs.sort()
+                for name in sorted(names):
+                    path = Path(directory) / name
+                    if path.suffix.lower() in JS | {".map"}:
+                        candidates.append(path)
+                if len(candidates) > MAX_FILES:
+                    errors.append({"reason": "file budget exceeded"})
+                    break
+        for path in candidates:
+            if path.suffix.lower() in JS | {".map"}:
+                paths.add(Path(os.path.abspath(path)))
+    if len(paths) > MAX_FILES:
+        errors.append({"reason": "file budget exceeded"})
+    return sorted(paths)[:MAX_FILES], errors
 
 
-def scan(paths: list[Path]) -> dict:
-    js_hits: list[dict] = []
-    map_hits: list[dict] = []
-    scanned = 0
+def scan(paths: list[Path], errors: list[dict]) -> dict:
+    js_hits = []
+    map_hits = []
+    unmarked_js = []
+    total = 0
+    inspected = 0
     for path in paths:
         try:
-            text = path.read_text(encoding="utf-8", errors="replace")
-        except OSError as exc:
-            return {"ok": False, "error": f"{path}: {exc}"}
-        scanned += 1
-        suffix = path.suffix.lower()
-        if suffix in JS_SUFFIXES:
-            count = text.count("debugId")
-            if count:
-                js_hits.append({"path": str(path), "debugId_count": count})
-        elif suffix in MAP_SUFFIXES:
-            count = text.count("debug_id") + text.count("debugId")
-            if count:
-                map_hits.append({"path": str(path), "debug_id_count": count})
-    present = bool(js_hits)
+            text = read_text(str(path), limit=MAX_FILE_BYTES)
+            total += len(text.encode("utf-8"))
+            if total > MAX_TOTAL_BYTES:
+                errors.append({"reason": "total byte budget exceeded"})
+                break
+            inspected += 1
+            if path.suffix.lower() in JS:
+                ids = sorted({match.lower() for match in MARKER.findall(text)})
+                if ids:
+                    js_hits.append({"path": str(path), "debug_ids": ids})
+                else:
+                    unmarked_js.append(str(path))
+            else:
+                data = parse_json(text)
+                if not isinstance(data, dict):
+                    raise ValueError("source map must be an object")
+                value = data.get("debug_id", data.get("debugId"))
+                if value is not None:
+                    if not isinstance(value, str) or ID.fullmatch(value) is None:
+                        raise ValueError("invalid source-map Debug ID")
+                    map_hits.append({"path": str(path), "debug_id": value.lower()})
+        except (OSError, ValueError, UnicodeError):
+            errors.append({"path": str(path), "reason": "unreadable, oversized or invalid artifact"})
+    if not paths:
+        errors.append({"reason": "no supported artifacts were supplied"})
+    js_ids = {value for row in js_hits for value in row["debug_ids"]}
+    map_ids = {row["debug_id"] for row in map_hits}
     return {
-        "ok": True,
-        "verdict": "PRESENT" if present else "ABSENT",
-        "running_bytes_injected": present,
-        "files_scanned": scanned,
+        "ok": not errors,
+        "verdict": "INCOMPLETE"
+        if errors
+        else "MIXED"
+        if js_hits and unmarked_js
+        else "PRESENT"
+        if js_hits
+        else "ABSENT",
+        "artifact_marker_observed": bool(js_hits),
+        "js_files_without_marker": unmarked_js,
+        "running_bytes_injected": None,
+        "files_scanned": inspected,
         "js_debugId_hits": js_hits,
         "map_debug_id_hits": map_hits,
-        "map_only_does_not_count": bool(map_hits) and not present,
-        "next_step": None
-        if present
-        else (
-            "debugId is absent in the built JS. Run `sentry-cli sourcemaps inject` "
-            "or a current bundler plugin (>= 2.0.0) BEFORE upload, then deploy THOSE files. "
-            "Do not upload maps for a different build than the one that will run."
-        ),
-        "citations": CITATIONS,
-        "symbolication_scope": "javascript-debug-id-only",
+        "locally_matching_debug_ids": sorted(js_ids & map_ids),
+        "errors": errors,
+        "scope": "marker-shaped lines only (not a JS parser); deployment, runtime registration and server uploads were not verified",
+        "map_only_does_not_count": bool(map_hits) and not js_hits,
+        "reference": REFERENCE,
         "wrote": False,
     }
 
 
-def main(argv: list[str] | None = None) -> int:
+def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("path", nargs="+", help="Built file or directory to grep.")
+    parser.add_argument("path", nargs="*")
     parser.add_argument("--apply", action="store_true")
-    args = parser.parse_args(argv)
-    client = client_from_env()
+    args = parser.parse_args()
     if args.apply:
-        try:
-            client.refuse_write("upload source maps / create release")
-        except SentryReadOnlyError as exc:
-            print(json.dumps({"ok": False, "wrote": False, "error": str(exc)}))
-            return 1
-    files: list[Path] = []
-    for raw in args.path:
-        path = Path(raw)
-        if not path.exists():
-            print(json.dumps({"ok": False, "error": f"path not found: {raw}"}))
-            return 1
-        files.extend(_iter_files(path))
-    if not files:
-        print(
-            json.dumps(
-                {
-                    "ok": False,
-                    "verdict": "ABSENT",
-                    "error": "no JS or source-map files under the given path",
-                    "citations": CITATIONS,
-                }
-            )
-        )
-        return 2
-    report = scan(files)
-    if report.get("ok") is False:
-        print(json.dumps(report))
-        return 1
-    print(json.dumps(report, indent=2))
+        client_from_env().refuse_write("inject or upload source maps")
+    paths, errors = discover([Path(value) for value in args.path])
+    report = scan(paths, errors)
+    emit_json(report)
     return 0 if report["verdict"] == "PRESENT" else 2
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(run_cli(main))

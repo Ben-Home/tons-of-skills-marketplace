@@ -75,7 +75,8 @@ test('generated content drift job is unconditional, credential-free, and exact',
   assert.match(block, /persist-credentials: false/);
   assert.match(block, /name: Fetch pinned README presentation source/);
   assert.match(block, /\[\[ "\$source_commit" =~ \^\[0-9a-f\]\{40\}\$ \]\]/);
-  assert.match(block, /git fetch --no-tags --depth=1 origin "\$source_commit"/);
+  assert.match(block, /for source_commit in "\$\{source_commits\[@\]\}"; do/);
+  assert.match(block, /git fetch --no-tags --depth=1 origin "\$\{source_commits\[@\]\}"/);
   assert.match(block, /timeout-minutes: 10/);
   assert.doesNotMatch(block, /(?:npm|pnpm)\s+(?:ci|install)/);
   assert.match(
@@ -135,7 +136,7 @@ test('standalone E2E owns vendored parser changes and uses immutable credential-
   );
   assert.match(
     STANDALONE_E2E_WORKFLOW,
-    /pnpm\/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4/,
+    /pnpm\/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6/,
   );
   assert.match(
     STANDALONE_E2E_WORKFLOW,

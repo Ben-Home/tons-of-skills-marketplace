@@ -219,6 +219,11 @@ def generate_pack(company: str, dry_run: bool = False) -> bool:
     """Generate a complete pack for a vendor."""
     print(f"Generating pack for: {company}")
 
+    # The curated v2 pack must never be overwritten by the legacy taxonomy.
+    if company.strip().casefold().removesuffix("-pack") == "sentry":
+        print("  SKIP: Sentry uses five curated offline operator skills; legacy generation is retired")
+        return True
+
     # Load configuration
     config = load_vendor_config(company)
     tier = config.get("tier", "standard")

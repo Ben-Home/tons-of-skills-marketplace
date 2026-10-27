@@ -13,19 +13,24 @@ import sys
 from pathlib import Path
 from typing import Any
 
-_LIB = Path(__file__).resolve().parents[3] / "scripts" / "lib"
-if _LIB.is_dir() and str(_LIB) not in sys.path:
-    sys.path.insert(0, str(_LIB))
+_LIB = Path(__file__).resolve().parent / "lib"
+if not (_LIB / "sentry_readonly.py").is_file():
+    raise SystemExit("Missing bundled offline runtime")
+sys.path.insert(0, str(_LIB))
 from sentry_readonly import SentryReadOnlyClient, SentryReadOnlyError, client_from_env  # noqa: E402
+from sentry_readonly import emit_json, read_text, run_cli  # noqa: E402
 
 
-def _int(value: Any) -> int:
-    if value is None or value == "":
-        return 0
-    try:
+def _int(value: Any) -> int | None:
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        raise SentryReadOnlyError("Issue counts must be nonnegative integers")
+    if isinstance(value, str) and value.isascii() and value.isdecimal():
         return int(value)
-    except (TypeError, ValueError):
-        return 0
+    if isinstance(value, int) and value >= 0:
+        return value
+    raise SentryReadOnlyError("Issue counts must be nonnegative integers")
 
 
 def _tag(data: dict[str, Any], key: str) -> str | None:
@@ -62,14 +67,37 @@ def _environment(data: dict[str, Any]) -> str | None:
 
 def severity(data: dict[str, Any]) -> dict[str, Any]:
     """Rubric shared with references/severity-rubric.md. First match wins."""
-    status = str(data.get("status") or "unresolved").lower()
-    level = str(data.get("level") or data.get("metadata", {}).get("level") or "").lower()
+    metadata = data.get("metadata", {})
+    if not isinstance(metadata, dict):
+        raise SentryReadOnlyError("Issue metadata must be an object")
+    status = data.get("status")
+    level = data.get("level", metadata.get("level"))
+    if status is not None and not isinstance(status, str):
+        raise SentryReadOnlyError("Issue status must be a string")
+    if level is not None and not isinstance(level, str):
+        raise SentryReadOnlyError("Issue level must be a string")
+    status = status.lower() if status else None
+    level = level.lower() if level else None
     users = _int(data.get("userCount") if "userCount" in data else data.get("user_count"))
     count = _int(data.get("count"))
     env = (_environment(data) or "").lower()
     prod = env in {"production", "prod"}
 
-    if status in {"resolved", "ignored"}:
+    missing = [name for name, value in (("level", level), ("userCount", users), ("count", count)) if value is None]
+    if level not in {None, "fatal", "error", "warning", "info", "debug"}:
+        missing.append("recognized_level")
+    if level == "error" and count is not None and count >= 1000 and not env:
+        missing.append("environment")
+    minimum = (
+        "SEV-1"
+        if level == "fatal" or (level == "error" and users is not None and users >= 100)
+        else "SEV-2"
+        if level == "error" or (users is not None and users >= 10) or (count is not None and count >= 100)
+        else None
+    )
+    if missing:
+        sev, why = "INCONCLUSIVE", "Missing evidence prevents complete classification under the local rubric"
+    elif status in {"resolved", "ignored"}:
         sev, why = "SEV-4", f"status is {status}; not an active page"
     elif level == "fatal" or (level == "error" and users >= 100) or (level == "error" and count >= 1000 and prod):
         sev, why = "SEV-1", "fatal, or error with userCount>=100, or prod error with count>=1000"
@@ -87,6 +115,9 @@ def severity(data: dict[str, Any]) -> dict[str, Any]:
     timeline = [t for t in (first, last, event_ts) if isinstance(t, str) and t]
     return {
         "severity": sev,
+        "classification": "incomplete" if missing else "local_rubric",
+        "missing_fields": missing,
+        "minimum_severity_from_observed_evidence": minimum,
         "severity_reason": why,
         "status": status,
         "level": level or None,
@@ -103,9 +134,7 @@ def severity(data: dict[str, Any]) -> dict[str, Any]:
 
 def load_payload(args: argparse.Namespace, client: SentryReadOnlyClient) -> tuple[dict[str, Any], str]:
     if args.pasted:
-        raw = Path(args.pasted).read_text(encoding="utf-8") if Path(args.pasted).is_file() else args.pasted
-        if raw == "-":
-            raw = sys.stdin.read()
+        raw = read_text(args.pasted, inline=True)
         return client.fetch_event_json("pasted", pasted=raw), "advisory"
     if args.event_id:
         try:
@@ -115,7 +144,7 @@ def load_payload(args: argparse.Namespace, client: SentryReadOnlyClient) -> tupl
     raise SystemExit("pass --pasted <file|json|-> or --event-id")
 
 
-def main() -> None:
+def main() -> int:
     parser = argparse.ArgumentParser(description="Issue severity from payload only")
     parser.add_argument("--pasted", help="JSON file, raw JSON, or - for stdin")
     parser.add_argument("--event-id", help="Live read via sentry_readonly (no write)")
@@ -132,9 +161,9 @@ def main() -> None:
     out = severity(data)
     out["mode"] = "advisory" if client.advisory or mode == "advisory" else mode
     out["writes"] = "none"
-    json.dump(out, sys.stdout, indent=2)
-    sys.stdout.write("\n")
+    emit_json(out)
+    return 2 if out["classification"] == "incomplete" else 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(run_cli(main))

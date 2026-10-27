@@ -1,27 +1,21 @@
-# sentry-pack v2 rebuild — decision record
+# Sentry v2 operational rebuild decision
 
-**Status:** accepted with PR #1599. **Reconstructed** 2026-10-04 during review cleanup: the
-original decision documents were drafted in an external sandbox and never committed. This record
-states only decisions that the PR description and the shipped pack themselves establish.
+Status: proposed in PR #1599; integration review updated 2026-10-26. This record describes the candidate implementation, not a claim that the PR is merged or deployed.
 
-## Decisions
+## Scope and value
 
-1. **Five operational skills replace 30 tutorials.** Operators bring Sentry five recurring jobs:
-   find quota burn (`sentry-quota-leak-hunter`), explain a missing or wrong event
-   (`sentry-event-forensics`), repair a release or sourcemap (`sentry-release-medic`), triage an
-   issue (`sentry-issue-triage`), and prove PII scrubbing (`sentry-pii-scrub-enforcer`). SDK tours
-   are out of scope.
-2. **Advisory, not write-capable.** The skills read pasted configuration and event JSON and
-   recommend changes. The shared helper `scripts/lib/sentry_readonly.py` refuses write operations
-   (`--apply` / `--send` exit non-zero). Each skill's `allowed-tools` is scoped to its own bundled
-   scripts and read-only tooling so the permission boundary matches the claim.
-3. **Live API fetch is deferred.** The client's fetch methods currently accept pasted JSON; live,
-   read-only Sentry API access is a tracked follow-up, not a shipped feature.
-4. **Nested procedures are checklists, not skills.** Agent procedures live at
-   `skills/<parent>/agents/<agent>/skills/<child>/CHECKLIST.md`, so the marketplace corpus does
-   not count them as separate skills.
-5. **No hooks.** sentry-pack 2.0.0 ships no hooks; any hook needs its own later decision.
-6. **Redirect stubs until a later release.** Every v1 slug keeps a redirect stub in 2.0.0
-   (see `phase0-kill-list.md`).
-7. **Organization topology is not a sixth skill.** Key and DSN boundary checks nest under the quota
-   skill; project-standard drift checks nest under the PII skill.
+Retain five distinct operator jobs: usage comparison, event forensics, release evidence, issue triage and PII/settings review. Retire all thirty compatibility-only definitions and the thirty-row legacy tutorial database. Sixteen former jobs have real operator destinations; fourteen have no direct replacement. The migration map records every disposition.
+
+## Runtime and discovery
+
+Each skill installs its own bounded standard-library parser runtime. The canonical developer copy is `scripts/lib/sentry_readonly.py`; `scripts/sync-runtime.py` reproduces the five local copies and checks parity. No token is loaded, no live transport is implemented and write flags are refused.
+
+The previous nested agent definitions were not registered by the plugin manifest. They are now twenty-one conditional inline reference procedures. Historical CHECKLIST.md resources retain their paths as data; they are not standalone skills or native agents. See the [official plugin manifest reference](https://code.claude.com/docs/en/plugins/manifest-reference) for registration semantics.
+
+## Evidence boundaries
+
+Missing counts/settings are unknown or incomplete, never silently zero or clean. A pasted api_read flag does not authenticate a response; query-shape checks leave release health unassessed. Local lexical markers cannot prove deployed injection, actual logging writes or complete runtime scrubbing. Redaction is bounded pattern matching. Erasure plans do not verify identity, authorization, complete surface coverage or deletion completion.
+
+## Migration and verification
+
+Website aliases are canonical routing data, not callable redirect skills. Legacy generation entrypoints refuse Sentry before writing scaffolds. Focused CLI regressions cover isolated installation and substantive false-pass failures. Advisory behavioral specs are unexecuted unless accompanied by actual run evidence. Native schema scores measure their stated rubric and do not certify privacy, correctness or security. Generated score/catalog artifacts must come from the canonical writers and an actual source-specific native run.

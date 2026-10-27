@@ -6,6 +6,11 @@ blind comparison, packaging, and platform-specific adaptations.
 Read this reference when using the eval infrastructure (Steps E1-E5), improving skills
 through iteration, running automated description optimization, or working on Claude.ai/Cowork.
 
+This reference is opt-in. Execute model/provider evaluations only when requested
+and covered by existing authorization for their cases and proof destination.
+Keep missing coverage INCOMPLETE and absent runs unverified. Use the available
+bounded concurrency; reading this document does not authorize provider calls.
+
 ---
 
 ## Running and Evaluating Test Cases
@@ -18,10 +23,10 @@ Put results in `<skill-name>-workspace/` as a sibling to the skill directory. Wi
 workspace, organize by iteration (`iteration-1/`, `iteration-2/`, etc.) and within that,
 each test case gets a directory (`eval-0/`, `eval-1/`, etc.). Create directories as you go.
 
-### Step E1: Spawn all runs (with-skill AND baseline) in the same turn
+### Step E1: Schedule the authorized with-skill and baseline runs
 
-For each test case, spawn two subagents in the same turn — one with the skill, one without.
-Launch everything at once so runs finish around the same time.
+For each authorized case, compare the same task with and without the skill.
+Schedule runs within the available concurrency; preserve the approved matrix.
 
 **With-skill run:**
 
@@ -59,7 +64,7 @@ skills (writing style, design) are better evaluated qualitatively — don't forc
 onto things that need human judgment.
 
 Update `eval_metadata.json` files and `evals/evals.json` with the assertions. See
-`${CLAUDE_SKILL_DIR}/references/schemas.md` for the full schema.
+[`schemas.md`](schemas.md) for the full schema.
 
 ### Step E3: As runs complete, capture timing data
 
@@ -80,7 +85,7 @@ capture this data:
 Once all runs are done:
 
 1. **Grade each run** — spawn a grader subagent that reads
-   `${CLAUDE_SKILL_DIR}/agents/grader.md` and evaluates each assertion against the outputs.
+   [`../agents/grader.md`](../agents/grader.md) and evaluates each assertion against the outputs.
    Save results to `grading.json` in each run directory. The grading.json expectations array
    must use fields `text`, `passed`, and `evidence` — the viewer depends on these exact field
    names. For programmatically checkable assertions, write and run a script rather than
@@ -94,11 +99,11 @@ Once all runs are done:
 
    This produces `benchmark.json` and `benchmark.md` with pass_rate, time, and tokens for
    each configuration, with mean +/- stddev and the delta. If generating benchmark.json
-   manually, see `${CLAUDE_SKILL_DIR}/references/schemas.md` for the exact schema the
+   manually, see [`schemas.md`](schemas.md) for the exact schema the
    viewer expects.
 
 3. **Analyst pass** — read the benchmark data and surface patterns. See
-   `${CLAUDE_SKILL_DIR}/agents/analyzer.md` (the "Analyzing Benchmark Results" section) for
+   [`../agents/analyzer.md`](../agents/analyzer.md) (the "Analyzing Benchmark Results" section) for
    what to look for — non-discriminating assertions, high-variance evals, time/token tradeoffs.
 
 4. **Launch the viewer**:
@@ -234,7 +239,7 @@ Good: `"ok so my boss just sent me this xlsx file (its in my downloads, called s
 
 Present the eval set using the HTML template:
 
-1. Read `${CLAUDE_SKILL_DIR}/assets/eval_review.html`
+1. Read [`../assets/eval_review.html`](../assets/eval_review.html)
 2. Replace placeholders: `__EVAL_DATA_PLACEHOLDER__` (JSON array, no quotes — it's a JS
    variable assignment), `__SKILL_NAME_PLACEHOLDER__`, `__SKILL_DESCRIPTION_PLACEHOLDER__`
 3. Write to `/tmp/eval_review_<skill-name>.html` and open it
@@ -281,7 +286,7 @@ Show the user before/after and report the scores.
 ## Advanced: Blind Comparison
 
 For rigorous comparison between two skill versions, use the blind comparison system. Read
-`${CLAUDE_SKILL_DIR}/agents/comparator.md` and `${CLAUDE_SKILL_DIR}/agents/analyzer.md` for
+[`../agents/comparator.md`](../agents/comparator.md) and [`../agents/analyzer.md`](../agents/analyzer.md) for
 details.
 
 The basic idea: give two outputs to an independent agent without telling it which is which,

@@ -45,6 +45,46 @@ const FIXTURES = [
     false,
     'consistency-validator golden fixture corpus must stay trackable (GH #991)',
   ],
+  [
+    'plugins/saas-packs/databricks-pack/000-docs/999-ZZ-TEST-new-record.md',
+    false,
+    'new Databricks pack records must be addable without force',
+  ],
+  [
+    'plugins/saas-packs/databricks-pack/000-docs/research/999-ZZ-TEST-nested-record.md',
+    false,
+    'the Databricks exception includes nested public records',
+  ],
+  [
+    'plugins/saas-packs/coreweave-pack/000-docs/002-RL-RSRC-platform-api-auth.md',
+    false,
+    'reviewed CoreWeave research record is public',
+  ],
+  [
+    'plugins/saas-packs/coreweave-pack/000-docs/003-RL-RSRC-gpu-node-fabric.md',
+    false,
+    'reviewed CoreWeave research record is public',
+  ],
+  [
+    'plugins/saas-packs/coreweave-pack/000-docs/004-RL-RSRC-training-storage-checkpoints.md',
+    false,
+    'reviewed CoreWeave research record is public',
+  ],
+  [
+    'plugins/saas-packs/coreweave-pack/000-docs/005-RL-RSRC-inference-cost-observability.md',
+    false,
+    'reviewed CoreWeave research record is public',
+  ],
+  [
+    'plugins/saas-packs/coreweave-pack/000-docs/001-BL-LICN-license.txt',
+    true,
+    'existing local CoreWeave license record stays private',
+  ],
+  [
+    'plugins/saas-packs/coreweave-pack/000-docs/999-ZZ-TEST-unlisted-private.md',
+    true,
+    'unlisted CoreWeave records remain private',
+  ],
   // ── must be IGNORED (local by default / private / runtime) ──
   [
     '000-docs/728-RA-REPT-unledgered.md',

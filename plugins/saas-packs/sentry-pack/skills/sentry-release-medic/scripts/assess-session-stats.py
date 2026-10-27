@@ -1,194 +1,121 @@
 #!/usr/bin/env python3
-"""Decide whether a release-health session query may be called fine.
+"""Check offline release-health query metadata, without declaring a release healthy.
 
-RL08: the sessions stats API returns at most 10,000 datapoints.
-A 90-day window grouped by release is at most floor(10000/91) = 109 releases.
-session.duration stopped being recorded on 2023-01-12.
-
-health_fine is true only when the API was actually read, the query is scoped
-to one project + one environment + one release, the datapoint estimate is under
-the cap, and session.duration is not a requested field.
-
-Read-only. Does not record a deploy.
+A user-supplied api_read flag is a claim, not an authenticated response. Scope
+and datapoint-budget checks cannot establish crash-free rates or completeness.
 """
 
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import sys
 from pathlib import Path
 from typing import Any
 
-_LIB = Path(__file__).resolve().parents[3] / "scripts" / "lib"
-if _LIB.is_dir() and str(_LIB) not in sys.path:
-    sys.path.insert(0, str(_LIB))
-
-from sentry_readonly import SentryReadOnlyError, client_from_env  # noqa: E402
+_LIB = Path(__file__).resolve().parent / "lib"
+if not (_LIB / "sentry_readonly.py").is_file():
+    raise SystemExit("Missing bundled offline runtime")
+sys.path.insert(0, str(_LIB))
+from sentry_readonly import client_from_env, emit_json, read_text, run_cli  # noqa: E402
 
 CAP = 10_000
-DURATION_STOPPED = "2023-01-12"
-PERIOD_RE = re.compile(r"^(\d+)([dhm])$")
+PERIOD = re.compile(r"([1-9][0-9]*)([dhm])")
 
 
-def _period_to_days(period: str) -> float | None:
-    match = PERIOD_RE.match(period.strip())
-    if not match:
+def _seconds(value: Any) -> int | None:
+    if not isinstance(value, str):
         return None
-    n = int(match.group(1))
-    unit = match.group(2)
-    if unit == "d":
-        return float(n)
-    if unit == "h":
-        return n / 24.0
-    return n / (24.0 * 60.0)
+    match = PERIOD.fullmatch(value)
+    if match is None:
+        return None
+    return int(match[1]) * {"d": 86400, "h": 3600, "m": 60}[match[2]]
 
 
-def _interval_to_days(interval: str) -> float | None:
-    return _period_to_days(interval)
+def _single(value: Any, *, numeric: bool = False) -> bool:
+    if isinstance(value, list):
+        return len(value) == 1 and _single(value[0], numeric=numeric) and not isinstance(value[0], list)
+    if isinstance(value, bool):
+        return False
+    if isinstance(value, int):
+        return numeric and value > 0
+    return isinstance(value, str) and bool(value.strip()) and value.strip() not in {"*", "-1"}
 
 
 def assess(payload: dict[str, Any]) -> dict[str, Any]:
-    reasons: list[str] = []
-    query = payload.get("query") if isinstance(payload.get("query"), dict) else payload
-    api_read = bool(payload.get("api_read") is True)
+    query = payload.get("query", payload)
+    if not isinstance(query, dict):
+        raise ValueError("query must be an object")
+    reasons = []
+    api_read = payload.get("api_read") is True
     if not api_read:
-        reasons.append("health API was not read (api_read is not true). Do not mark release health fine.")
-
-    fields = query.get("fields") or query.get("field") or []
+        reasons.append("The supplied metadata does not claim an API read")
+    scoped = all(_single(query.get(key), numeric=key == "project") for key in ("project", "environment", "release"))
+    if not scoped:
+        reasons.append("Select exactly one project, one environment and one release")
+    fields = query.get("fields", query.get("field"))
     if isinstance(fields, str):
         fields = [fields]
-    if not isinstance(fields, list):
-        fields = []
-    duration = any(isinstance(f, str) and "session.duration" in f for f in fields)
+    valid_fields = isinstance(fields, list) and bool(fields) and all(isinstance(x, str) and x.strip() for x in fields)
+    if not valid_fields:
+        reasons.append("Explicit metric fields are required")
+    duration = valid_fields and any("session.duration" in field for field in fields)
     if duration:
-        reasons.append(
-            f"session.duration stopped being recorded on {DURATION_STOPPED}. "
-            "Do not alert on it. The API may still list the aggregate and warn data is incomplete."
-        )
-
-    group_by = query.get("groupBy") or query.get("groupby") or []
+        reasons.append("This checker does not assess session.duration")
+    group_by = query.get("groupBy", query.get("groupby", []))
     if isinstance(group_by, str):
         group_by = [group_by]
-    if not isinstance(group_by, list):
-        group_by = []
-
-    stats_period = str(query.get("statsPeriod") or query.get("stats_period") or "")
-    interval = str(query.get("interval") or "1d")
-    window_days = _period_to_days(stats_period) if stats_period else None
-    interval_days = _interval_to_days(interval)
-    buckets = None
-    max_groups = None
-    if window_days and interval_days and interval_days > 0:
-        # Inclusive day count matches the docs' 90d -> 91 example when interval is 1d.
-        # Use the documented formula when it is 90d/1d; otherwise ceil(window/interval)+?
-        # Docs: 90-day window grouped by release returns at most floor(10000/91)=109.
-        if stats_period == "90d" and interval in ("1d", "1 day"):
-            buckets = 91
-        else:
-            buckets = int(window_days / interval_days) + 1
-        if buckets > 0:
-            max_groups = CAP // buckets
-        if buckets >= CAP:
-            reasons.append(
-                f"interval buckets ({buckets}) already meet the {CAP} datapoint cap before groupBy multiplies them."
-            )
-
-    project = query.get("project") or query.get("projects")
-    environment = query.get("environment")
-    release = query.get("release")
-    scoped = bool(project) and bool(environment) and bool(release)
-    broad_group = ("release" in group_by) and not project
-    if broad_group:
-        reasons.append(
-            "groupBy includes release without a project filter. An org-wide crash-free number is not one number."
-        )
-    if not scoped:
-        reasons.append("Not scoped to one project + one environment + one release. Do not call the series fine.")
-    # Cap warning applies when the query can return many release groups,
-    # not when it is already pinned to a single release (datapoints ~= buckets).
-    if max_groups is not None and not release and "release" in group_by:
-        reasons.append(
-            f"Query can hit the {CAP} datapoint cap: about {buckets} buckets, "
-            f"so at most {max_groups} release groups. A missing noisy release is a false pass. "
-            "Narrow to one project, one environment, and the release you just shipped."
-        )
-    if buckets is not None and buckets > CAP:
-        reasons.append(f"interval buckets ({buckets}) exceed the {CAP} datapoint cap.")
-
-    if stats_period == "90d" and "release" in group_by:
-        reasons.append(
-            "90-day groupBy=release is the documented 10k datapoint cap "
-            "(floor(10000/91)=109 releases). Do not mark health fine on that query shape."
-        )
-    groups_returned = payload.get("groups_returned")
-    if isinstance(groups_returned, int) and max_groups is not None and groups_returned >= max_groups and not release:
-        reasons.append(
-            f"groups_returned ({groups_returned}) is at the estimated cap ({max_groups}). "
-            "The series is truncated. Not fine."
-        )
-
-    # Drop duplicate cap sentences if both the early and late checks fired.
-    dedup: list[str] = []
-    for reason in reasons:
-        if reason not in dedup:
-            dedup.append(reason)
-    reasons = dedup
-
-    health_fine = bool(
-        api_read
-        and scoped
-        and not duration
-        and not any("cap" in r or "truncated" in r or "stopped being recorded" in r or "not read" in r for r in reasons)
-    )
-
+    if not isinstance(group_by, list) or not all(isinstance(x, str) and x.strip() for x in group_by):
+        reasons.append("groupBy must contain strings")
+    window = _seconds(query.get("statsPeriod", query.get("stats_period")))
+    interval = _seconds(query.get("interval"))
+    buckets = (window + interval - 1) // interval + 1 if window is not None and interval is not None else None
+    if buckets is None:
+        reasons.append("Explicit positive window and interval are required (d, h or m)")
+    groups = payload.get("groups_returned")
+    if type(groups) is not int or groups < 1:
+        reasons.append("An observed positive group count is required")
+        groups = None
+    points = buckets * groups if buckets is not None and groups is not None else None
+    if points is not None and points >= CAP:
+        reasons.append("Estimated datapoints meet or exceed the local 10000-point review budget")
+    if any(payload.get(key) is True for key in ("truncated", "partial", "has_more")):
+        reasons.append("The supplied response is marked partial or truncated")
     return {
-        "ok": True,
-        "wrote": False,
-        "health_fine": bool(health_fine),
-        "api_read": api_read,
-        "cap": CAP,
-        "duration_metric_stopped": DURATION_STOPPED,
-        "stats_period": stats_period or None,
-        "interval": interval,
-        "estimated_buckets": buckets,
-        "max_groups_under_cap": max_groups,
+        "ok": not reasons,
+        "mode": "advisory",
+        "query_checks_pass": not reasons,
+        "api_read_claimed": api_read,
+        "api_read_verified": False,
         "scoped_to_project_environment_release": scoped,
-        "fields": fields,
-        "group_by": group_by,
+        "estimated_buckets": buckets,
+        "estimated_datapoints": points,
+        "local_datapoint_budget": CAP,
+        "response_completeness": "not_verified",
+        "health_fine": None,
+        "health_status": "not_assessed",
+        "health_note": "Query metadata does not establish release health; inspect actual metrics against the operator's criteria",
         "reasons": reasons,
-        "note": ("Recommend only. This script does not record a deploy and does not call a Sentry write API."),
+        "wrote": False,
     }
 
 
-def main(argv: list[str] | None = None) -> int:
+def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--json", required=True, help="Pasted query/response JSON path, or '-'.")
-    parser.add_argument("--mark-fine", action="store_true", help="Exit 2 unless health_fine is true.")
+    parser.add_argument("--json", required=True, help="Offline metadata file, or '-' for stdin")
+    parser.add_argument("--mark-fine", action="store_true", help="Refused: metadata cannot establish release health")
     parser.add_argument("--apply", action="store_true")
-    args = parser.parse_args(argv)
-    client = client_from_env()
+    args = parser.parse_args()
     if args.apply:
-        try:
-            client.refuse_write("record deploy / set release health")
-        except SentryReadOnlyError as exc:
-            print(json.dumps({"ok": False, "wrote": False, "health_fine": False, "error": str(exc)}))
-            return 2
-    raw = sys.stdin.read() if args.json == "-" else Path(args.json).read_text()
-    try:
-        # Reuse the shared parser. Sessions JSON is not project settings, but it
-        # is still an object. fetch_project_settings(pasted=) validates JSON objects.
-        data = client.fetch_project_settings("session-stats", pasted=raw)
-    except SentryReadOnlyError as exc:
-        print(json.dumps({"ok": False, "health_fine": False, "error": str(exc)}))
-        return 2
-    report = assess(data)
-    print(json.dumps(report, indent=2))
-    if args.mark_fine and not report["health_fine"]:
-        return 2
-    return 0
+        client_from_env().refuse_write("record deploy or change release health")
+    payload = client_from_env().fetch_project_settings("session-metadata", pasted=read_text(args.json))
+    report = assess(payload)
+    if args.mark_fine:
+        report["reasons"].append("Refusing --mark-fine: no health verdict is produced by this checker")
+        report["ok"] = False
+    emit_json(report)
+    return 0 if report["ok"] else 2
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(run_cli(main))

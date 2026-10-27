@@ -2,8 +2,7 @@
 
 **Owner:** `sentry-release-medic` → `release-finalizer`
 
-Recommend finalize, commits, and a deploy record. Do not mark health fine
-unless `scripts/assess-session-stats.py` prints `health_fine: true`.
+Draft finalize, commit-association and deploy-record recommendations only. The metadata checker never establishes release health; `health_fine` remains null.
 
 ## Commits vs maps
 
@@ -28,16 +27,9 @@ they have one.
 python3 scripts/assess-session-stats.py --json query.json
 ```
 
-Hard rules the script enforces:
+The checker validates explicit single-project/environment/release selectors, metric fields, interval and window metadata, and an estimated local 10,000-point review budget. This is a local review bound, not a statement of the current provider limit. An operator-supplied `api_read` flag is unverified. Query validity does not demonstrate response completeness or acceptable health; report health as not assessed and request actual results plus an organization threshold.
 
-- Cap: 10,000 datapoints. A 90-day window grouped by release is at most `floor(10000/91) = 109` releases. `groups_returned: 109` on that query is truncation, not "we only have 109 releases."
-- `session.duration` stopped 2023-01-12. Do not alert on it. The API may still list the field and warn that data is incomplete.
-- `health_fine` requires `api_read: true`, one `project`, one `environment`, one `release`, no duration field, and a query shape that is not the 90-day group-by-release cap.
-- No API read → not fine. Do not say "looks healthy" from a screenshot of crash-free without the query.
-
-Gate a deploy on one project + one environment + the release you just shipped, over a short window. Not on 90 days of every release in the org.
-
-Fields you may mention: `crash_free_rate(session)`, `crash_free_rate(user)`. `groupBy` can be `project`, `release`, `environment`, `session.status`. An org-wide number is not one number.
+Check the current endpoint documentation for supported metrics before using a duration or other deprecated field. Do not hardcode a historical vendor date as evidence of present behavior.
 
 ## Bad release still ingesting
 

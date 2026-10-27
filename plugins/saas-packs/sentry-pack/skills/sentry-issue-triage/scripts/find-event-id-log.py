@@ -1,93 +1,77 @@
 #!/usr/bin/env python3
-"""Search a repo for code that writes a Sentry event id into logs.
+"""Find lexical event-ID references in a bounded local source scope.
 
-Does not call Sentry. Does not install an APM. If nothing matches, say so.
+Matches may be comments, reads or dead code. They do not prove a logging write.
+A query template requires an operator-supplied log field and event identifier.
 """
 
-from __future__ import annotations
-
 import argparse
-import json
+import re
 import sys
 from pathlib import Path
 
-NEEDLES = (
-    "event_id",
-    "event.event_id",
-    "eventId",
-    "sentry.event_id",
-    "last_event_id",
-    "Sentry.lastEventId",
-)
-SKIP_DIRS = {".git", "node_modules", "dist", "build", ".venv", "venv", "__pycache__"}
+_LIB = Path(__file__).resolve().parent / "lib"
+if not (_LIB / "sentry_readonly.py").is_file():
+    raise SystemExit("Missing bundled offline runtime")
+sys.path.insert(0, str(_LIB))
+from sentry_readonly import SentryReadOnlyError, emit_json, read_text, run_cli, source_files  # noqa: E402
+
+SUFFIXES = {".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs", ".py", ".rb", ".go", ".java", ".kt"}
+NEEDLE = re.compile(r"(?<![A-Za-z0-9_])(?:event_id|eventId|last_event_id|lastEventId)(?![A-Za-z0-9_])")
 
 
-def scan(root: Path) -> list[dict[str, str]]:
-    hits: list[dict[str, str]] = []
-    if not root.exists():
-        return hits
-    for path in root.rglob("*"):
-        if not path.is_file():
-            continue
-        if any(part in SKIP_DIRS for part in path.parts):
-            continue
-        if path.suffix.lower() not in {
-            ".js",
-            ".jsx",
-            ".ts",
-            ".tsx",
-            ".mjs",
-            ".cjs",
-            ".py",
-            ".rb",
-            ".go",
-            ".java",
-            ".kt",
-        }:
-            continue
-        if path.stat().st_size > 1_000_000:
-            continue
-        try:
-            text = path.read_text(encoding="utf-8", errors="ignore")
-        except OSError:
-            continue
-        for i, line in enumerate(text.splitlines(), 1):
-            if any(n in line for n in NEEDLES):
-                hits.append({"file": str(path), "line": str(i), "text": line.strip()[:240]})
-                if len(hits) >= 40:
-                    return hits
-    return hits
+def main() -> int:
+    import json
 
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Find event id log writes")
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", required=True)
     parser.add_argument("--event-id", default="")
+    parser.add_argument("--log-field", help="Field independently confirmed by the operator")
     args = parser.parse_args()
-    root = Path(args.root)
-    hits = scan(root)
-    event_id = args.event_id.strip()
-    if hits:
-        field = "event_id"
-        query = f'{field}:"{event_id}"' if event_id else f"{field}:<event id from the issue>"
-        verdict = "log query possible"
-    else:
-        query = None
-        verdict = "codebase never writes it"
-    json.dump(
+    event = args.event_id.strip()
+    if event and re.fullmatch(r"[0-9a-fA-F]{32}|[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}", event) is None:
+        raise SentryReadOnlyError("An event identifier must be 32 hex digits or a UUID")
+    if args.log_field and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_.]{0,127}", args.log_field) is None:
+        raise SentryReadOnlyError("Unsupported log-field syntax")
+    paths, errors = source_files(Path(args.root), SUFFIXES)
+    hits = []
+    total = 0
+    for path in paths:
+        try:
+            text = read_text(str(path), limit=1024 * 1024)
+            total += len(text.encode("utf-8"))
+            if total > 32 * 1024 * 1024:
+                errors.append({"reason": "total byte budget exceeded"})
+                break
+            for number, line in enumerate(text.splitlines(), 1):
+                if NEEDLE.search(line):
+                    hits.append({"file": str(path), "line": number, "kind": "lexical_candidate"})
+                    if len(hits) >= 200:
+                        errors.append({"reason": "result budget reached"})
+                        break
+            if len(hits) >= 200:
+                break
+        except (OSError, ValueError):
+            errors.append({"path": str(path), "reason": "unreadable, oversized or invalid source"})
+    template = f"{args.log_field}:{json.dumps(event)}" if event and args.log_field else None
+    emit_json(
         {
-            "verdict": verdict,
-            "event_id": event_id or None,
-            "query": query,
+            "assessment": "incomplete" if errors else "bounded_lexical_search",
+            "verdict": "candidates_require_inspection" if hits else "no_candidates_in_selected_scope",
+            "event_id": event or None,
+            "query_template": template,
+            "query": None,
+            "query_note": "Operator-supplied field; confirm backend syntax and actual ingestion before use",
+            "logging_write_proven": False,
             "hits": hits,
+            "errors": errors,
+            "scope": "selected source suffixes only; generated/dependency trees excluded; no absence proof",
             "datadog_install": False,
             "writes": "none",
-        },
-        sys.stdout,
-        indent=2,
+        }
     )
-    sys.stdout.write("\n")
+    return 2 if errors else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(run_cli(main))
