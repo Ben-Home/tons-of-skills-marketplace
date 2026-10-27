@@ -16,14 +16,14 @@
     "values": {
       "a_error_total": 23,
       "a_failing": 7,
-      "ab_error_total": 170,
-      "ab_failing": 21,
-      "b_failing": 14,
-      "error_files": 278,
-      "error_total": 2798,
+      "ab_error_total": 163,
+      "ab_failing": 20,
+      "b_failing": 13,
+      "error_files": 277,
+      "error_total": 2791,
       "grade_distribution": {
-        "A": 2838,
-        "B": 186,
+        "A": 2856,
+        "B": 168,
         "C": 122,
         "D": 154,
         "F": 4
@@ -90,7 +90,7 @@
           "validator_reported_mixed_denominator_percent": 81.5
         },
         "marketplace_terminal": {
-          "error_total_all_validated_surfaces": 3029,
+          "error_total_all_validated_surfaces": 3022,
           "fully_compliant_surfaces": 2084,
           "terminal_denominator": {
             "agents": 363,
@@ -106,14 +106,14 @@
         "skill_rows": {
           "a_error_total": 23,
           "a_failing": 7,
-          "ab_error_total": 170,
-          "ab_failing": 21,
-          "b_failing": 14,
-          "error_files": 278,
-          "error_total": 2798,
+          "ab_error_total": 163,
+          "ab_failing": 20,
+          "b_failing": 13,
+          "error_files": 277,
+          "error_total": 2791,
           "grade_distribution": {
-            "A": 2838,
-            "B": 186,
+            "A": 2856,
+            "B": 168,
             "C": 122,
             "D": 154,
             "F": 4
@@ -131,15 +131,15 @@
       "values": {
         "average_score": 92.1,
         "grade_distribution": {
-          "A": 2838,
-          "B": 186,
+          "A": 2856,
+          "B": 168,
           "C": 122,
           "D": 154,
           "F": 4
         },
         "grade_percentages": {
-          "A": 85.9,
-          "B": 5.6,
+          "A": 86.4,
+          "B": 5.1,
           "C": 3.7,
           "D": 4.7,
           "F": 0.1
@@ -156,10 +156,10 @@
       "values": {
         "a_error_total": 23,
         "a_failing": 7,
-        "ab_error_total": 170,
-        "ab_failing": 21,
-        "b_error_total": 147,
-        "b_failing": 14,
+        "ab_error_total": 163,
+        "ab_failing": 20,
+        "b_error_total": 140,
+        "b_failing": 13,
         "certified_target": 0,
         "skill_summary_rows": 3304
       }
@@ -182,21 +182,21 @@
       "status": "measured",
       "target_status": "fail",
       "values": {
-        "affected_skills": 274,
-        "all_skill_error_occurrences": 2798,
+        "affected_skills": 273,
+        "all_skill_error_occurrences": 2791,
         "measurement_schema_version": 1,
         "missing_required_field_occurrences": 580,
-        "missing_required_section_occurrences": 1641,
+        "missing_required_section_occurrences": 1634,
         "other_skill_error_occurrences": 577,
         "skill_rows": 3304,
-        "structural_occurrences": 2221,
-        "structural_share_of_skill_errors_pct": 79.3781,
+        "structural_occurrences": 2214,
+        "structural_share_of_skill_errors_pct": 79.3264,
         "target": 0,
         "target_met": false,
-        "unique_structural_triples": 847,
+        "unique_structural_triples": 846,
         "unique_triples_by_rule": {
           "E-MISSING-REQUIRED-FIELD": 580,
-          "E-MISSING-REQUIRED-SECTION": 267
+          "E-MISSING-REQUIRED-SECTION": 266
         },
         "validator_schema_version": "4.1.0",
         "validator_sha256": "716e732fed464f2920379588f592d55cbeea2db525d9e3014a74b8b62aa6b197"
@@ -1169,6 +1169,10 @@
             "value": "Designed for Claude Code; requires a separately configured Plane MCP server with permitted read tools and inspected schemas; no server version is installed or pinned by this plugin"
           },
           {
+            "count": 1,
+            "value": "Designed for Claude Code; requires a separately installed compatible J-Rig CLI for refiner commands"
+          },
+          {
             "count": 24,
             "value": "Designed for Claude Code; requires authorized OpenEvidence access and qualified clinical review for patient-care use"
           },
@@ -1251,10 +1255,6 @@
           {
             "count": 1,
             "value": "Designed for Claude Code; the live probe requires a ClickUp personal token or OAuth access token"
-          },
-          {
-            "count": 1,
-            "value": "Designed for Claude Code; the refine subcommands wrap the published @intentsolutions/jrig-cli binary and run anywhere that CLI installs"
           },
           {
             "count": 1,
@@ -3823,15 +3823,15 @@
       "dimension": "Inventory header versus rows",
       "reproduce": "pnpm run measure:e1 --row=52 --stdout",
       "source": [
-        "freshie/reports/run-delta-156.json",
+        "freshie/reports/run-delta-157.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
       ],
       "status": "target_met",
       "values": {
-        "dolt_commit": "sn4ddt17773abusftrjlhqe81h441rap",
+        "dolt_commit": "dqnraqvbu0o0p1fh1a21jafb79fls204",
         "header_total_skills": 2727,
-        "run_id": 156,
+        "run_id": 157,
         "skill_row_delta": 0,
         "skill_rows": 2727,
         "target_skill_row_delta": 0
@@ -3844,32 +3844,32 @@
       "source": [
         "freshie/grade-histogram.json",
         "freshie/grades.csv",
-        "freshie/reports/run-delta-156.json"
+        "freshie/reports/run-delta-157.json"
       ],
       "status": "target_met",
       "values": {
         "compliance_rows": 3304,
-        "export_dolt_commit": "sn4ddt17773abusftrjlhqe81h441rap",
-        "export_run_id": 156,
+        "export_dolt_commit": "dqnraqvbu0o0p1fh1a21jafb79fls204",
+        "export_run_id": 157,
         "grades_csv_rows": 3304,
-        "grades_csv_sha256": "88193a1dcd8baeee9dc84053d73e329e38ffeefd7d970295af94df98cc33fad2",
+        "grades_csv_sha256": "291d0ca145787e44385cafbdfac62e01c8f638323d763de1cb4f7191ff1ceec6",
         "histogram_grades": {
-          "A": 2838,
-          "B": 186,
+          "A": 2856,
+          "B": 168,
           "C": 122,
           "D": 154,
           "F": 4
         },
         "histogram_total": 3304,
         "immutable_grade_counts": {
-          "A": 2838,
-          "B": 186,
+          "A": 2856,
+          "B": 168,
           "C": 122,
           "D": 154,
           "F": 4
         },
-        "inventory_dolt_commit": "sn4ddt17773abusftrjlhqe81h441rap",
-        "inventory_run_id": 156,
+        "inventory_dolt_commit": "dqnraqvbu0o0p1fh1a21jafb79fls204",
+        "inventory_run_id": 157,
         "target_lag_runs": 0
       }
     },
@@ -3879,7 +3879,7 @@
       "reproduce": "pnpm run measure:e1 --row=54 --stdout",
       "source": [
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-156.json",
+        "freshie/reports/run-delta-157.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py",
@@ -3893,7 +3893,7 @@
           "E2": 0,
           "E3": 0
         },
-        "current_run_id": 156,
+        "current_run_id": 157,
         "invalid_identities": 0,
         "legacy_e0_records": 3,
         "retained_e2_e3": 0,
@@ -3917,7 +3917,7 @@
       "source": [
         "000-docs/807-DR-STND-evaluation-evidence.md",
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-156.json",
+        "freshie/reports/run-delta-157.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
