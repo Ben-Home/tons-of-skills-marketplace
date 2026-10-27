@@ -259,6 +259,23 @@ class SentryOperatorEvidenceTests(unittest.TestCase):
                 )
                 self.assertNotEqual(result.returncode, 0)
 
+    def test_shipped_policy_example_is_usable_without_loosening_unknown_keys(self):
+        standard = PACK / "skills/sentry-pii-scrub-enforcer/references/project-standard.example.json"
+        values = json.loads(standard.read_text())["settings"]
+        result, report = self.cli(
+            "sentry-pii-scrub-enforcer",
+            "settings-diff.py",
+            "--projects",
+            "-",
+            "--standard",
+            str(standard),
+            payload=json.dumps({"slug": "example-review", "settings": values}),
+        )
+        self.assertEqual(result.returncode, 0, report)
+        self.assertEqual(report["clean_projects"], ["example-review"])
+        self.assertEqual(report["incomplete_projects"], [])
+        self.assertEqual(report["compared_standard_keys"], sorted(values))
+
     def test_redaction_handles_quoted_whitespace_and_multiline_values(self):
         for payload in (
             '{"SENTRY_AUTH_TOKEN": "DO_NOT_ECHO with spaces"}',

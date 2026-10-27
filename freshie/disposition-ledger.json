@@ -3,8 +3,8 @@
   "authority": "Blueprint 727 §8; Freshie graded export",
   "source": {
     "path": "freshie/grades.csv",
-    "sha256": "88193a1dcd8baeee9dc84053d73e329e38ffeefd7d970295af94df98cc33fad2",
-    "artifact_count": 3304
+    "sha256": "746024fc9418fbe8af2299092c37c4ce2ca4e742cfd00ff497297e628ed78a54",
+    "artifact_count": 3279
   },
   "rule_order": [
     "G0",
@@ -21,7 +21,7 @@
   "counts": {
     "AUTO-MIGRATE": 1,
     "CERTIFY": 0,
-    "CERTIFY-PENDING-EVIDENCE": 2955,
+    "CERTIFY-PENDING-EVIDENCE": 2930,
     "CERTIFY-UPSTREAM": 0,
     "DEEP-REMEDIATE": 1,
     "QUARANTINE": 347
@@ -28715,20 +28715,9 @@
       ]
     },
     {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-advanced-troubleshooting/SKILL.md",
-      "grade": "B",
-      "score": 89,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-architecture-variants/SKILL.md",
+      "path": "plugins/saas-packs/sentry-pack/skills/sentry-event-forensics/SKILL.md",
       "grade": "A",
-      "score": 92,
+      "score": 97,
       "diagnostics": [],
       "disposition": "CERTIFY-PENDING-EVIDENCE",
       "gate": "G7",
@@ -28737,20 +28726,9 @@
       ]
     },
     {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-ci-integration/SKILL.md",
-      "grade": "B",
-      "score": 87,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-common-errors/SKILL.md",
+      "path": "plugins/saas-packs/sentry-pack/skills/sentry-issue-triage/SKILL.md",
       "grade": "A",
-      "score": 92,
+      "score": 96,
       "diagnostics": [],
       "disposition": "CERTIFY-PENDING-EVIDENCE",
       "gate": "G7",
@@ -28759,18 +28737,7 @@
       ]
     },
     {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-cost-tuning/SKILL.md",
-      "grade": "A",
-      "score": 93,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-data-handling/SKILL.md",
+      "path": "plugins/saas-packs/sentry-pack/skills/sentry-pii-scrub-enforcer/SKILL.md",
       "grade": "A",
       "score": 95,
       "diagnostics": [],
@@ -28781,9 +28748,9 @@
       ]
     },
     {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-debug-bundle/SKILL.md",
+      "path": "plugins/saas-packs/sentry-pack/skills/sentry-quota-leak-hunter/SKILL.md",
       "grade": "A",
-      "score": 91,
+      "score": 97,
       "diagnostics": [],
       "disposition": "CERTIFY-PENDING-EVIDENCE",
       "gate": "G7",
@@ -28792,251 +28759,9 @@
       ]
     },
     {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-deploy-integration/SKILL.md",
-      "grade": "A",
-      "score": 90,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-enterprise-rbac/SKILL.md",
-      "grade": "A",
-      "score": 91,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-error-capture/SKILL.md",
-      "grade": "A",
-      "score": 90,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-hello-world/SKILL.md",
-      "grade": "A",
-      "score": 92,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-incident-runbook/SKILL.md",
-      "grade": "A",
-      "score": 100,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-install-auth/SKILL.md",
-      "grade": "A",
-      "score": 92,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-known-pitfalls/SKILL.md",
+      "path": "plugins/saas-packs/sentry-pack/skills/sentry-release-medic/SKILL.md",
       "grade": "A",
       "score": 96,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-load-scale/SKILL.md",
-      "grade": "B",
-      "score": 88,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-local-dev-loop/SKILL.md",
-      "grade": "A",
-      "score": 90,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-migration-deep-dive/SKILL.md",
-      "grade": "A",
-      "score": 96,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-multi-env-setup/SKILL.md",
-      "grade": "B",
-      "score": 85,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-observability/SKILL.md",
-      "grade": "B",
-      "score": 86,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-performance-tracing/SKILL.md",
-      "grade": "B",
-      "score": 89,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-performance-tuning/SKILL.md",
-      "grade": "A",
-      "score": 91,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-policy-guardrails/SKILL.md",
-      "grade": "B",
-      "score": 89,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-prod-checklist/SKILL.md",
-      "grade": "A",
-      "score": 90,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-rate-limits/SKILL.md",
-      "grade": "B",
-      "score": 88,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-reference-architecture/SKILL.md",
-      "grade": "A",
-      "score": 91,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-release-management/SKILL.md",
-      "grade": "A",
-      "score": 94,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-reliability-patterns/SKILL.md",
-      "grade": "A",
-      "score": 96,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-sdk-patterns/SKILL.md",
-      "grade": "B",
-      "score": 86,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-security-basics/SKILL.md",
-      "grade": "B",
-      "score": 86,
-      "diagnostics": [],
-      "disposition": "CERTIFY-PENDING-EVIDENCE",
-      "gate": "G7",
-      "reason_codes": [
-        "REPRODUCIBLE_EVIDENCE_NOT_RETAINED"
-      ]
-    },
-    {
-      "path": "plugins/saas-packs/sentry-pack/skills/sentry-upgrade-migration/SKILL.md",
-      "grade": "A",
-      "score": 92,
       "diagnostics": [],
       "disposition": "CERTIFY-PENDING-EVIDENCE",
       "gate": "G7",

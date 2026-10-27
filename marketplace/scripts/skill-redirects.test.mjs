@@ -18,7 +18,7 @@ test('skill tombstones are unique permanent redirects to live skills', () => {
   const live = new Set(catalog.skills.map((skill) => skill.slug));
   const seen = new Set();
 
-  assert.equal(redirects.length, 59);
+  assert.equal(redirects.length, 75);
   assert.equal(redirects.filter((redirect) => redirect.from.startsWith('snowflake-')).length, 30);
   assert.deepEqual(
     redirects
@@ -41,6 +41,16 @@ test('skill tombstones are unique permanent redirects to live skills', () => {
     'langfuse-prompt-release-guardian',
     'langfuse-trace-ingestion-medic',
   ]);
+  const sentry = redirects.filter((redirect) => redirect.from.startsWith('sentry-'));
+  assert.equal(sentry.length, 16);
+  assert.deepEqual([...new Set(sentry.map((redirect) => redirect.to))].sort(), [
+    'sentry-event-forensics',
+    'sentry-issue-triage',
+    'sentry-pii-scrub-enforcer',
+    'sentry-quota-leak-hunter',
+    'sentry-release-medic',
+  ]);
+  assert.equal(sentry.some((redirect) => redirect.from === 'sentry-hello-world'), false);
   for (const redirect of redirects) {
     assert.match(redirect.from, /^[a-z0-9][a-z0-9-]+$/);
     assert.match(redirect.to, /^[a-z0-9][a-z0-9-]+$/);
@@ -55,8 +65,8 @@ test('skill tombstones are unique permanent redirects to live skills', () => {
 
 test('Caddy fragment is the exact generated ingress projection', () => {
   assert.equal(caddyFragment, renderSkillRedirects(redirects));
-  assert.equal((caddyFragment.match(/^@redir\d+ path /gm) || []).length, 59);
-  assert.equal((caddyFragment.match(/ permanent$/gm) || []).length, 59);
+  assert.equal((caddyFragment.match(/^@redir\d+ path /gm) || []).length, 75);
+  assert.equal((caddyFragment.match(/ permanent$/gm) || []).length, 75);
 });
 
 test('retired slugs are not emitted as Astro static routes', () => {

@@ -15,17 +15,17 @@ A matching skill name proves structural repetition only. It does **not** prove t
 | Measure | Count |
 | --- | ---: |
 | Active SaaS packs | 96 |
-| Active skills | 2094 |
-| Tutorial-lattice candidates | 1940 |
-| Packs containing candidates | 89 |
+| Active skills | 2069 |
+| Tutorial-lattice candidates | 1913 |
+| Packs containing candidates | 88 |
 | Packs entirely inside the lattice | 74 |
-| Packs at least 80% inside the lattice | 83 |
-| Packs with no lattice candidates | 7 |
+| Packs at least 80% inside the lattice | 82 |
+| Packs with no lattice candidates | 8 |
 | Candidates admitted by explicit prefix aliases | 48 |
 | Suffix-only names excluded by prefix policy | 1 |
 
-- Catalog SHA-256: `dec0e9143ddf6176dfc34b03c39b5586af699d216d57c75929db327dce90f6a8`
-- Tracked inventory SHA-256: `c52a840abeda687ba697b9221c493e1744efe061ea95fb33cb718506b26386d2`
+- Catalog SHA-256: `acf1246387349a5b97e791f03ed578575b5cc0d4335bc1b9a9e5bb77923022a4`
+- Tracked inventory SHA-256: `7cd063e34d76221c1233c933068d5e6ec99732164594e83e1d44de1de93e6a1b`
 
 The earlier 2,011-candidate census used 24 base families and literal pack-name stems. This version expands the family set with `advanced-troubleshooting`, `architecture-variants`, `known-pitfalls`, `load-scale`, `policy-guardrails`, and `reliability-patterns`, then applies versioned exact aliases for `anthropic-pack`, `claude-pack`, and `langchain-py-pack`. The current generated counts above are authoritative. Suffix-only near-matches such as `langchain-otel-observability` and the explicitly recorded content-specific Customer.io workflows remain excluded.
 
@@ -33,36 +33,36 @@ The earlier 2,011-candidate census used 24 base families and literal pack-name s
 
 | Family | Skills |
 | --- | ---: |
-| `common-errors` | 88 |
-| `install-auth` | 88 |
-| `sdk-patterns` | 88 |
-| `debug-bundle` | 87 |
-| `hello-world` | 87 |
-| `local-dev-loop` | 87 |
-| `upgrade-migration` | 87 |
-| `prod-checklist` | 86 |
-| `rate-limits` | 86 |
-| `performance-tuning` | 85 |
-| `reference-architecture` | 85 |
-| `security-basics` | 85 |
-| `ci-integration` | 84 |
-| `cost-tuning` | 83 |
-| `deploy-integration` | 82 |
+| `common-errors` | 87 |
+| `install-auth` | 87 |
+| `sdk-patterns` | 87 |
+| `debug-bundle` | 86 |
+| `hello-world` | 86 |
+| `local-dev-loop` | 86 |
+| `upgrade-migration` | 86 |
+| `prod-checklist` | 85 |
+| `rate-limits` | 85 |
+| `performance-tuning` | 84 |
+| `reference-architecture` | 84 |
+| `security-basics` | 84 |
+| `ci-integration` | 83 |
+| `cost-tuning` | 82 |
 | `core-workflow-a` | 81 |
 | `core-workflow-b` | 81 |
+| `deploy-integration` | 81 |
 | `webhooks-events` | 81 |
-| `multi-env-setup` | 54 |
-| `observability` | 54 |
-| `data-handling` | 53 |
-| `enterprise-rbac` | 53 |
-| `incident-runbook` | 53 |
-| `migration-deep-dive` | 51 |
-| `known-pitfalls` | 18 |
-| `advanced-troubleshooting` | 15 |
-| `load-scale` | 15 |
-| `reliability-patterns` | 15 |
-| `architecture-variants` | 14 |
-| `policy-guardrails` | 14 |
+| `multi-env-setup` | 53 |
+| `observability` | 53 |
+| `data-handling` | 52 |
+| `enterprise-rbac` | 52 |
+| `incident-runbook` | 52 |
+| `migration-deep-dive` | 50 |
+| `known-pitfalls` | 17 |
+| `advanced-troubleshooting` | 14 |
+| `load-scale` | 14 |
+| `reliability-patterns` | 14 |
+| `architecture-variants` | 13 |
+| `policy-guardrails` | 13 |
 
 ## Required disposition contract
 
@@ -157,15 +157,14 @@ Beads is the completion authority. Search direct children before creation, selec
 | 78 | `supabase-pack` | 28 | 30 | 93.33% | A | 94 |
 | 79 | `oraclecloud-pack` | 24 | 26 | 92.31% | A | 91 |
 | 80 | `navan-pack` | 24 | 26 | 92.31% | A | 97 |
-| 81 | `sentry-pack` | 27 | 30 | 90.00% | A | 91 |
-| 82 | `customerio-pack` | 21 | 24 | 87.50% | A | 90 |
-| 83 | `coreweave-pack` | 20 | 23 | 86.96% | A | 91 |
-| 84 | `shopify-pack` | 30 | 38 | 78.95% | A | 93 |
-| 85 | `langchain-py-pack` | 18 | 33 | 54.55% | A | 92 |
-| 86 | `guidewire-pack` | 5 | 10 | 50.00% | A | 96 |
-| 87 | `klingai-pack` | 12 | 30 | 40.00% | A | 97 |
-| 88 | `openrouter-pack` | 11 | 30 | 36.67% | A | 94 |
-| 89 | `cursor-pack` | 10 | 30 | 33.33% | A | 93 |
+| 81 | `customerio-pack` | 21 | 24 | 87.50% | A | 90 |
+| 82 | `coreweave-pack` | 20 | 23 | 86.96% | A | 91 |
+| 83 | `shopify-pack` | 30 | 38 | 78.95% | A | 93 |
+| 84 | `langchain-py-pack` | 18 | 33 | 54.55% | A | 92 |
+| 85 | `guidewire-pack` | 5 | 10 | 50.00% | A | 96 |
+| 86 | `klingai-pack` | 12 | 30 | 40.00% | A | 97 |
+| 87 | `openrouter-pack` | 11 | 30 | 36.67% | A | 94 |
+| 88 | `cursor-pack` | 10 | 30 | 33.33% | A | 93 |
 
 ## Reproduce
 

@@ -1,6 +1,6 @@
 # Sentry Skill Pack
 
-Version 2 provides five self-contained offline operators. Supply selected configuration, event or usage exports and local source/build evidence. The helpers do not read credentials, call Sentry, change files or send messages.
+Version 2 provides five self-contained offline operators. Supply selected configuration, event or usage exports and local source/build evidence. The helpers do not read credentials, call Sentry, change supplied project files or send messages.
 
 ## Installation
 
@@ -17,6 +17,8 @@ Version 2 provides five self-contained offline operators. Supply selected config
 | `sentry-release-medic` | Review local build IDs, upload plans and query metadata | Local markers do not prove deployment; health is not assessed |
 | `sentry-issue-triage` | Classify supplied issue facts and investigate correlation | Missing severity inputs stay inconclusive; lexical hits are not log writes |
 | `sentry-pii-scrub-enforcer` | Review scrubbing evidence, settings drift and requested erasure plans | Missing settings are incomplete; no runtime or compliance guarantee |
+
+Python may create normal import bytecode caches in the installation directory; package filters exclude those caches. No helper modifies the supplied project files or sends a vendor request.
 
 Each skill contains its own Python 3.10+ runtime under `scripts/lib/`; an installed skill needs no pack-level module or API token. Helpers use bounded inputs, reject malformed JSON and refuse write flags. Read the individual SKILL.md for commands and nonzero/incomplete results. Permission hints do not replace script validation or independent review.
 

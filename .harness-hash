@@ -111,7 +111,11 @@ fa9166c7c89c62ffda6f4a18f0b4f279c099afa14494bfda22ec3486ba30b6b4  skills/.curate
 b61b1208ab1ec6e4dae49e6ce7928840bae9dbdd68bcae042a65068d5e36714b  skills/.curated/langfuse-prompt-release-guardian/eval-spec.yaml
 b089674121dfd1909dfa7295d0db5dfa27f42293fdcd9cd1aff9847f6fea1905  skills/.curated/langfuse-trace-ingestion-medic/eval-spec.yaml
 4ec96e380060eeca8a3e106de6052f61927005482b007af8d090c06ca46ce0a4  skills/.curated/production-upgrade/eval-spec.yaml
-d543f74906821a7fa80ba90dc80d3b6ff7fbdc81078ab0a9d75e45e965b3a5d3  skills/.curated/sentry-data-handling/eval-spec.yaml
+5286cfba8df1467efc2d1ed219bd51b186e4a71d7cdfbaa45d08677c3966235f  skills/.curated/sentry-event-forensics/eval-spec.yaml
+fa171dcc3f518d02c198b5656b2bd830f8ffb29373c96bfb1ec8b52e23f9bbac  skills/.curated/sentry-issue-triage/eval-spec.yaml
+f3561cc0d7b2a7f4ee8f6dd7d3a30fbd04238671e9061a18e9c1e1d3b923432d  skills/.curated/sentry-pii-scrub-enforcer/eval-spec.yaml
+9d621ca90cac4d6406e66b5993fbddd1b1b50263e2f5148565b50b7b193dc8ec  skills/.curated/sentry-quota-leak-hunter/eval-spec.yaml
+1101807b649d3afb3645d0ee282a15b16ca9973977558202e2bdf155b4e8334a  skills/.curated/sentry-release-medic/eval-spec.yaml
 81eabecbc8b79a87d105d061bd0f3380e6d74648e412fa46f20885a1abf46160  skills/.curated/skill-creator/eval-spec.yaml
 0178e3793656cd5bf2b43445a8fa5ceac733fc6bc16a2a2d1ffa967e5af29e2f  skills/.curated/snowflake-access-guardian/eval-spec.yaml
 f717380dc188633699c3aca64bc55ec685dc07613245117f2035cb8968f6971a  skills/.curated/snowflake-cost-leak-hunter/eval-spec.yaml

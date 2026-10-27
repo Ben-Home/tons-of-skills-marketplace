@@ -251,7 +251,7 @@
       "status": "measured",
       "target_status": "pass",
       "values": {
-        "candidate_count": 34,
+        "candidate_count": 35,
         "mismatch_count": 0,
         "mismatch_paths": []
       }
@@ -2476,7 +2476,7 @@
         "answers": [
           {
             "cohort": "curated-mirror",
-            "value": 2449
+            "value": 2424
           },
           {
             "cohort": "curriculum",
@@ -3823,17 +3823,17 @@
       "dimension": "Inventory header versus rows",
       "reproduce": "pnpm run measure:e1 --row=52 --stdout",
       "source": [
-        "freshie/reports/run-delta-156.json",
+        "freshie/reports/run-delta-158.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
       ],
       "status": "target_met",
       "values": {
-        "dolt_commit": "sn4ddt17773abusftrjlhqe81h441rap",
-        "header_total_skills": 2727,
-        "run_id": 156,
+        "dolt_commit": "0cckje5ofrehumv8arik0i2te8rbldh5",
+        "header_total_skills": 2702,
+        "run_id": 158,
         "skill_row_delta": 0,
-        "skill_rows": 2727,
+        "skill_rows": 2702,
         "target_skill_row_delta": 0
       }
     },
@@ -3844,32 +3844,32 @@
       "source": [
         "freshie/grade-histogram.json",
         "freshie/grades.csv",
-        "freshie/reports/run-delta-156.json"
+        "freshie/reports/run-delta-158.json"
       ],
       "status": "target_met",
       "values": {
-        "compliance_rows": 3304,
-        "export_dolt_commit": "sn4ddt17773abusftrjlhqe81h441rap",
-        "export_run_id": 156,
-        "grades_csv_rows": 3304,
-        "grades_csv_sha256": "88193a1dcd8baeee9dc84053d73e329e38ffeefd7d970295af94df98cc33fad2",
+        "compliance_rows": 3279,
+        "export_dolt_commit": "0cckje5ofrehumv8arik0i2te8rbldh5",
+        "export_run_id": 158,
+        "grades_csv_rows": 3279,
+        "grades_csv_sha256": "746024fc9418fbe8af2299092c37c4ce2ca4e742cfd00ff497297e628ed78a54",
         "histogram_grades": {
-          "A": 2838,
-          "B": 186,
+          "A": 2823,
+          "B": 176,
           "C": 122,
           "D": 154,
           "F": 4
         },
-        "histogram_total": 3304,
+        "histogram_total": 3279,
         "immutable_grade_counts": {
-          "A": 2838,
-          "B": 186,
+          "A": 2823,
+          "B": 176,
           "C": 122,
           "D": 154,
           "F": 4
         },
-        "inventory_dolt_commit": "sn4ddt17773abusftrjlhqe81h441rap",
-        "inventory_run_id": 156,
+        "inventory_dolt_commit": "0cckje5ofrehumv8arik0i2te8rbldh5",
+        "inventory_run_id": 158,
         "target_lag_runs": 0
       }
     },
@@ -3879,7 +3879,7 @@
       "reproduce": "pnpm run measure:e1 --row=54 --stdout",
       "source": [
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-156.json",
+        "freshie/reports/run-delta-158.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py",
@@ -3893,7 +3893,7 @@
           "E2": 0,
           "E3": 0
         },
-        "current_run_id": 156,
+        "current_run_id": 158,
         "invalid_identities": 0,
         "legacy_e0_records": 3,
         "retained_e2_e3": 0,
@@ -3917,7 +3917,7 @@
       "source": [
         "000-docs/807-DR-STND-evaluation-evidence.md",
         "freshie/reports/legacy-forge-proofs-demotion.json",
-        "freshie/reports/run-delta-156.json",
+        "freshie/reports/run-delta-158.json",
         "freshie/reports/run-delta-19.json",
         "freshie/scripts/dolt-sync.py",
         "freshie/scripts/run-delta.py"
@@ -4024,7 +4024,11 @@
         "skills/.curated/langfuse-prompt-release-guardian/eval-spec.yaml",
         "skills/.curated/langfuse-trace-ingestion-medic/eval-spec.yaml",
         "skills/.curated/production-upgrade/eval-spec.yaml",
-        "skills/.curated/sentry-data-handling/eval-spec.yaml",
+        "skills/.curated/sentry-event-forensics/eval-spec.yaml",
+        "skills/.curated/sentry-issue-triage/eval-spec.yaml",
+        "skills/.curated/sentry-pii-scrub-enforcer/eval-spec.yaml",
+        "skills/.curated/sentry-quota-leak-hunter/eval-spec.yaml",
+        "skills/.curated/sentry-release-medic/eval-spec.yaml",
         "skills/.curated/skill-creator/eval-spec.yaml",
         "skills/.curated/snowflake-access-guardian/eval-spec.yaml",
         "skills/.curated/snowflake-cost-leak-hunter/eval-spec.yaml",
@@ -4042,10 +4046,10 @@
       "status": "measured",
       "values": {
         "adoption_percent": 1.58,
-        "curated_copies": 40,
+        "curated_copies": 44,
         "plugin_skill_rows": 2779,
         "source_eval_specs": 44,
-        "tracked_eval_specs": 84
+        "tracked_eval_specs": 88
       }
     },
     "58": {
