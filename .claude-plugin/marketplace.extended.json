@@ -27,6 +27,32 @@
   },
   "plugins": [
     {
+      "name": "cross-source-metric-reconciliation",
+      "source": "./plugins/analytics/cross-source-metric-reconciliation",
+      "description": "Reconcile the same business metric across two or more CSV exports and name the mechanism behind every variance: timing, scope, definition drift, duplicates, or genuinely unexplained.",
+      "version": "1.0.0",
+      "category": "analytics",
+      "keywords": [
+        "reconciliation",
+        "metrics",
+        "analytics",
+        "finance",
+        "data-quality",
+        "month-end-close",
+        "variance-analysis",
+        "csv",
+        "stripe",
+        "quickbooks"
+      ],
+      "author": {
+        "name": "CorpusIQ",
+        "email": "dev@corpusiq.io"
+      },
+      "components": {
+        "skills": 1
+      }
+    },
+    {
       "name": "000-jeremy-content-consistency-validator",
       "source": "./plugins/productivity/000-jeremy-content-consistency-validator",
       "description": "Consistency audit across docs, code, tests and CI with per-fact authority and advisory-only LLM findings. Audit probes are instructed to leave project inputs unchanged; each local run attempts disclosure-approved report and index writes in a separate Intent OS checkout, reporting held filing explicitly. Invoked by /release Phase 1.6.",

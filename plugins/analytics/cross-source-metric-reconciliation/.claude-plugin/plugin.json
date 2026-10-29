@@ -1,0 +1,24 @@
+{
+  "name": "cross-source-metric-reconciliation",
+  "version": "1.0.0",
+  "description": "Reconcile the same business metric across two or more CSV exports and name the mechanism behind every variance: timing, scope, definition drift, duplicates, or genuinely unexplained.",
+  "author": {
+    "name": "CorpusIQ",
+    "email": "dev@corpusiq.io",
+    "url": "https://www.corpusiq.io"
+  },
+  "repository": "https://github.com/CorpusIQ/corpusiq-docs",
+  "license": "MIT",
+  "keywords": [
+    "reconciliation",
+    "metrics",
+    "analytics",
+    "finance",
+    "data-quality",
+    "month-end-close",
+    "variance-analysis",
+    "csv",
+    "stripe",
+    "quickbooks"
+  ]
+}
